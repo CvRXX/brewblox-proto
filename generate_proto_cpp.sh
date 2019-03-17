@@ -6,13 +6,13 @@ PROTOC_NANOPB_PLUGIN="${NANOPB_PATH}/generator/protoc-gen-nanopb"
 if [[ "${OSTYPE}" == "msys" ]]; then
 	PROTOC_NANOPB_PLUGIN="${PROTOC_NANOPB_PLUGIN}.bat" # add .bat when on windows
 fi
-PROTOC_INCLUDE_PATH="-I${PROTO_DIR} -I${NANOPB_PATH}/generator -I${NANOPB_PATH}/generator/proto"
+PROTOC_INCLUDE_PATH="-I${PROTO_DIR} -I${NANOPB_PATH}/generator"
 
 pushd "$PROTO_DIR" > /dev/null # .option files are read from execution directory, so have to cd into this dir 
 mkdir -p "tmp_cpp"
 mkdir -p "cpp"
 
-PROTOC_INCLUDE_PATH="-I${PROTO_DIR} -I${NANOPB_PATH}/generator -I${NANOPB_PATH}/generator/proto"
+PROTOC_INCLUDE_PATH="-I${PROTO_DIR} -I${NANOPB_PATH}/generator"
 protoc ${PROTOC_INCLUDE_PATH} \
 --nanopb_out=tmp_cpp \
 ${PROTO_DIR}/*.proto \
