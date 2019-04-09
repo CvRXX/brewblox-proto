@@ -12,12 +12,13 @@ pushd "$PROTO_DIR" > /dev/null # .option files are read from execution directory
 mkdir -p "tmp_cpp"
 mkdir -p "cpp"
 
-PROTOC_INCLUDE_PATH="-I${PROTO_DIR} -I${NANOPB_PATH}/generator"
 protoc ${PROTOC_INCLUDE_PATH} \
 --nanopb_out=tmp_cpp \
 ${PROTO_DIR}/*.proto \
 --proto_path=${PROTO_DIR} \
 --plugin=protoc-gen-nanopb=${PROTOC_NANOPB_PLUGIN}
+
+rm tmp_cpp/nanopb.* # nanopb.h and nanopb.c are not needed and generate compiler warnings when they are not removed
 
 # copy only modified files to source dir
 cd tmp_cpp
