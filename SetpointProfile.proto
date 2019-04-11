@@ -15,5 +15,5 @@ message SetpointProfile {
 
   repeated Point points = 1;
   bool enabled = 3;
-  uint32 targetId = 4 [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
+  uint32 targetId = 4 [ (brewblox).objtype = SetpointSensorPair, (nanopb).int_size = IS_16 ];
 }
