@@ -10,9 +10,10 @@ message SetpointSensorPair {
 
   uint32 sensorId = 2 [ (brewblox).objtype = TempSensorInterface, (nanopb).int_size = IS_16 ];
 
-  sint32 setting = 5 [ (brewblox).logged = true, (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+  sint32 setting = 5 [ (brewblox).logged = true, (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32, (brewblox).readonly = true ];
   sint32 value = 6 [ (brewblox).logged = true, (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32, (brewblox).readonly = true ];
   bool settingEnabled = 7;
+  sint32 storedSetting = 8 [ (brewblox).logged = false, (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
 
   repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 2 ];
 }
