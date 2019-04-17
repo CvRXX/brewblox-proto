@@ -17,4 +17,5 @@ message SetpointProfile {
   bool enabled = 3;
   uint32 targetId = 4 [ (brewblox).objtype = SetpointSensorPair, (nanopb).int_size = IS_16 ];
   uint32 drivenTargetId = 5 [ (brewblox).objtype = SetpointSensorPair, (brewblox).driven = true, (nanopb).int_size = IS_16, (brewblox).readonly = true ];
+  uint32 start = 6;
 }
