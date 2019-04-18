@@ -10,7 +10,8 @@ message SetpointProfile {
 
   message Point {
     uint32 time = 1;
-    sint32 temperature = 2 [ (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+    // prevent removal of items with time 0 and temp 0 with a oneof
+    oneof temperature_oneof { uint32 temperature = 2 [ (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ]; }
   }
 
   repeated Point points = 1;
