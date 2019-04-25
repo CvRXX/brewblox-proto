@@ -7,8 +7,8 @@ import "DigitalConstraints.proto";
 
 package blox;
 
-message ActuatorDS2413 {
-  option (brewblox_msg).objtype = ActuatorDS2413;
+message ActuatorOneWire {
+  option (brewblox_msg).objtype = ActuatorOneWire;
 
   enum Channel {
     UNSET = 0;
