@@ -33,10 +33,9 @@ protoc *.proto --cpp_out=../tmp_cpp --proto_path ${PROTO_DIR}/test/proto
 cd ../tmp_cpp
 for file in *.cc 
 do
-  rsync --checksum "$file" "../cpp/${file%.cc}.cpp"
+  mv "$file" "${file%.cc}.cpp"
 done
-for file in *.h 
-do
-  rsync --checksum "$file" "../cpp/${file}"
-done
+
+rsync -r --checksum . ../cpp/ --delete
+
 popd > /dev/null
