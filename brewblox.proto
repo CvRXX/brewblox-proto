@@ -7,7 +7,6 @@ message BrewbloxOptions {
     Invalid = 0;
     ProcessValueInterface = 1;
     TempSensorInterface = 2;
-    SetpointInterface = 3;
     SetpointSensorPairInterface = 4;
     ActuatorAnalogInterface = 5;
     ActuatorDigitalInterface = 6;
@@ -19,7 +18,6 @@ message BrewbloxOptions {
     SysInfo = 256;
     OneWireBus = 258;
     Ticks = 257;
-    SetpointSimple = 300;
     TempSensorMock = 301;
     TempSensorOneWire = 302;
     SetpointSensorPair = 303;

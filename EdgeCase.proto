@@ -21,7 +21,7 @@ message EdgeCase {
 
     Settings settings = 1;
     State state = 2;
-    uint32 link = 3 [(brewblox).objtype = SetpointInterface];
+    uint32 link = 3 [(brewblox).objtype = ActuatorAnalogInterface];
     repeated NestedLink additionalLinks = 4;
     repeated float listValues = 5 [(brewblox).unit = Temp, (brewblox).scale = 256];
     uint32 deltaV = 6 [(brewblox).unit = DeltaTempPerTime, (brewblox).scale = 256];
