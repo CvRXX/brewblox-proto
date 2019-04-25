@@ -10,14 +10,8 @@ package blox;
 message ActuatorOneWire {
   option (brewblox_msg).objtype = ActuatorOneWire;
 
-  enum Channel {
-    UNSET = 0;
-    A = 1;
-    B = 2;
-  }
-
-  uint32 hwDevice = 1 [ (brewblox).objtype = DS2413, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
-  Channel channel = 2;
+  uint32 hwDevice = 1 [ (brewblox).objtype = OneWireIOInterface, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
+  uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
   AD.State state = 3 [ (brewblox).logged = true ];
   bool invert = 4;
   DigitalConstraints constrainedBy = 5;
