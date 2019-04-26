@@ -8,7 +8,7 @@ package blox;
 message DS2408 {
   option (brewblox_msg).objtype = DS2408;
   fixed64 address = 1 [ (brewblox).hexed = true ];
-  uint32 pins = 2 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
   uint32 latches = 3 [ (nanopb).int_size = IS_8 ];
-  uint32 claimed = 4 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
+  uint32 pins = 4 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
+  uint32 claimed = 5 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
 }
