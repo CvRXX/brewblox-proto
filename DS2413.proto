@@ -11,4 +11,5 @@ message DS2413 {
   uint32 latches = 3 [ (nanopb).int_size = IS_8 ];
   uint32 pins = 4 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
   uint32 claimed = 5 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
+  bool connected = 6 [ (brewblox).readonly = true ];
 }
