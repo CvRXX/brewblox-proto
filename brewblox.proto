@@ -13,7 +13,7 @@ message BrewbloxOptions {
     BalancerInterface = 7;
     MutexInterface = 8;
     OneWireDeviceInterface = 9;
-    DS2413Interface = 10;
+    OneWireIOInterface = 10;
     Any = 255;
     SysInfo = 256;
     OneWireBus = 258;
@@ -33,7 +33,7 @@ message BrewbloxOptions {
     TouchSettings = 313;
     DisplaySettings = 314;
     DS2413 = 315;
-    ActuatorDS2413 = 316;
+    ActuatorOneWire = 316;
     DS2408 = 317;
   }
 

@@ -6,11 +6,13 @@
 PROTO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pushd "$PROTO_DIR" > /dev/null # .option files are read from execution directory, so have to cd into this dir 
 
-rm -rf "test"
+rm -rf "test/proto"
+rm -rf "test/tmp_cc"
 
 mkdir -p "test/proto"
 mkdir -p "test/cpp"
 mkdir -p "test/tmp_cpp"
+mkdir -p "test/tmp_cc"
 
 # copy proto files with _test appended and fix includes to prevent name clashes
 for file in *.proto 
@@ -27,16 +29,21 @@ done
 
 # generate code
 cd test/proto
-protoc *.proto --cpp_out=../tmp_cpp --proto_path ${PROTO_DIR}/test/proto
+protoc *.proto --cpp_out=../tmp_cc --proto_path ${PROTO_DIR}/test/proto
 
-#rename .cc files to .cpp, skip nanopb because it is already included in the build
-cd ../tmp_cpp
+# rename .cc files to .cpp, skip nanopb because it is already included in the build
+# use rsync to prevent touching files that have not really changed
+cd ../tmp_cc
 for file in *.cc 
 do
-  rsync --checksum "$file" "../cpp/${file%.cc}.cpp"
+  mv "$file" "../tmp_cpp/${file%.cc}.cpp"
 done
-for file in *.h 
+for file in *.h
 do
-  rsync --checksum "$file" "../cpp/${file}"
+  mv "$file" "../tmp_cpp/$file"
 done
+  
+cd ../tmp_cpp
+rsync -r --checksum . ../cpp/ --delete
+
 popd > /dev/null
