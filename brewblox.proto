@@ -16,8 +16,9 @@ message BrewbloxOptions {
     OneWireIOInterface = 10;
     Any = 255;
     SysInfo = 256;
-    OneWireBus = 258;
     Ticks = 257;
+    OneWireBus = 258;
+    BoardPins = 259;
     TempSensorMock = 301;
     TempSensorOneWire = 302;
     SetpointSensorPair = 303;
