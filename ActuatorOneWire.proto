@@ -7,10 +7,10 @@ import "DigitalConstraints.proto";
 
 package blox;
 
-message ActuatorOneWire {
+message ActuatorDigital {
   option (brewblox_msg).objtype = ActuatorOneWire;
 
-  uint32 hwDevice = 1 [ (brewblox).objtype = OneWireIOInterface, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
+  uint32 hwDevice = 1 [ (brewblox).objtype = IoArrayInterface, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
   AD.State state = 3 [ (brewblox).logged = true ];
   bool invert = 4;
