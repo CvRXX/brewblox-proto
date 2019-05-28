@@ -2,17 +2,17 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "ActuatorDigital.proto";
 import "DigitalConstraints.proto";
+import "IoArray.proto";
 
 package blox;
 
-message ActuatorDigital {
-  option (brewblox_msg).objtype = ActuatorOneWire;
+message DigitalActuator {
+  option (brewblox_msg).objtype = DigitalActuator;
 
   uint32 hwDevice = 1 [ (brewblox).objtype = IoArrayInterface, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
-  AD.State state = 3 [ (brewblox).logged = true ];
+  DigitalState state = 3 [ (brewblox).logged = true ];
   bool invert = 4;
   DigitalConstraints constrainedBy = 5;
   repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 1 ];

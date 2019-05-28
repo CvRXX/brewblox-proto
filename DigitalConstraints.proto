@@ -2,11 +2,12 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "ActuatorDigital.proto";
+import "IoArray.proto";
 
 package blox;
 
 message DigitalConstraint {
+
   oneof constraint {
     uint32 minOff = 1 [ (brewblox).unit = Time, (brewblox).scale = 1000, (nanopb).int_size = IS_32 ];
     uint32 minOn = 2 [ (brewblox).unit = Time, (brewblox).scale = 1000, (nanopb).int_size = IS_32 ];
@@ -17,5 +18,5 @@ message DigitalConstraint {
 
 message DigitalConstraints {
   repeated DigitalConstraint constraints = 1 [ (nanopb).max_count = 8 ];
-  AD.State unconstrained = 2 [ (brewblox).readonly = true ];
+  DigitalState unconstrained = 2 [ (brewblox).readonly = true ];
 }

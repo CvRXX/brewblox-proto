@@ -9,7 +9,7 @@ message BrewbloxOptions {
     TempSensorInterface = 2;
     SetpointSensorPairInterface = 4;
     ActuatorAnalogInterface = 5;
-    ActuatorDigitalInterface = 6;
+    ActuatorDigitalInterface = 6; // deprecated
     BalancerInterface = 7;
     MutexInterface = 8;
     OneWireDeviceInterface = 9;
@@ -24,7 +24,7 @@ message BrewbloxOptions {
     SetpointSensorPair = 303;
     Pid = 304;
     ActuatorAnalogMock = 305;
-    ActuatorPin = 306;
+    ActuatorPin = 306; // deprecated
     ActuatorPwm = 307;
     ActuatorOffset = 308;
     Balancer = 309;
@@ -34,8 +34,10 @@ message BrewbloxOptions {
     TouchSettings = 313;
     DisplaySettings = 314;
     DS2413 = 315;
-    ActuatorOneWire = 316;
+    ActuatorOneWire = 316; // deprecated
     DS2408 = 317;
+    DigitalActuator = 318;
+    Spark3Pins = 319;
   }
 
   enum UnitType {

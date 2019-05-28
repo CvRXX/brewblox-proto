@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox;
+
+enum DigitalState {
+  Inactive = 0;
+  Active = 1;
+  Unknown = 2;
+}
+
+message IoChannel {
+  enum ChannelConfig {
+    UNUSED = 0;
+    ACTIVE_LOW = 1;
+    ACTIVE_HIGH = 2;
+    INPUT = 10;
+    UNKNOWN = 255;
+  }
+
+  ChannelConfig config = 1;
+  DigitalState state = 2;
+};

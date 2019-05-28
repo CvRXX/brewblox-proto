@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "ActuatorDigital.proto";
+import "IoArray.proto";
 
 package blox;
 
@@ -12,7 +12,7 @@ message BoardPins {
   message PinState {
     uint32 channel = 1 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
     uint32 config = 2 [ (nanopb).int_size = IS_8 ];
-    AD.State state = 3 [ (brewblox).readonly = true, (brewblox).logged = true ];
+    DigitalState state = 3 [ (brewblox).readonly = true, (brewblox).logged = true ];
   }
 
   message Pin {

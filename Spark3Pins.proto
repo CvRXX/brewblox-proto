@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "IoArray.proto";
+
+package blox;
+
+message Spark3Pins {
+  option (brewblox_msg).objtype = Spark3Pins;
+  IoChannel top1 = 1;
+  IoChannel top2 = 2;
+  IoChannel top3 = 3;
+  IoChannel bottom1 = 4;
+  IoChannel bottom2 = 5;
+}
