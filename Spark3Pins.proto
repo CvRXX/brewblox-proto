@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "IoArray.proto";
+
+package blox;
+
+message Spark3Pins {
+  option (brewblox_msg).objtype = Spark3Pins;
+  message IoPin {
+    oneof Pin {
+      IoChannel top1 = 1;
+      IoChannel top2 = 2;
+      IoChannel top3 = 3;
+      IoChannel bottom1 = 4;
+      IoChannel bottom2 = 5;
+    };
+  };
+  repeated IoPin pins = 1 [ (nanopb).max_count = 5, (nanopb).fixed_length = true ];
+  bool enableIoSupply5V = 2;
+  bool enableIoSupply12V = 3;
+  bool enableLcdBacklight = 4;
+  bool soundAlarm = 5;
+}
