@@ -38,6 +38,7 @@ message BrewbloxOptions {
     DS2408 = 317;
     DigitalActuator = 318;
     Spark3Pins = 319;
+    Spark2Pins = 320;
   }
 
   enum UnitType {
