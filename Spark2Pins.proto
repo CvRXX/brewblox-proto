@@ -23,7 +23,7 @@ message Spark2Pins {
     Spark2 = 2;
   }
 
-  repeated IoPin pins = 1 [ (nanopb).max_count = 4, (nanopb).fixed_length = true ];
+  repeated IoPin pins = 1 [ (nanopb).max_count = 4, (nanopb).fixed_length = true, (brewblox).readonly = true ];
   bool soundAlarm = 5;
 
   Hardware hardware = 8 [ (brewblox).readonly = true ];

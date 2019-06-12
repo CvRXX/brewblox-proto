@@ -18,7 +18,7 @@ message Spark3Pins {
     };
   };
 
-  repeated IoPin pins = 1 [ (nanopb).max_count = 5, (nanopb).fixed_length = true ];
+  repeated IoPin pins = 1 [ (nanopb).max_count = 5, (nanopb).fixed_length = true, (brewblox).readonly = true ];
   bool enableIoSupply5V = 2;
   bool enableIoSupply12V = 3;
   bool enableLcdBacklight = 4;

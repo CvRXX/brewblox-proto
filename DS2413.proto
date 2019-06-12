@@ -10,5 +10,13 @@ message DS2413 {
   option (brewblox_msg).objtype = DS2413;
   fixed64 address = 1 [ (brewblox).hexed = true ];
   bool connected = 6 [ (brewblox).readonly = true ];
-  repeated IoChannel channels = 7 [ (nanopb).max_count = 2, (nanopb).fixed_length = true ];
+
+  message IoPin {
+    oneof Pin {
+      IoChannel A = 1;
+      IoChannel B = 2;
+    };
+  };
+
+  repeated IoPin pins = 7 [ (nanopb).max_count = 2, (nanopb).fixed_length = true, (brewblox).readonly = true ];
 }
