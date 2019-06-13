@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "DigitalConstraints.proto";
+import "IoArray.proto";
+
+package blox;
+
+message MotorValve {
+  option (brewblox_msg).objtype = MotorValve;
+
+  enum ValveState {
+    Unknown = 0;
+    Open = 1;
+    Closed = 2;
+    Opening = 3;
+    Closing = 4;
+    HalfOpenIdle = 5;
+    InitIdle = 6;
+  }
+
+  uint32 hwDevice = 1 [ (brewblox).objtype = DS2408Interface, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
+  uint32 startChannel = 2 [ (nanopb).int_size = IS_8 ];
+  DigitalState state = 3 [ (brewblox).logged = true ];
+  DigitalConstraints constrainedBy = 5;
+  ValveState valveState = 6 [ (brewblox).logged = true, (brewblox).readonly = true ];
+
+  repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 2 ];
+}
