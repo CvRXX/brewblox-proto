@@ -9,6 +9,7 @@ package blox;
 
 message DigitalActuator {
   option (brewblox_msg).objtype = DigitalActuator;
+  option (brewblox_msg).impl = ActuatorDigitalInterface;
 
   uint32 hwDevice = 1 [ (brewblox).objtype = IoArrayInterface, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];

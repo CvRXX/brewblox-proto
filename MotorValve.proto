@@ -9,6 +9,7 @@ package blox;
 
 message MotorValve {
   option (brewblox_msg).objtype = MotorValve;
+  option (brewblox_msg).impl = ActuatorDigitalInterface;
 
   enum ValveState {
     Unknown = 0;
