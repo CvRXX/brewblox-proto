@@ -8,6 +8,8 @@ package blox;
 
 message ActuatorPwm {
   option (brewblox_msg).objtype = ActuatorPwm;
+  option (brewblox_msg).impl = ProcessValueInterface;
+  option (brewblox_msg).impl = ActuatorAnalogInterface;
 
   uint32 actuatorId = 1 [ (brewblox).objtype = ActuatorDigitalInterface, (nanopb).int_size = IS_16 ];
   uint32 period = 3 [ (brewblox).unit = Time, (brewblox).scale = 1000 ];

@@ -8,6 +8,8 @@ package blox;
 
 message Spark2Pins {
   option (brewblox_msg).objtype = Spark2Pins;
+  option (brewblox_msg).impl = IoArrayInterface;
+
   message IoPin {
     oneof Pin {
       IoChannel bottom1 = 1;

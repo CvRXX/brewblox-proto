@@ -63,6 +63,7 @@ message BrewbloxOptions {
   bool logged = 6;
   bool hexstr = 7;
   bool driven = 8;
+  repeated BlockType impl = 9;
 }
 
 extend google.protobuf.FieldOptions { BrewbloxOptions brewblox = 50001; }

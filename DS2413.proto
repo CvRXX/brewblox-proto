@@ -8,6 +8,9 @@ package blox;
 
 message DS2413 {
   option (brewblox_msg).objtype = DS2413;
+  option (brewblox_msg).impl = IoArrayInterface;
+  option (brewblox_msg).impl = OneWireDeviceInterface;
+
   fixed64 address = 1 [ (brewblox).hexed = true ];
   bool connected = 6 [ (brewblox).readonly = true ];
 
