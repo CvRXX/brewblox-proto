@@ -9,15 +9,17 @@ package blox;
 message ActuatorAnalogMock {
   option (brewblox_msg).objtype = ActuatorAnalogMock;
   option (brewblox_msg).impl = ProcessValueInterface;
-  
-  sint32 setting = 1 [ (brewblox).logged = true, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+
+  sint32 setting = 1 [ (brewblox).logged = true, (brewblox).readonly = true, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   sint32 value = 2 [ (brewblox).logged = true, (brewblox).scale = 4096, (nanopb).int_size = IS_32, (brewblox).readonly = true ];
   sint32 minSetting = 4 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   sint32 maxSetting = 5 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   sint32 minValue = 6 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   sint32 maxValue = 7 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
-  
+
   AnalogConstraints constrainedBy = 8;
+
+  sint32 desiredSetting = 9 [ (brewblox).logged = true, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
 
   repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 2 ];
 }
