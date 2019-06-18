@@ -18,5 +18,4 @@ message DigitalConstraint {
 
 message DigitalConstraints {
   repeated DigitalConstraint constraints = 1 [ (nanopb).max_count = 8 ];
-  DigitalState unconstrained = 2 [ (brewblox).readonly = true ];
 }
