@@ -24,6 +24,7 @@ do
   sed -i 's/ActuatorDigital.proto/ActuatorDigital_test.proto/g' "$testfile"
   sed -i 's/AnalogConstraints.proto/AnalogConstraints_test.proto/g' "$testfile"
   sed -i 's/DigitalConstraints.proto/DigitalConstraints_test.proto/g' "$testfile"
+  sed -i 's/IoArray.proto/IoArray_test.proto/g' "$testfile"
   sed -i 's/BrewbloxOptions/BrewbloxTestOptions/g' "$testfile"
 done
 

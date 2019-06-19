@@ -2,14 +2,31 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
+import "IoArray.proto";
 
 package blox;
 
 message DS2408 {
   option (brewblox_msg).objtype = DS2408;
+  option (brewblox_msg).impl = IoArrayInterface;
+  option (brewblox_msg).impl = DS2408Interface;
+  option (brewblox_msg).impl = OneWireDeviceInterface;
+
   fixed64 address = 1 [ (brewblox).hexed = true ];
-  uint32 latches = 3 [ (nanopb).int_size = IS_8 ];
-  uint32 pins = 4 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
-  uint32 claimed = 5 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
   bool connected = 6 [ (brewblox).readonly = true ];
+
+  message IoPin {
+    oneof Pin {
+      IoChannel A = 1;
+      IoChannel B = 2;
+      IoChannel C = 3;
+      IoChannel D = 4;
+      IoChannel E = 5;
+      IoChannel F = 6;
+      IoChannel G = 7;
+      IoChannel H = 8;
+    };
+  };
+
+  repeated IoPin pins = 7 [ (nanopb).max_count = 8, (nanopb).fixed_length = true, (brewblox).readonly = true ];
 }
