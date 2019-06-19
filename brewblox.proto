@@ -9,7 +9,7 @@ message BrewbloxOptions {
     TempSensorInterface = 2;
     SetpointSensorPairInterface = 4;
     ActuatorAnalogInterface = 5;
-    ActuatorDigitalInterface = 6; // deprecated
+    ActuatorDigitalInterface = 6;
     BalancerInterface = 7;
     MutexInterface = 8;
     OneWireDeviceInterface = 9;

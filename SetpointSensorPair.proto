@@ -8,6 +8,7 @@ package blox;
 message SetpointSensorPair {
   option (brewblox_msg).objtype = SetpointSensorPair;
   option (brewblox_msg).impl = ProcessValueInterface;
+  option (brewblox_msg).impl = SetpointSensorPairInterface;
 
   uint32 sensorId = 2 [ (brewblox).objtype = TempSensorInterface, (nanopb).int_size = IS_16 ];
 

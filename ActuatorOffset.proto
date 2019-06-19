@@ -8,6 +8,7 @@ package blox;
 
 message ActuatorOffset {
   option (brewblox_msg).objtype = ActuatorOffset;
+  option (brewblox_msg).impl = ActuatorAnalogInterface;
 
   enum SettingOrValue {
     SETTING = 0;

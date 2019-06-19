@@ -7,7 +7,7 @@ package blox;
 
 message Balancer {
   option (brewblox_msg).objtype = Balancer;
-  option (brewblox_msg).impl = ActuatorAnalogInterface;
+  option (brewblox_msg).impl = BalancerInterface;
 
   message BalancedActuator {
     uint32 id = 1 [ (brewblox).logged = true, (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
