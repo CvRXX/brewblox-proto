@@ -8,16 +8,6 @@ package blox;
 message Pid {
   option (brewblox_msg).objtype = Pid;
 
-  enum FilterChoice {
-    FILT_30s = 0;
-    FILT_1m = 1;
-    FILT_3m = 2;
-    FILT_5m = 3;
-    FILT_10m = 4;
-    FILT_20m = 5;
-    FILT_45m = 6;
-  }
-
   uint32 inputId = 1 [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
   uint32 outputId = 2 [ (brewblox).objtype = ActuatorAnalogInterface, (nanopb).int_size = IS_16 ];
 
@@ -25,9 +15,6 @@ message Pid {
   sint32 inputSetting = 6 [ (brewblox).logged = true, (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32, (brewblox).readonly = true ];
   sint32 outputValue = 7 [ (brewblox).logged = true, (brewblox).scale = 4096, (nanopb).int_size = IS_32, (brewblox).readonly = true ];
   sint32 outputSetting = 8 [ (brewblox).logged = true, (brewblox).scale = 4096, (nanopb).int_size = IS_32, (brewblox).readonly = true ];
-
-  FilterChoice filter = 9;
-  sint32 filterThreshold = 10 [ (brewblox).unit = DeltaTemp, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
 
   bool enabled = 11 [ (brewblox).logged = true ];
   bool active = 12 [ (brewblox).logged = true, (brewblox).readonly = true ];
@@ -45,6 +32,8 @@ message Pid {
   sint32 derivative = 21 [ (brewblox).logged = true, (brewblox).unit = DeltaTempPerLongTime, (brewblox).scale = 2330, (nanopb).int_size = IS_32, (brewblox).readonly = true ];
 
   uint32 drivenOutputId = 22 [ (brewblox).objtype = ActuatorAnalogInterface, (brewblox).driven = true, (nanopb).int_size = IS_16, (brewblox).readonly = true ];
-  
+
+  sint32 integralReset = 23 [ (brewblox).logged = true, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ]; // when non-zero, resets integral to make i equal to what has been sent
+
   repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 4 ];
 }
