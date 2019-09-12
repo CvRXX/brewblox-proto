@@ -35,5 +35,9 @@ message Pid {
 
   sint32 integralReset = 23 [ (brewblox).logged = true, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ]; // when non-zero, resets integral to make i equal to what has been sent
 
+  sint32 boilPointAdjust = 24 [ (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+  sint32 boilMinOutput = 25 [ (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+  bool boilModeActive = 26 [ (brewblox).logged = true, (brewblox).readonly = true ];
+
   repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 4 ];
 }
