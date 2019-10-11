@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto2";
 
 import "google/protobuf/descriptor.proto";
 
@@ -55,17 +55,17 @@ message BrewbloxOptions {
     DeltaTempLongTime = 8;
     DeltaTempPerLongTime = 9;
   }
-  UnitType unit = 1;
-  uint32 scale = 2;
-  BlockType objtype = 3;
-  bool hexed = 4;
-  bool readonly = 5;
-  bool logged = 6;
-  bool hexstr = 7;
-  bool driven = 8;
+  optional UnitType unit = 1;
+  optional uint32 scale = 2;
+  optional BlockType objtype = 3;
+  optional bool hexed = 4;
+  optional bool readonly = 5;
+  optional bool logged = 6;
+  optional bool hexstr = 7;
+  optional bool driven = 8;
   repeated BlockType impl = 9;
 }
 
-extend google.protobuf.FieldOptions { BrewbloxOptions brewblox = 50001; }
+extend google.protobuf.FieldOptions {optional  BrewbloxOptions brewblox = 50001; }
 
-extend google.protobuf.MessageOptions { BrewbloxOptions brewblox_msg = 50001; }
+extend google.protobuf.MessageOptions {optional  BrewbloxOptions brewblox_msg = 50001; }
