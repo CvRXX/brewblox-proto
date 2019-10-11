@@ -3,68 +3,70 @@ syntax = "proto2";
 import "google/protobuf/descriptor.proto";
 import "nanopb.proto";
 
-enum UnitType {
-  NotSet = 0;
-  Temp = 1;
-  DeltaTemp = 2;
-  DeltaTempPerTime = 3;
-  Time = 4;
-  InverseTemp = 5;
-  DeltaTempTime = 6;
-  LongTime = 7;
-  DeltaTempLongTime = 8;
-  DeltaTempPerLongTime = 9;
+message BrewBloxTypes {
+  enum UnitType {
+    NotSet = 0;
+    Temp = 1;
+    DeltaTemp = 2;
+    DeltaTempPerTime = 3;
+    Time = 4;
+    InverseTemp = 5;
+    DeltaTempTime = 6;
+    LongTime = 7;
+    DeltaTempLongTime = 8;
+    DeltaTempPerLongTime = 9;
+  }
+
+  enum BlockType {
+    Invalid = 0;
+    ProcessValueInterface = 1;
+    TempSensorInterface = 2;
+    SetpointSensorPairInterface = 4;
+    ActuatorAnalogInterface = 5;
+    ActuatorDigitalInterface = 6;
+    BalancerInterface = 7;
+    MutexInterface = 8;
+    OneWireDeviceInterface = 9;
+    IoArrayInterface = 10;
+    DS2408Interface = 11;
+    Any = 255;
+    SysInfo = 256;
+    Ticks = 257;
+    OneWireBus = 258;
+    BoardPins = 259;
+    TempSensorMock = 301;
+    TempSensorOneWire = 302;
+    SetpointSensorPair = 303;
+    Pid = 304;
+    ActuatorAnalogMock = 305;
+    ActuatorPin = 306; // deprecated
+    ActuatorPwm = 307;
+    ActuatorOffset = 308;
+    Balancer = 309;
+    Mutex = 310;
+    SetpointProfile = 311;
+    WiFiSettings = 312;
+    TouchSettings = 313;
+    DisplaySettings = 314;
+    DS2413 = 315;
+    ActuatorOneWire = 316; // deprecated
+    DS2408 = 317;
+    DigitalActuator = 318;
+    Spark3Pins = 319;
+    Spark2Pins = 320;
+    MotorValve = 321;
+  }
 }
 
-enum BlockType {
-  Invalid = 0;
-  ProcessValueInterface = 1;
-  TempSensorInterface = 2;
-  SetpointSensorPairInterface = 4;
-  ActuatorAnalogInterface = 5;
-  ActuatorDigitalInterface = 6;
-  BalancerInterface = 7;
-  MutexInterface = 8;
-  OneWireDeviceInterface = 9;
-  IoArrayInterface = 10;
-  DS2408Interface = 11;
-  Any = 255;
-  SysInfo = 256;
-  Ticks = 257;
-  OneWireBus = 258;
-  BoardPins = 259;
-  TempSensorMock = 301;
-  TempSensorOneWire = 302;
-  SetpointSensorPair = 303;
-  Pid = 304;
-  ActuatorAnalogMock = 305;
-  ActuatorPin = 306; // deprecated
-  ActuatorPwm = 307;
-  ActuatorOffset = 308;
-  Balancer = 309;
-  Mutex = 310;
-  SetpointProfile = 311;
-  WiFiSettings = 312;
-  TouchSettings = 313;
-  DisplaySettings = 314;
-  DS2413 = 315;
-  ActuatorOneWire = 316; // deprecated
-  DS2408 = 317;
-  DigitalActuator = 318;
-  Spark3Pins = 319;
-  Spark2Pins = 320;
-  MotorValve = 321;
+message BrewBloxMessageOptions {
+  optional BrewBloxTypes.BlockType objtype = 3;
+  repeated BrewBloxTypes.BlockType impl = 9 [ (nanopb).max_count = 5 ];
 }
 
-message BrewbloxMessageOptions {
-  optional BlockType objtype = 3;
-  repeated BlockType impl = 9 [ (nanopb).max_count = 5 ];
-}
-
-message BrewbloxFieldOptions {
-  optional UnitType unit = 1;
+message BrewBloxFieldOptions {
+  optional BrewBloxTypes.UnitType unit = 1;
   optional uint32 scale = 2;
-  optional BlockType objtype = 3;
+  optional BrewBloxTypes.BlockType objtype = 3;
   optional bool hexed = 4;
   optional bool readonly = 5;
   optional bool logged = 6;
@@ -72,6 +74,6 @@ message BrewbloxFieldOptions {
   optional bool driven = 8;
 }
 
-extend google.protobuf.FieldOptions { optional BrewbloxFieldOptions brewblox = 1011; }
+extend google.protobuf.FieldOptions { optional BrewBloxFieldOptions brewblox = 1011; }
 
-extend google.protobuf.MessageOptions { optional BrewbloxMessageOptions brewblox_msg = 1011; }
+extend google.protobuf.MessageOptions { optional BrewBloxMessageOptions brewblox_msg = 1011; }

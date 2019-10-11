@@ -19,13 +19,13 @@ for file in *.proto
 do
   testfile="test/proto/${file%.proto}_test.proto"
   cp -f "$file" "$testfile"
-  sed -i 's/brewblox.proto/brewblox_test.proto/g' "$testfile"
+  sed -i 's/brewblox/brewblox_test/g' "$testfile"
+  sed -i 's/BrewBlox/BrewBlox_test/g' "$testfile"
   sed -i 's/nanopb/nanopb_test/g' "$testfile"
   sed -i 's/ActuatorDigital.proto/ActuatorDigital_test.proto/g' "$testfile"
   sed -i 's/AnalogConstraints.proto/AnalogConstraints_test.proto/g' "$testfile"
   sed -i 's/DigitalConstraints.proto/DigitalConstraints_test.proto/g' "$testfile"
   sed -i 's/IoArray.proto/IoArray_test.proto/g' "$testfile"
-  sed -i 's/BrewbloxOptions/BrewbloxTestOptions/g' "$testfile"
 done
 
 # generate code
