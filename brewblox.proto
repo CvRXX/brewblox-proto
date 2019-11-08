@@ -59,11 +59,14 @@ message BrewBloxTypes {
 }
 
 message BrewBloxMessageOptions {
+  option (nanopb_msgopt).skip_message = true;
   optional BrewBloxTypes.BlockType objtype = 3;
   repeated BrewBloxTypes.BlockType impl = 9 [ (nanopb).max_count = 5 ];
 }
 
 message BrewBloxFieldOptions {
+  option (nanopb_msgopt).skip_message = true;
+
   optional BrewBloxTypes.UnitType unit = 1;
   optional uint32 scale = 2;
   optional BrewBloxTypes.BlockType objtype = 3;
@@ -74,6 +77,6 @@ message BrewBloxFieldOptions {
   optional bool driven = 8;
 }
 
-extend google.protobuf.FieldOptions { optional BrewBloxFieldOptions brewblox = 1011; }
+extend google.protobuf.FieldOptions { optional BrewBloxFieldOptions brewblox = 50001 [(nanopb).type = FT_IGNORE ]; }
 
-extend google.protobuf.MessageOptions { optional BrewBloxMessageOptions brewblox_msg = 1011; }
+extend google.protobuf.MessageOptions { optional BrewBloxMessageOptions brewblox_msg = 50001 [ (nanopb).type = FT_IGNORE ]; }
