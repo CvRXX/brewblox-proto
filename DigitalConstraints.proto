@@ -6,12 +6,30 @@ import "IoArray.proto";
 
 package blox;
 
-message DigitalConstraint {
+message Mutexed {
+  uint32 mutexId = 1
+      [ (brewblox).objtype = MutexInterface, (nanopb).int_size = IS_16 ];
+  uint32 extraHoldTime = 2 [ (nanopb).int_size = IS_32 ];
+  bool hasCustomHoldTime = 3;
+}
 
+message DigitalConstraint {
   oneof constraint {
-    uint32 minOff = 1 [ (brewblox).unit = Time, (brewblox).scale = 1000, (nanopb).int_size = IS_32 ];
-    uint32 minOn = 2 [ (brewblox).unit = Time, (brewblox).scale = 1000, (nanopb).int_size = IS_32 ];
-    uint32 mutex = 3 [ (brewblox).objtype = MutexInterface, (nanopb).int_size = IS_16 ];
+    uint32 minOff = 1 [
+      (brewblox).unit = Time,
+      (brewblox).scale = 1000,
+      (nanopb).int_size = IS_32
+    ];
+    uint32 minOn = 2 [
+      (brewblox).unit = Time,
+      (brewblox).scale = 1000,
+      (nanopb).int_size = IS_32
+    ];
+    uint32 mutex = 3 [
+      (brewblox).objtype = MutexInterface,
+      (nanopb).int_size = IS_16
+    ]; // deprecated format, will automatically be converted to nr 4
+    Mutexed mutexed = 4;
   }
   bool limiting = 100 [ (brewblox).readonly = true ];
 }
