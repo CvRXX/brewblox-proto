@@ -11,6 +11,7 @@ message Mutexed {
       [ (brewblox).objtype = MutexInterface, (nanopb).int_size = IS_16 ];
   uint32 extraHoldTime = 2 [ (nanopb).int_size = IS_32 ];
   bool hasCustomHoldTime = 3;
+  uint32 holdTimeRemaining = 4;
 }
 
 message DigitalConstraint {
@@ -31,7 +32,7 @@ message DigitalConstraint {
     ]; // deprecated format, will automatically be converted to nr 4
     Mutexed mutexed = 4;
   }
-  bool limiting = 100 [ (brewblox).readonly = true ];
+  uint32 remaining = 101 [ (nanopb).int_size = IS_32 ];
 }
 
 message DigitalConstraints {
