@@ -9,7 +9,11 @@ package blox;
 message Mutexed {
   uint32 mutexId = 1
       [ (brewblox).objtype = MutexInterface, (nanopb).int_size = IS_16 ];
-  uint32 extraHoldTime = 2 [ (nanopb).int_size = IS_32 ];
+  uint32 extraHoldTime = 2 [
+    (brewblox).unit = Time,
+    (brewblox).scale = 1000,
+    (nanopb).int_size = IS_32
+  ];
   bool hasCustomHoldTime = 3;
   uint32 holdTimeRemaining = 4;
 }
@@ -32,7 +36,13 @@ message DigitalConstraint {
     ]; // deprecated format, will automatically be converted to nr 4
     Mutexed mutexed = 4;
   }
-  uint32 remaining = 101 [ (nanopb).int_size = IS_32 ];
+
+  uint32 remaining = 101 [
+    (brewblox).unit = Time,
+    (brewblox).scale = 1000,
+    (brewblox).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
 }
 
 message DigitalConstraints {
