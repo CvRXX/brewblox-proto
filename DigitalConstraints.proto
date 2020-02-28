@@ -37,6 +37,11 @@ message DigitalConstraint {
     Mutexed mutexed = 4;
   }
 
+  uint32 limited = 100 [
+    (brewblox).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+
   uint32 remaining = 101 [
     (brewblox).unit = Time,
     (brewblox).scale = 1000,
