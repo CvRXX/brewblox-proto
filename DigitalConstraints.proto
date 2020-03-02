@@ -15,6 +15,7 @@ message Mutexed {
     (nanopb).int_size = IS_32
   ];
   bool hasCustomHoldTime = 3;
+  bool hasLock = 4 [ (brewblox).readonly = true ];
 }
 
 message DigitalConstraint {
