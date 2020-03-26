@@ -9,8 +9,36 @@ message TempSensorMock {
   option (brewblox_msg).objtype = TempSensorMock;
   option (brewblox_msg).impl = TempSensorInterface;
 
-  sint32 value = 1 [ (brewblox).logged = true, (brewblox).unit = Temp, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+  message Fluctuation {
+    sint32 amplitude = 1 [
+      (brewblox).logged = true,
+      (brewblox).unit = DeltaTemp,
+      (brewblox).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    uint32 period = 2 [ (brewblox).unit = Time, (nanopb).int_size = IS_16 ];
+  };
+
+  sint32 value = 1 [
+    (brewblox).logged = true,
+    (brewblox).unit = Temp,
+    (brewblox).scale = 4096,
+    (brewblox).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
   bool connected = 3 [ (brewblox).logged = true ];
 
-  repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 1 ];
+  sint32 setting = 4 [
+    (brewblox).unit = Temp,
+    (brewblox).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+
+  repeated Fluctuation fluctuations = 5;
+
+  repeated uint32 strippedFields = 99 [
+    (brewblox).readonly = true,
+    (nanopb).int_size = IS_16,
+    (nanopb).max_count = 1
+  ];
 }
