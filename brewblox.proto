@@ -55,6 +55,7 @@ message BrewBloxTypes {
     Spark3Pins = 319;
     Spark2Pins = 320;
     MotorValve = 321;
+    ActuatorLogic = 322;
   }
 }
 
@@ -78,6 +79,11 @@ message BrewBloxFieldOptions {
   optional bool ignored = 9;
 }
 
-extend google.protobuf.FieldOptions { optional BrewBloxFieldOptions brewblox = 50001 [(nanopb).type = FT_IGNORE ]; }
+extend google.protobuf.FieldOptions {
+  optional BrewBloxFieldOptions brewblox = 50001 [ (nanopb).type = FT_IGNORE ];
+}
 
-extend google.protobuf.MessageOptions { optional BrewBloxMessageOptions brewblox_msg = 50001 [ (nanopb).type = FT_IGNORE ]; }
+extend google.protobuf.MessageOptions {
+  optional BrewBloxMessageOptions brewblox_msg = 50001
+      [ (nanopb).type = FT_IGNORE ];
+}
