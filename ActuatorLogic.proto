@@ -2,38 +2,64 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "IoArray.proto";
-
 package blox;
 
 message ActuatorLogic {
   option (brewblox_msg).objtype = ActuatorLogic;
 
-  enum LogicOp {
+  enum SectionOp {
     OR = 0;
     AND = 1;
     NOR = 2;
     NAND = 3;
     XOR = 4;
+    LE = 5;
+    GE = 6;
   }
 
-  message Section {
-    LogicOp combineOp = 1;
-    LogicOp sectionOp = 2;
-    repeated uint32 inputs = 3 [
+  enum CombineOp {
+    C_OR = 0;
+    C_AND = 1;
+    C_OR_NOT = 2;
+    C_AND_NOT = 3;
+  };
+
+  message Actuators {
+    repeated uint32 actuator = 1 [
       (brewblox).objtype = ActuatorDigitalInterface,
       (nanopb).int_size = IS_16,
       (nanopb).max_count = 8
     ];
   };
 
+  message Comparison {
+    uint32 compared = 1 [
+      (brewblox).objtype = ActuatorDigitalInterface,
+      (nanopb).int_size = IS_16,
+      (nanopb).max_count = 8
+    ];
+    bool useSetting = 2;
+    sint32 threshold = 3 [
+      (brewblox).logged = true,
+      (brewblox).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+  };
+
+  message Section {
+    CombineOp combineOp = 1;
+    SectionOp sectionOp = 2;
+    oneof section {
+      Actuators actuators = 3;
+      Comparison comparison = 4;
+    }
+  }
+
   uint32 targetId = 1 [
     (brewblox).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
-
-  repeated Section sections = 2 [ (nanopb).max_count = 4 ];
-  bool enabled = 3;
-  DigitalState result = 4
-      [ (brewblox).logged = true, (brewblox).readonly = true ];
+  bool enabled = 2;
+  bool result = 3 [ (brewblox).logged = true, (brewblox).readonly = true ];
+  repeated Section section = 4 [ (nanopb).max_count = 4 ];
 }
