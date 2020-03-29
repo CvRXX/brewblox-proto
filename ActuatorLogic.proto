@@ -34,16 +34,11 @@ message ActuatorLogic {
 
   message Comparison {
     uint32 compared = 1 [
-      (brewblox).objtype = ActuatorDigitalInterface,
-      (nanopb).int_size = IS_16,
-      (nanopb).max_count = 8
+      (brewblox).objtype = ProcessValueInterface,
+      (nanopb).int_size = IS_16
     ];
     bool useSetting = 2;
-    sint32 threshold = 3 [
-      (brewblox).logged = true,
-      (brewblox).scale = 4096,
-      (nanopb).int_size = IS_32
-    ];
+    sint32 threshold = 3 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   };
 
   message Section {
