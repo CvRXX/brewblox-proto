@@ -2,53 +2,63 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
+import "IoArray.proto";
 package blox;
 
 message ActuatorLogic {
   option (brewblox_msg).objtype = ActuatorLogic;
 
-  enum SectionOp {
-    OR = 0;
-    AND = 1;
-    XOR = 2;
-    LE = 3;
-    GE = 4;
+  enum DigitalCompareOp {
+    VALUE_IS = 0;
+    VALUE_ISNOT = 1;
+    DESIRED_IS = 2;
+    DESIRED_ISNOT = 3;
+  }
+
+  enum AnalogCompareOp {
+    VALUE_GE = 0;
+    VALUE_LE = 1;
+    SETTING_GE = 2;
+    SETTING_LE = 3;
   }
 
   enum CombineOp {
-    C_OR = 0;
-    C_AND = 1;
-    C_OR_NOT = 2;
-    C_AND_NOT = 3;
+    OR = 0;
+    AND = 1;
+    OR_NOT = 2;
+    AND_NOT = 3;
+    XOR = 4;
   };
 
-  message Actuators {
-    message Actuator {
-      uint32 id = 1 [
-        (brewblox).objtype = ActuatorDigitalInterface,
-        (nanopb).int_size = IS_16
-      ];
-      bool invert = 2;
-    }
-    repeated Actuator actuator = 1 [ (nanopb).max_count = 8 ];
+  message DigitalCompare {
+    DigitalCompareOp op = 1;
+    uint32 id = 2 [
+      (brewblox).objtype = ActuatorDigitalInterface,
+      (nanopb).int_size = IS_16
+    ];
+    DigitalState rhs = 3;
   };
 
-  message Comparison {
-    uint32 compared = 1 [
+  message AnalogCompare {
+    AnalogCompareOp op = 1;
+    uint32 id = 2 [
       (brewblox).objtype = ProcessValueInterface,
       (nanopb).int_size = IS_16
     ];
-    bool useSetting = 2;
-    sint32 threshold = 3 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+    sint32 rhs = 3 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   };
+
+  message Compare {
+    CombineOp combineOp = 1;
+    oneof compare {
+      DigitalCompare digital = 2;
+      AnalogCompare analog = 3;
+    }
+  }
 
   message Section {
     CombineOp combineOp = 1;
-    SectionOp sectionOp = 2;
-    oneof section {
-      Actuators actuators = 3;
-      Comparison comparison = 4;
-    }
+    repeated Compare compare = 2 [ (nanopb).max_count = 4 ];
   }
 
   uint32 targetId = 1 [
@@ -57,5 +67,5 @@ message ActuatorLogic {
   ];
   bool enabled = 2;
   bool result = 3 [ (brewblox).logged = true, (brewblox).readonly = true ];
-  repeated Section section = 4 [ (nanopb).max_count = 4 ];
+  repeated Section section = 4 [ (nanopb).max_count = 6 ];
 }
