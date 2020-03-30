@@ -1,5 +1,4 @@
 syntax = "proto3";
-
 import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
@@ -7,65 +6,92 @@ package blox;
 
 message ActuatorLogic {
   option (brewblox_msg).objtype = ActuatorLogic;
-
+  enum SyntaxSymbol {
+    OR = 0;
+    AND = 1;
+    XOR = 2;
+    NOT = 3;
+    BRACKET_OPEN = 10;
+    BRACKET_CLOSE = 11;
+    DIGITAL_00 = 50;
+    DIGITAL_01 = 51;
+    DIGITAL_02 = 52;
+    DIGITAL_03 = 53;
+    DIGITAL_04 = 54;
+    DIGITAL_05 = 55;
+    DIGITAL_06 = 56;
+    DIGITAL_07 = 57;
+    DIGITAL_08 = 58;
+    DIGITAL_09 = 59;
+    DIGITAL_10 = 60;
+    DIGITAL_11 = 61;
+    DIGITAL_12 = 62;
+    DIGITAL_13 = 63;
+    DIGITAL_14 = 64;
+    DIGITAL_15 = 65;
+    ANALOG_00 = 100;
+    ANALOG_01 = 101;
+    ANALOG_02 = 102;
+    ANALOG_03 = 103;
+    ANALOG_04 = 104;
+    ANALOG_05 = 105;
+    ANALOG_06 = 106;
+    ANALOG_07 = 107;
+    ANALOG_08 = 108;
+    ANALOG_09 = 109;
+    ANALOG_10 = 110;
+    ANALOG_11 = 111;
+    ANALOG_12 = 112;
+    ANALOG_13 = 113;
+    ANALOG_14 = 114;
+    ANALOG_15 = 115;
+  };
   enum DigitalCompareOp {
     VALUE_IS = 0;
     VALUE_ISNOT = 1;
-    DESIRED_IS = 2;
-    DESIRED_ISNOT = 3;
-  }
-
-  enum AnalogCompareOp {
-    VALUE_GE = 0;
-    VALUE_LE = 1;
-    SETTING_GE = 2;
-    SETTING_LE = 3;
-  }
-
-  enum CombineOp {
-    OR = 0;
-    AND = 1;
-    OR_NOT = 2;
-    AND_NOT = 3;
-    XOR = 4;
+    DESIRED_IS = 10;
+    DESIRED_ISNOT = 11;
   };
+  enum AnalogCompareOp {
+    VALUE_LE = 0;
+    VALUE_GE = 1;
+    SETTING_LE = 10;
+    SETTING_GE = 11;
+  };
+  enum Result {
+    FALSE = 0;
+    TRUE = 1;
+    INVALID_DIGITAL_OP = 2;
+    INVALID_ANALOG_OP = 3;
+    BLOCK_NOT_FOUND = 4;
+    INVALID_COMBINE_OP = 5;
+  }
 
   message DigitalCompare {
     DigitalCompareOp op = 1;
-    uint32 id = 2 [
+    Result result = 2;
+    uint32 id = 3 [
       (brewblox).objtype = ActuatorDigitalInterface,
       (nanopb).int_size = IS_16
     ];
-    DigitalState rhs = 3;
+    DigitalState rhs = 4;
   };
-
   message AnalogCompare {
     AnalogCompareOp op = 1;
-    uint32 id = 2 [
+    Result result = 2;
+    uint32 id = 3 [
       (brewblox).objtype = ProcessValueInterface,
       (nanopb).int_size = IS_16
     ];
-    sint32 rhs = 3 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+    sint32 rhs = 4 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   };
-
-  message Compare {
-    CombineOp combineOp = 1;
-    oneof compare {
-      DigitalCompare digital = 2;
-      AnalogCompare analog = 3;
-    }
-  }
-
-  message Section {
-    CombineOp combineOp = 1;
-    repeated Compare compare = 2 [ (nanopb).max_count = 4 ];
-  }
-
   uint32 targetId = 1 [
     (brewblox).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
   bool enabled = 2;
-  bool result = 3 [ (brewblox).logged = true, (brewblox).readonly = true ];
-  repeated Section section = 4 [ (nanopb).max_count = 6 ];
+  Result result = 3 [ (brewblox).logged = true, (brewblox).readonly = true ];
+  repeated DigitalCompare digital = 4 [ (nanopb).max_count = 16 ];
+  repeated AnalogCompare analog = 5 [ (nanopb).max_count = 16 ];
+  repeated SyntaxSymbol symbols = 6 [ (nanopb).max_count = 64 ];
 }
