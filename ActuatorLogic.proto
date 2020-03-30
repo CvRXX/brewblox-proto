@@ -31,7 +31,9 @@ message ActuatorLogic {
     UNEXPECTED_END = 8;
     UNEXPECTED_CLOSING_BRACKET = 9;
     MISSING_CLOSING_BRACKET = 10;
-    UNEXPECTED_CHARACTER = 11;
+    UNEXPECTED_OPENING_BRACKET = 11;
+    UNEXPECTED_CHARACTER = 12;
+    EMPTY = 13;
   }
 
   message DigitalCompare {
@@ -61,4 +63,5 @@ message ActuatorLogic {
   string expression = 4 [ (nanopb).max_length = 64 ];
   repeated DigitalCompare digital = 5 [ (nanopb).max_count = 16 ];
   repeated AnalogCompare analog = 6 [ (nanopb).max_count = 16 ];
+  uint32 errorPos = 7 [ (nanopb).int_size = IS_8 ];
 }
