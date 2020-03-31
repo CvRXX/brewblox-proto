@@ -38,7 +38,7 @@ message ActuatorLogic {
 
   message DigitalCompare {
     DigitalCompareOp op = 1;
-    Result result = 2;
+    Result result = 2 [ (brewblox).readonly = true ];
     uint32 id = 3 [
       (brewblox).objtype = ActuatorDigitalInterface,
       (nanopb).int_size = IS_16
@@ -47,7 +47,7 @@ message ActuatorLogic {
   };
   message AnalogCompare {
     AnalogCompareOp op = 1;
-    Result result = 2;
+    Result result = 2 [ (brewblox).readonly = true ];
     uint32 id = 3 [
       (brewblox).objtype = ProcessValueInterface,
       (nanopb).int_size = IS_16
@@ -63,5 +63,5 @@ message ActuatorLogic {
   string expression = 4 [ (nanopb).max_length = 64 ];
   repeated DigitalCompare digital = 5 [ (nanopb).max_count = 16 ];
   repeated AnalogCompare analog = 6 [ (nanopb).max_count = 16 ];
-  uint32 errorPos = 7 [ (nanopb).int_size = IS_8 ];
+  uint32 errorPos = 7 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
 }
