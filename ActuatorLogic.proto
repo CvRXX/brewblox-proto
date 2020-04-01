@@ -58,9 +58,9 @@ message ActuatorLogic {
     (nanopb).int_size = IS_16
   ];
   uint32 drivenTargetId = 2 [
-    (brewblox).objtype = ProcessValueInterface,
-    (brewblox).driven = true,
+    (brewblox).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16,
+    (brewblox).driven = true,
     (brewblox).readonly = true
   ];
   bool enabled = 3;
