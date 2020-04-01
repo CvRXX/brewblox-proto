@@ -57,10 +57,16 @@ message ActuatorLogic {
     (brewblox).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
-  bool enabled = 2;
-  Result result = 3 [ (brewblox).logged = true, (brewblox).readonly = true ];
-  string expression = 4 [ (nanopb).max_length = 64 ];
-  repeated DigitalCompare digital = 5 [ (nanopb).max_count = 16 ];
-  repeated AnalogCompare analog = 6 [ (nanopb).max_count = 16 ];
-  uint32 errorPos = 7 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
+  uint32 drivenTargetId = 2 [
+    (brewblox).objtype = ProcessValueInterface,
+    (brewblox).driven = true,
+    (nanopb).int_size = IS_16,
+    (brewblox).readonly = true
+  ];
+  bool enabled = 3;
+  Result result = 4 [ (brewblox).logged = true, (brewblox).readonly = true ];
+  string expression = 5 [ (nanopb).max_length = 64 ];
+  repeated DigitalCompare digital = 6 [ (nanopb).max_count = 16 ];
+  repeated AnalogCompare analog = 7 [ (nanopb).max_count = 16 ];
+  uint32 errorPos = 8 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
 }
