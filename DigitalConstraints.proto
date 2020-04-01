@@ -31,6 +31,16 @@ message DigitalConstraint {
       (nanopb).int_size = IS_32
     ];
     Mutexed mutexed = 4;
+    uint32 delayedOff = 5 [
+      (brewblox).unit = Time,
+      (brewblox).scale = 1000,
+      (nanopb).int_size = IS_32
+    ];
+    uint32 delayedOn = 6 [
+      (brewblox).unit = Time,
+      (brewblox).scale = 1000,
+      (nanopb).int_size = IS_32
+    ];
 
     // deprecated format, will automatically be converted to nr 4
     uint32 mutex = 3
