@@ -33,6 +33,8 @@ message ActuatorLogic {
     MISSING_CLOSING_BRACKET = 10;
     UNEXPECTED_OPENING_BRACKET = 11;
     UNEXPECTED_CHARACTER = 12;
+    UNEXPECTED_COMPARISON = 13;
+    UNEXPECTED_OPERATOR = 14;
   }
 
   message DigitalCompare {
