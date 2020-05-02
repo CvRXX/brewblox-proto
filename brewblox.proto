@@ -13,8 +13,10 @@ message BrewBloxTypes {
     InverseTemp = 5;
     DeltaTempTime = 6;
     LongTime = 7;
-    DeltaTempLongTime = 8;
-    DeltaTempPerLongTime = 9;
+    DeltaTempMultHour = 8;
+    DeltaTempPerHour = 9;
+    DeltaTempMultMin = 10;
+    DeltaTempPerMin = 11;
   }
 
   enum BlockType {

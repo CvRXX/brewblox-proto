@@ -83,15 +83,16 @@ message Pid {
   ];
   sint32 integral = 20 [
     (brewblox).logged = true,
-    (brewblox).unit = DeltaTempLongTime,
+    (brewblox).unit = DeltaTempMultHour,
     (brewblox).scale = 14745600,
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true
   ];
+
   sint32 derivative = 21 [
     (brewblox).logged = true,
-    (brewblox).unit = DeltaTempPerLongTime,
-    (brewblox).scale = 2330,
+    (brewblox).unit = DeltaTempPerMin,
+    (brewblox).scale = 139810,
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true
   ];
