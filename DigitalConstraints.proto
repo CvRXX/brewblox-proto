@@ -10,7 +10,7 @@ message Mutexed {
   uint32 mutexId = 1
       [ (brewblox).objtype = MutexInterface, (nanopb).int_size = IS_16 ];
   uint32 extraHoldTime = 2 [
-    (brewblox).unit = Time,
+    (brewblox).unit = Second,
     (brewblox).scale = 1000,
     (nanopb).int_size = IS_32
   ];
@@ -21,23 +21,23 @@ message Mutexed {
 message DigitalConstraint {
   oneof constraint {
     uint32 minOff = 1 [
-      (brewblox).unit = Time,
+      (brewblox).unit = Second,
       (brewblox).scale = 1000,
       (nanopb).int_size = IS_32
     ];
     uint32 minOn = 2 [
-      (brewblox).unit = Time,
+      (brewblox).unit = Second,
       (brewblox).scale = 1000,
       (nanopb).int_size = IS_32
     ];
     Mutexed mutexed = 4;
     uint32 delayedOff = 5 [
-      (brewblox).unit = Time,
+      (brewblox).unit = Second,
       (brewblox).scale = 1000,
       (nanopb).int_size = IS_32
     ];
     uint32 delayedOn = 6 [
-      (brewblox).unit = Time,
+      (brewblox).unit = Second,
       (brewblox).scale = 1000,
       (nanopb).int_size = IS_32
     ];
@@ -51,7 +51,7 @@ message DigitalConstraint {
       [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
 
   uint32 remaining = 101 [
-    (brewblox).unit = Time,
+    (brewblox).unit = Second,
     (brewblox).scale = 1000,
     (brewblox).readonly = true,
     (nanopb).int_size = IS_32

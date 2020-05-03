@@ -21,12 +21,22 @@ message MotorValve {
     InitIdle = 6;
   }
 
-  uint32 hwDevice = 1 [ (brewblox).objtype = DS2408Interface, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
+  uint32 hwDevice = 1 [
+    (brewblox).objtype = DS2408Interface,
+    (brewblox).driven = true,
+    (nanopb).int_size = IS_16
+  ];
   uint32 startChannel = 2 [ (nanopb).int_size = IS_8 ];
-  DigitalState state = 3 [ (brewblox).logged = true, (brewblox).readonly = true ];
+  DigitalState state = 3
+      [ (brewblox).logged = true, (brewblox).readonly = true ];
   DigitalConstraints constrainedBy = 5;
-  ValveState valveState = 6 [ (brewblox).logged = true, (brewblox).readonly = true ];
+  ValveState valveState = 6
+      [ (brewblox).logged = true, (brewblox).readonly = true ];
   DigitalState desiredState = 7 [ (brewblox).logged = true ];
 
-  repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 2 ];
+  repeated uint32 strippedFields = 99 [
+    (brewblox).readonly = true,
+    (nanopb).int_size = IS_16,
+    (nanopb).max_count = 2
+  ];
 }

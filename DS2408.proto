@@ -28,5 +28,9 @@ message DS2408 {
     };
   };
 
-  repeated IoPin pins = 7 [ (nanopb).max_count = 8, (nanopb).fixed_length = true, (brewblox).readonly = true ];
+  repeated IoPin pins = 7 [
+    (nanopb).max_count = 8,
+    (nanopb).fixed_length = true,
+    (brewblox).readonly = true
+  ];
 }

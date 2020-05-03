@@ -20,10 +20,22 @@ message Spark3Pins {
     };
   };
 
-  repeated IoPin pins = 1 [ (nanopb).max_count = 5, (nanopb).fixed_length = true, (brewblox).readonly = true ];
+  repeated IoPin pins = 1 [
+    (nanopb).max_count = 5,
+    (nanopb).fixed_length = true,
+    (brewblox).readonly = true
+  ];
   bool enableIoSupply5V = 2;
   bool enableIoSupply12V = 3;
   bool soundAlarm = 5;
-  uint32 voltage5 = 6 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (brewblox).scale = 410 ];  // 2^12 / 4 (R-divider) / 2.5 (ref)
-  uint32 voltage12 = 7 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (brewblox).scale = 149 ]; // 2^12 / 11 (R-divider) / 2.5 (ref)
+  uint32 voltage5 = 6 [
+    (brewblox).readonly = true,
+    (nanopb).int_size = IS_16,
+    (brewblox).scale = 410
+  ]; // 2^12 / 4 (R-divider) / 2.5 (ref)
+  uint32 voltage12 = 7 [
+    (brewblox).readonly = true,
+    (nanopb).int_size = IS_16,
+    (brewblox).scale = 149
+  ]; // 2^12 / 11 (R-divider) / 2.5 (ref)
 }

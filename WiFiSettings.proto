@@ -29,5 +29,9 @@ message WiFiSettings {
   WlanSecurity security = 3;
   WlanCipher cipher = 4;
   int32 signal = 5 [ (brewblox).logged = true, (nanopb).int_size = IS_8 ];
-  string ip = 6 [ (brewblox).readonly = true, (nanopb).max_size = 16, (nanopb).fixed_length = true ];
+  string ip = 6 [
+    (brewblox).readonly = true,
+    (nanopb).max_size = 16,
+    (nanopb).fixed_length = true
+  ];
 }

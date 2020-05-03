@@ -11,11 +11,20 @@ message DigitalActuator {
   option (brewblox_msg).objtype = DigitalActuator;
   option (brewblox_msg).impl = ActuatorDigitalInterface;
 
-  uint32 hwDevice = 1 [ (brewblox).objtype = IoArrayInterface, (brewblox).driven = true, (nanopb).int_size = IS_16 ];
+  uint32 hwDevice = 1 [
+    (brewblox).objtype = IoArrayInterface,
+    (brewblox).driven = true,
+    (nanopb).int_size = IS_16
+  ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
-  DigitalState state = 3 [ (brewblox).logged = true, (brewblox).readonly = true ];
+  DigitalState state = 3
+      [ (brewblox).logged = true, (brewblox).readonly = true ];
   bool invert = 4;
   DigitalConstraints constrainedBy = 5;
   DigitalState desiredState = 6 [ (brewblox).logged = true ];
-  repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 1 ];
+  repeated uint32 strippedFields = 99 [
+    (brewblox).readonly = true,
+    (nanopb).int_size = IS_16,
+    (nanopb).max_count = 1
+  ];
 }

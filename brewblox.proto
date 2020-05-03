@@ -7,16 +7,17 @@ message BrewBloxTypes {
   enum UnitType {
     NotSet = 0;
     Temp = 1;
-    DeltaTemp = 2;
-    DeltaTempPerTime = 3;
-    Time = 4;
-    InverseTemp = 5;
-    DeltaTempTime = 6;
-    LongTime = 7;
-    DeltaTempMultHour = 8;
+    InverseTemp = 2;
+    Second = 3;
+    Minute = 4;
+    Hour = 5;
+    DeltaTemp = 6;
+    DeltaTempPerSecond = 7;
+    DeltaTempPerMinute = 8;
     DeltaTempPerHour = 9;
-    DeltaTempMultMin = 10;
-    DeltaTempPerMin = 11;
+    DeltaTempMultSecond = 10;
+    DeltaTempMultMinute = 11;
+    DeltaTempMultHour = 12;
   }
 
   enum BlockType {

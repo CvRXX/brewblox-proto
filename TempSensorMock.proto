@@ -17,7 +17,7 @@ message TempSensorMock {
       (nanopb).int_size = IS_32
     ];
     uint32 period = 2 [
-      (brewblox).unit = Time,
+      (brewblox).unit = Second,
       (brewblox).scale = 1000,
       (nanopb).int_size = IS_32
     ];
