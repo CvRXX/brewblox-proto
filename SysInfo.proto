@@ -28,4 +28,25 @@ message SysInfo {
   string releaseDate = 8 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
   string protocolDate = 9
       [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
+
+  enum Command {
+    NONE = 0;
+    READ_TRACE = 1;
+  }
+
+  message Trace {
+    enum Action {
+      NONE = 0;
+      SEND_OBJECT = 1;
+      RECEIVE_OBJECT = 2;
+      PERSIST_OBJECT = 3;
+      UPDATE_OBJECT = 4;
+    }
+    Action action = 1;
+    uint32 id = 2 [ (nanopb).int_size = IS_16 ];
+    uint32 type = 3 [ (nanopb).int_size = IS_16 ];
+  }
+
+  Command command = 10;
+  repeated Trace trace = 11 [ (nanopb).max_count = 10 ];
 }
