@@ -37,10 +37,11 @@ message SysInfo {
   message Trace {
     enum Action {
       NONE = 0;
-      SEND_OBJECT = 1;
-      RECEIVE_OBJECT = 2;
-      PERSIST_OBJECT = 3;
-      UPDATE_OBJECT = 4;
+      READ_BLOCK = 1;
+      WRITE_BLOCK = 2;
+      PERSIST_BLOCK = 3;
+      UPDATE_BLOCK = 4;
+      CREATE_BLOCK = 5;
     }
     Action action = 1;
     uint32 id = 2 [ (nanopb).int_size = IS_16 ];
