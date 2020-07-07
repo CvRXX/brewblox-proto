@@ -32,6 +32,8 @@ message SysInfo {
   enum Command {
     NONE = 0;
     READ_TRACE = 1;
+    RESUME_TRACE = 2;
+    READ_AND_RESUME_TRACE = 3;
   }
 
   message Trace {
