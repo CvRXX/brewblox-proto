@@ -42,6 +42,10 @@ message SysInfo {
       PERSIST_BLOCK = 3;
       UPDATE_BLOCK = 4;
       CREATE_BLOCK = 5;
+      UPDATE_DISPLAY = 6;
+      UPDATE_CONNECTIONS = 7;
+      UPDATE_BLOCKS = 8;
+      SYSTEM_TASKS = 9;
     }
     Action action = 1;
     uint32 id = 2 [ (nanopb).int_size = IS_16 ];
