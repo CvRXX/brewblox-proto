@@ -12,13 +12,13 @@ message MotorValve {
   option (brewblox_msg).impl = ActuatorDigitalInterface;
 
   enum ValveState {
-    Unknown = 0;
-    Open = 1;
-    Closed = 2;
-    Opening = 3;
-    Closing = 4;
-    HalfOpenIdle = 5;
-    InitIdle = 6;
+    VALVE_UNKNOWN = 0;
+    VALVE_OPEN = 1;
+    VALVE_CLOSED = 2;
+    VALVE_OPENING = 3;
+    VALVE_CLOSING = 4;
+    VALVE_HALF_OPEN_IDLE = 5;
+    VALVE_INIT_IDLE = 6;
   }
 
   uint32 hwDevice = 1 [

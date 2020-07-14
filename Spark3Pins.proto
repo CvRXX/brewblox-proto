@@ -6,21 +6,21 @@ import "IoArray.proto";
 
 package blox;
 
+message Spark3IoPin {
+  oneof Pin {
+    IoChannel Top1 = 1;
+    IoChannel Top2 = 2;
+    IoChannel Top3 = 3;
+    IoChannel Bottom1 = 4;
+    IoChannel Bottom2 = 5;
+  };
+};
+
 message Spark3Pins {
   option (brewblox_msg).objtype = Spark3Pins;
   option (brewblox_msg).impl = IoArrayInterface;
 
-  message IoPin {
-    oneof Pin {
-      IoChannel top1 = 1;
-      IoChannel top2 = 2;
-      IoChannel top3 = 3;
-      IoChannel bottom1 = 4;
-      IoChannel bottom2 = 5;
-    };
-  };
-
-  repeated IoPin pins = 1 [
+  repeated Spark3IoPin pins = 1 [
     (nanopb).max_count = 5,
     (nanopb).fixed_length = true,
     (brewblox).readonly = true

@@ -5,20 +5,20 @@ import "nanopb.proto";
 
 package blox;
 
+enum FilterChoice {
+  FILTER_NONE = 0;
+  FILTER_15s = 1;
+  FILTER_45s = 2;
+  FILTER_90s = 3;
+  FILTER_3m = 4;
+  FILTER_10m = 5;
+  FILTER_30m = 6;
+}
+
 message SetpointSensorPair {
   option (brewblox_msg).objtype = SetpointSensorPair;
   option (brewblox_msg).impl = ProcessValueInterface;
   option (brewblox_msg).impl = SetpointSensorPairInterface;
-
-  enum FilterChoice {
-    FILT_NONE = 0;
-    FILT_15s = 1;
-    FILT_45s = 2;
-    FILT_90s = 3;
-    FILT_3m = 4;
-    FILT_10m = 5;
-    FILT_30m = 6;
-  }
 
   uint32 sensorId = 2
       [ (brewblox).objtype = TempSensorInterface, (nanopb).int_size = IS_16 ];

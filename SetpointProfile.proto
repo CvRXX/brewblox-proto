@@ -5,20 +5,20 @@ import "nanopb.proto";
 
 package blox;
 
+message Point {
+  uint32 time = 1;
+  // prevent removal of items with time 0 and temp 0 with a oneof
+  oneof temperature_oneof {
+    int32 temperature = 2 [
+      (brewblox).unit = Temp,
+      (brewblox).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+  }
+}
+
 message SetpointProfile {
   option (brewblox_msg).objtype = SetpointProfile;
-
-  message Point {
-    uint32 time = 1;
-    // prevent removal of items with time 0 and temp 0 with a oneof
-    oneof temperature_oneof {
-      int32 temperature = 2 [
-        (brewblox).unit = Temp,
-        (brewblox).scale = 4096,
-        (nanopb).int_size = IS_32
-      ];
-    }
-  }
 
   repeated Point points = 1;
   bool enabled = 3;

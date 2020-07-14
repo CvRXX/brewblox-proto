@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
+import "SetpointSensorPair.proto";
 
 package blox;
 
@@ -119,16 +120,6 @@ message Pid {
       [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   bool boilModeActive = 26
       [ (brewblox).logged = true, (brewblox).readonly = true ];
-
-  enum FilterChoice {
-    FILT_NONE = 0;
-    FILT_15s = 1;
-    FILT_45s = 2;
-    FILT_90s = 3;
-    FILT_3m = 4;
-    FILT_10m = 5;
-    FILT_30m = 6;
-  }
 
   FilterChoice derivativeFilter = 27 [ (brewblox).readonly = true ];
 

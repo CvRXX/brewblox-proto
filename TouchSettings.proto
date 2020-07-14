@@ -9,10 +9,11 @@ message TouchSettings {
   option (brewblox_msg).objtype = TouchSettings;
 
   enum Calibrated {
-    NO = 0;
-    YES = 1;
-    NEW = 2;
+    CALIBRATED_NO = 0;
+    CALIBRATED_YES = 1;
+    CALIBRATED_NEW = 2;
   }
+
   Calibrated calibrated = 1;
   int32 xOffset = 2 [ (nanopb).int_size = IS_16 ];
   int32 yOffset = 3 [ (nanopb).int_size = IS_16 ];

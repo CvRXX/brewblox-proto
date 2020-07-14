@@ -17,6 +17,7 @@ message WiFiSettings {
     WLAN_SEC_WPA2_ENTERPRISE = 5;
     WLAN_SEC_NOT_SET = 255;
   }
+
   enum WlanCipher {
     WLAN_CIPHER_NOT_SET = 0;
     WLAN_CIPHER_AES = 1;

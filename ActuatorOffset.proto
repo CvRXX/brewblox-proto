@@ -10,16 +10,16 @@ message ActuatorOffset {
   option (brewblox_msg).objtype = ActuatorOffset;
   option (brewblox_msg).impl = ActuatorAnalogInterface;
 
-  enum SettingOrValue {
-    SETTING = 0;
-    VALUE = 1;
+  enum ReferenceKind {
+    REF_SETTING = 0;
+    REF_VALUE = 1;
   }
 
   uint32 targetId = 1
       [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
   uint32 referenceId = 3
       [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
-  SettingOrValue referenceSettingOrValue = 4;
+  ReferenceKind referenceSettingOrValue = 4;
   sint32 setting = 6 [
     (brewblox).logged = true,
     (brewblox).readonly = true,
