@@ -8,14 +8,14 @@ package blox;
 
 message DS2408IoPin {
   oneof Pin {
-    IoChannel A = 1;
-    IoChannel B = 2;
-    IoChannel C = 3;
-    IoChannel D = 4;
-    IoChannel E = 5;
-    IoChannel F = 6;
-    IoChannel G = 7;
-    IoChannel H = 8;
+    IoChannel pinA = 1;
+    IoChannel pinB = 2;
+    IoChannel pinC = 3;
+    IoChannel pinD = 4;
+    IoChannel pinE = 5;
+    IoChannel pinF = 6;
+    IoChannel pinG = 7;
+    IoChannel pinH = 8;
   };
 };
 

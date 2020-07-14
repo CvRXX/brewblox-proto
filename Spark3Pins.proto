@@ -8,11 +8,11 @@ package blox;
 
 message Spark3IoPin {
   oneof Pin {
-    IoChannel Top1 = 1;
-    IoChannel Top2 = 2;
-    IoChannel Top3 = 3;
-    IoChannel Bottom1 = 4;
-    IoChannel Bottom2 = 5;
+    IoChannel pinTop1 = 1;
+    IoChannel pinTop2 = 2;
+    IoChannel pinTop3 = 3;
+    IoChannel pinBottom1 = 4;
+    IoChannel pinBottom2 = 5;
   };
 };
 

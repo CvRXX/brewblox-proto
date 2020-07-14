@@ -35,10 +35,10 @@ message SysInfo {
   }
 
   enum SysInfoCommand {
-    None = 0;
-    ReadTrace = 1;
-    ResumeTrace = 2;
-    ReadAndResumeTrace = 3;
+    SYS_CMD_NONE = 0;
+    SYS_CMD_TRACE_READ = 1;
+    SYS_CMD_TRACE_RESUME = 2;
+    SYS_CMD_TRACE_READ_RESUME = 3;
   }
 
   bytes deviceId = 1 [
