@@ -8,7 +8,7 @@ package blox;
 message Fluctuation {
   sint32 amplitude = 1 [
     (brewblox).logged = true,
-    (brewblox).unit = DeltaTemp,
+    (brewblox).unit = DeltaCelsius,
     (brewblox).scale = 4096,
     (nanopb).int_size = IS_32
   ];
@@ -25,7 +25,7 @@ message TempSensorMock {
 
   sint32 value = 1 [
     (brewblox).logged = true,
-    (brewblox).unit = Temp,
+    (brewblox).unit = Celsius,
     (brewblox).scale = 4096,
     (brewblox).readonly = true,
     (nanopb).int_size = IS_32
@@ -33,7 +33,7 @@ message TempSensorMock {
   bool connected = 3 [ (brewblox).logged = true ];
 
   sint32 setting = 4 [
-    (brewblox).unit = Temp,
+    (brewblox).unit = Celsius,
     (brewblox).scale = 4096,
     (nanopb).int_size = IS_32
   ];
