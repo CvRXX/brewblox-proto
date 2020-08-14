@@ -6,18 +6,18 @@ import "nanopb.proto";
 message BrewBloxTypes {
   enum UnitType {
     NotSet = 0;
-    Temp = 1;
-    InverseTemp = 2;
+    Celsius = 1;
+    InverseCelsius = 2;
     Second = 3;
     Minute = 4;
     Hour = 5;
-    DeltaTemp = 6;
-    DeltaTempPerSecond = 7;
-    DeltaTempPerMinute = 8;
-    DeltaTempPerHour = 9;
-    DeltaTempMultSecond = 10;
-    DeltaTempMultMinute = 11;
-    DeltaTempMultHour = 12;
+    DeltaCelsius = 6;
+    DeltaCelsiusPerSecond = 7;
+    DeltaCelsiusPerMinute = 8;
+    DeltaCelsiusPerHour = 9;
+    DeltaCelsiusMultSecond = 10;
+    DeltaCelsiusMultMinute = 11;
+    DeltaCelsiusMultHour = 12;
   }
 
   enum BlockType {

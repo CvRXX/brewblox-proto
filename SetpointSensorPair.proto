@@ -25,14 +25,14 @@ message SetpointSensorPair {
 
   sint32 setting = 5 [
     (brewblox).logged = true,
-    (brewblox).unit = Temp,
+    (brewblox).unit = Celsius,
     (brewblox).scale = 4096,
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true
   ];
   sint32 value = 6 [
     (brewblox).logged = true,
-    (brewblox).unit = Temp,
+    (brewblox).unit = Celsius,
     (brewblox).scale = 4096,
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true
@@ -40,21 +40,21 @@ message SetpointSensorPair {
   bool settingEnabled = 7;
   sint32 storedSetting = 8 [
     (brewblox).logged = false,
-    (brewblox).unit = Temp,
+    (brewblox).unit = Celsius,
     (brewblox).scale = 4096,
     (nanopb).int_size = IS_32
   ];
 
   FilterChoice filter = 9;
   sint32 filterThreshold = 10 [
-    (brewblox).unit = DeltaTemp,
+    (brewblox).unit = DeltaCelsius,
     (brewblox).scale = 4096,
     (nanopb).int_size = IS_32
   ];
 
   sint32 valueUnfiltered = 11 [
     (brewblox).logged = true,
-    (brewblox).unit = Temp,
+    (brewblox).unit = Celsius,
     (brewblox).scale = 4096,
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true

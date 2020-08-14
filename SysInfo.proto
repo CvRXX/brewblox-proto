@@ -57,5 +57,6 @@ message SysInfo {
       [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
 
   SysInfoCommand command = 10;
-  repeated Trace trace = 11 [ (nanopb).max_count = 10 ];
+  repeated Trace trace = 11
+      [ (brewblox).readonly = true, (nanopb).max_count = 10 ];
 }

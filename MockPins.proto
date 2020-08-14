@@ -8,14 +8,14 @@ package blox;
 
 message MockPinsIoPin {
   oneof Pin {
-    IoChannel pinMock1 = 1;
-    IoChannel pinMock2 = 2;
-    IoChannel pinMock3 = 3;
-    IoChannel pinMock4 = 4;
-    IoChannel pinMock5 = 5;
-    IoChannel pinMock6 = 6;
-    IoChannel pinMock7 = 7;
-    IoChannel pinMock8 = 8;
+    IoChannel mock1 = 1;
+    IoChannel mock2 = 2;
+    IoChannel mock3 = 3;
+    IoChannel mock4 = 4;
+    IoChannel mock5 = 5;
+    IoChannel mock6 = 6;
+    IoChannel mock7 = 7;
+    IoChannel mock8 = 8;
   };
 };
 

@@ -30,7 +30,7 @@ message ActuatorPwm {
   ];
   AnalogConstraints constrainedBy = 6;
   uint32 drivenActuatorId = 7 [
-    (brewblox).objtype = ProcessValueInterface,
+    (brewblox).objtype = ActuatorDigitalInterface,
     (brewblox).driven = true,
     (nanopb).int_size = IS_16,
     (brewblox).readonly = true

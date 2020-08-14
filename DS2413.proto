@@ -8,8 +8,8 @@ package blox;
 
 message DS2413IoPin {
   oneof Pin {
-    IoChannel pinA = 1;
-    IoChannel pinB = 2;
+    IoChannel A = 1;
+    IoChannel B = 2;
   };
 };
 
