@@ -2,6 +2,7 @@
 
 # generates cpp with google's protobuf implementation. Not used in firmware, but used in unit test code
 # do some renames so the names don't cause conflicts when both are used
+set -e
 
 PROTO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pushd "$PROTO_DIR" > /dev/null # .option files are read from execution directory, so have to cd into this dir 
@@ -26,11 +27,12 @@ do
   sed -i 's/AnalogConstraints.proto/AnalogConstraints_test.proto/g' "$testfile"
   sed -i 's/DigitalConstraints.proto/DigitalConstraints_test.proto/g' "$testfile"
   sed -i 's/IoArray.proto/IoArray_test.proto/g' "$testfile"
+  sed -i 's/SetpointSensorPair.proto/SetpointSensorPair_test.proto/g' "$testfile"
 done
 
 # generate code
 cd test/proto
-protoc *.proto --cpp_out=../tmp_cc --proto_path ${PROTO_DIR}/test/proto
+protoc "${PROTO_DIR}/test/proto"/*.proto --cpp_out=../tmp_cc --proto_path "${PROTO_DIR}/test/proto"
 
 # rename .cc files to .cpp, skip nanopb because it is already included in the build
 # use rsync to prevent touching files that have not really changed
