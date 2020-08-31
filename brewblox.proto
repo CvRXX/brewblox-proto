@@ -60,6 +60,7 @@ message BrewBloxTypes {
     MotorValve = 321;
     ActuatorLogic = 322;
     MockPins = 323;
+    CombiSensor = 324;
   }
 }
 
