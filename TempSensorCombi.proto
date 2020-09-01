@@ -5,14 +5,14 @@ import "nanopb.proto";
 
 package blox;
 
-enum CombineFunc {
-  AVG = 0;
-  MIN = 1;
-  MAX = 2;
+enum SensorCombiFunc {
+  SENSOR_COMBI_FUNC_AVG = 0;
+  SENSOR_COMBI_FUNC_MIN = 1;
+  SENSOR_COMBI_FUNC_MAX = 2;
 }
 
-message CombiSensor {
-  option (brewblox_msg).objtype = CombiSensor;
+message TempSensorCombi {
+  option (brewblox_msg).objtype = TempSensorCombi;
   option (brewblox_msg).impl = TempSensorInterface;
 
   sint32 value = 1 [
@@ -23,12 +23,11 @@ message CombiSensor {
     (nanopb).int_size = IS_32
   ];
 
-  CombineFunc func = 2;
+  SensorCombiFunc combinefunc = 2;
 
   repeated uint32 sensors = 3 [
     (brewblox).objtype = TempSensorInterface,
     (nanopb).int_size = IS_16,
-    (brewblox).readonly = true,
     (nanopb).max_count = 8
   ];
 
