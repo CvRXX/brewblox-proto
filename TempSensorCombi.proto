@@ -23,7 +23,7 @@ message TempSensorCombi {
     (nanopb).int_size = IS_32
   ];
 
-  SensorCombiFunc combinefunc = 2;
+  SensorCombiFunc combineFunc = 2;
 
   repeated uint32 sensors = 3 [
     (brewblox).objtype = TempSensorInterface,
