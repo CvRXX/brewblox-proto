@@ -7,17 +7,44 @@ package blox;
 
 message Trace {
   enum Action {
+    // cbox actions
     NONE = 0;
-    READ_BLOCK = 1;
-    WRITE_BLOCK = 2;
-    PERSIST_BLOCK = 3;
-    UPDATE_BLOCK = 4;
-    CREATE_BLOCK = 5;
-    DELETE_BLOCK = 6;
-    UPDATE_DISPLAY = 10;
-    UPDATE_CONNECTIONS = 11;
-    UPDATE_BLOCKS = 12;
-    SYSTEM_TASKS = 13;
+    // all commands (except NOOP)
+    READ_OBJECT = 1;
+    WRITE_OBJECT = 2;
+    CREATE_OBJECT = 3;
+    DELETE_OBJECT = 4;
+    LIST_ACTIVE_OBJECTS = 5;
+    READ_STORED_OBJECT = 6;
+    LIST_STORED_OBJECTS = 7;
+    CLEAR_OBJECTS = 8;
+    REBOOT = 9;
+    FACTORY_RESET = 10;
+    LIST_COMPATIBLE_OBJECTS = 11;
+    DISCOVER_NEW_OBJECTS = 12;
+
+    // object actions
+    CONSTRUCT_OBJECT = 20;
+    DESTRUCT_OBJECT = 21;
+    STREAM_FROM_OBJECT = 22;
+    STREAM_TO_OBJECT = 23;
+    UPDATE_OBJECT = 24;
+    PERSIST_OBJECT = 25;
+    LOAD_STORED_OBJECT = 26;
+    UPDATE_OBJECTS = 27;
+    UPDATE_CONNECTIONS = 28;
+
+    // app specific > 100
+    UPDATE_DISPLAY = 101;
+    SYSTEM_TASKS = 102;
+    MANAGE_CONNECTIVITY = 103;
+    MDNS_START = 104;
+    MDNS_PROCESS = 105;
+    HTTP_START = 106;
+    HTTP_STOP = 107;
+    HTTP_RESPONSE = 108;
+    WIFI_CONNECT = 109;
+    FIRMWARE_UPDATE_STARTED = 110;
   }
   Action action = 1;
   uint32 id = 2 [ (nanopb).int_size = IS_16 ];
