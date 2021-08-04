@@ -21,9 +21,6 @@ message DS2413 {
   fixed64 address = 1 [ (brewblox).hexed = true ];
   bool connected = 6 [ (brewblox).readonly = true ];
 
-  repeated DS2413IoPin pins = 7 [
-    (nanopb).max_count = 2,
-    (nanopb).fixed_length = true,
-    (brewblox).readonly = true
-  ];
+  repeated DS2413IoPin pins = 7 [ (nanopb).max_count = 2, (nanopb).fixed_length = true, (brewblox).readonly = true ];
+  uint32 oneWireBusId = 8 [ (brewblox).objtype = OneWireBus, (nanopb).int_size = IS_16, (brewblox).readonly = true ];
 }

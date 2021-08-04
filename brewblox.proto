@@ -32,6 +32,7 @@ message BrewBloxTypes {
     OneWireDeviceInterface = 9;
     IoArrayInterface = 10;
     DS2408Interface = 11;
+    OneWireBusInterface = 12;
     Any = 255;
     SysInfo = 256;
     Ticks = 257;
@@ -61,6 +62,7 @@ message BrewBloxTypes {
     ActuatorLogic = 322;
     MockPins = 323;
     TempSensorCombi = 324;
+    ExpOwGpio = 325;
   }
 }
 
@@ -84,11 +86,6 @@ message BrewBloxFieldOptions {
   optional bool ignored = 9;
 }
 
-extend google.protobuf.FieldOptions {
-  optional BrewBloxFieldOptions brewblox = 50001 [ (nanopb).type = FT_IGNORE ];
-}
+extend google.protobuf.FieldOptions { optional BrewBloxFieldOptions brewblox = 50001 [ (nanopb).type = FT_IGNORE ]; }
 
-extend google.protobuf.MessageOptions {
-  optional BrewBloxMessageOptions brewblox_msg = 50001
-      [ (nanopb).type = FT_IGNORE ];
-}
+extend google.protobuf.MessageOptions { optional BrewBloxMessageOptions brewblox_msg = 50001 [ (nanopb).type = FT_IGNORE ]; }
