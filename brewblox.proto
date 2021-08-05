@@ -33,6 +33,7 @@ message BrewBloxTypes {
     IoArrayInterface = 10;
     DS2408Interface = 11;
     OneWireBusInterface = 12;
+    IoModuleInterface = 13;
     Any = 255;
     SysInfo = 256;
     Ticks = 257;
@@ -62,7 +63,7 @@ message BrewBloxTypes {
     ActuatorLogic = 322;
     MockPins = 323;
     TempSensorCombi = 324;
-    ExpOwGpio = 325;
+    OneWireGpioModule = 325;
   }
 }
 

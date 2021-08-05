@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "IoArray.proto";
+
+package blox;
+
+message GpioChannel {
+  uint32 id = 1 [ (nanopb).int_size = IS_8 ];
+  ChannelConfig config = 2;
+  uint32 pins = 3 [ (nanopb).int_size = IS_16 ];
+  uint32 when_active = 4 [ (nanopb).int_size = IS_16 ];
+  uint32 when_inactive = 5 [ (nanopb).int_size = IS_16 ];
+  uint32 pwm_duty = 6 [ (nanopb).int_size = IS_8 ];
+};
+
+message OneWireGpioModule {
+  option (brewblox_msg).objtype = OneWireGpioModule;
+  option (brewblox_msg).impl = IoArrayInterface;
+  option (brewblox_msg).impl = OneWireBusInterface;
+
+  repeated GpioChannel channels = 1 [ (nanopb).max_count = 8 ];
+  uint32 module_position = 2 [ (nanopb).int_size = IS_8 ];
+  uint32 status = 3 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ]; // 7 reserved | 6 overtemperature | 5 overcurrent | 4 open load | 3 | overcurrent | 2 undervoltage lockout | 1 overvoltage | 0 power-on-reset
+  uint32 drive = 4 [ (brewblox).readonly = true, (nanopb).int_size = IS_16 ];
+  uint32 overcurrent = 5 [ (brewblox).readonly = true, (nanopb).int_size = IS_16 ];
+  uint32 openload = 6 [ (brewblox).readonly = true, (nanopb).int_size = IS_16 ];
+}
