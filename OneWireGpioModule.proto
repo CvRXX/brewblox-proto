@@ -21,7 +21,7 @@ message OneWireGpioModule {
   option (brewblox_msg).impl = OneWireBusInterface;
 
   repeated GpioChannel channels = 1 [ (nanopb).max_count = 8 ];
-  uint32 modulePposition = 2 [ (nanopb).int_size = IS_8 ];
+  uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
   uint32 status = 3 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ]; // 7 reserved | 6 overtemperature | 5 overcurrent | 4 open load | 3 | overcurrent | 2 undervoltage lockout | 1 overvoltage | 0 power-on-reset
   uint32 drive = 4 [ (brewblox).readonly = true, (nanopb).int_size = IS_16 ];
   uint32 overCurrent = 5 [ (brewblox).readonly = true, (nanopb).int_size = IS_16 ];
