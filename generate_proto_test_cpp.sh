@@ -9,6 +9,8 @@ pushd "$PROTO_DIR" > /dev/null # .option files are read from execution directory
 
 rm -rf "test/proto"
 rm -rf "test/tmp_cc"
+rm -rf "test/tmp_cpp"
+rm -rf "test/cpp"
 
 mkdir -p "test/proto"
 mkdir -p "test/cpp"
