@@ -34,6 +34,7 @@ message BrewBloxTypes {
     DS2408Interface = 11;
     OneWireBusInterface = 12;
     IoModuleInterface = 13;
+    OneWireDeviceBlockInterface = 14;
     Any = 255;
     SysInfo = 256;
     Ticks = 257;
