@@ -68,22 +68,14 @@ message SysInfo {
     SYS_CMD_TRACE_READ_RESUME = 3;
   }
 
-  bytes deviceId = 1 [
-    (brewblox).readonly = true,
-    (nanopb).max_size = 12,
-    (nanopb).fixed_length = true,
-    (brewblox).hexstr = true
-  ];
+  bytes deviceId = 1 [ (brewblox).readonly = true, (nanopb).max_size = 12, (brewblox).hexstr = true ];
   string version = 2 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
   Platform platform = 3 [ (brewblox).readonly = true ];
 
-  string protocolVersion = 7
-      [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
+  string protocolVersion = 7 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
   string releaseDate = 8 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
-  string protocolDate = 9
-      [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
+  string protocolDate = 9 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
 
   SysInfoCommand command = 10;
-  repeated Trace trace = 11
-      [ (brewblox).readonly = true, (nanopb).max_count = 10 ];
+  repeated Trace trace = 11 [ (brewblox).readonly = true, (nanopb).max_count = 10 ];
 }
