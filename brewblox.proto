@@ -86,6 +86,7 @@ message BrewBloxFieldOptions {
   optional bool hexstr = 7;
   optional bool driven = 8;
   optional bool ignored = 9;
+  optional bool bitfield = 10;
 }
 
 extend google.protobuf.FieldOptions { optional BrewBloxFieldOptions brewblox = 50001 [ (nanopb).type = FT_IGNORE ]; }

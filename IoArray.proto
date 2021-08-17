@@ -8,6 +8,7 @@ enum DigitalState {
   STATE_INACTIVE = 0;
   STATE_ACTIVE = 1;
   STATE_UNKNOWN = 2;
+  STATE_REVERSE = 3;
 
   // Backwards compatibility when writing
   Inactive = 0;
