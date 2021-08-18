@@ -44,6 +44,7 @@ enum ChannelStatus {
   OVERTEMPERATURE_SHUTDOWN = 6;
   OVERTEMPERATURE_WARNING = 7;
   POWER_ON_RESET = 8;
+  SPI_ERROR = 9;
 };
 
 // Each channel has a bitmask for which pins it uses.
