@@ -73,16 +73,18 @@ message OneWireGpioModule {
   uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
   // 7 reserved | 6 overtemperature shutdown | 5 overtemperature warning | 4 open load | 3 overcurrent | 2 undervoltage lockout | 1 overvoltage | 0 power-on-reset
   uint32 moduleStatus = 3 [ (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullUp = 4 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullUpWhenActive = 5 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullUpWhenInactive = 6 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullDown = 7 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullDownWhenActive = 8 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullDownWhenInactive = 9 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullUpOverCurrent = 10 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullDownOverCurrent = 11 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullUpOpenLoad = 12 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullDownOpenLoad = 13 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullUpDesired = 4 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullUpStatus = 5 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullUpWhenActive = 6 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullUpWhenInactive = 7 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullDownDesired = 8 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullDownStatus = 9 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullDownWhenActive = 10 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullDownWhenInactive = 11 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullUpOverCurrent = 12 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullDownOverCurrent = 13 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullUpOpenLoad = 14 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 pullDownOpenLoad = 15 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
   // write a 1 to clear a status flag and re-enable channels in shutdown, always reads as zero
-  uint32 moduleStatusClear = 14 [ (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 moduleStatusClear = 16 [ (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
 }
