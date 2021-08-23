@@ -16,35 +16,37 @@ package blox;
 // 6: passsive open load detect only (old)
 
 enum GpioDeviceType {
-  NONE = 0;
-  TWO_PIN_SSR = 1;                     // gnd, pp
-  ONE_PIN_SSR = 2;                     // pp, external ground
-  SINGLE_PIN_COIL_TO_EXTERNAL_GND = 3; // pu, external ground
-  SINGLE_PIN_COIL_TO_EXTERNAL_PWR = 4; // pd, external ground
-  TWO_PIN_COIL = 5;                    // gnd, pu
-  TWO_PIN_COIL_PUSH_PULL = 6;          // pp,pp toggled 01 or 10
-  TWO_PIN_MOTOR_UNIDIRECTIONAL = 7;    // gnd, pp
-  SINGLE_PIN_MOTOR_HIGH_SIDE = 8;      // pu, external to GND
-  SINGLE_PIN_MOTOR_LOW_SIDE = 9;       // pd, external to PWR
-  TWO_PIN_MOTOR_BIDIRECTIONAL = 10;    // pp, pp, toggle 01 or 10
-  TWO_PIN_SWITCH_INPUT = 11;           // old, old
-  SWITCH_TO_EXTERNAL_GND = 12;         // old, external GND
-  SWITCH_TO_PWR = 13;                  // old, external PWR
-  POWERED_SWITCH_TO_EXTERNAL_GND = 14; // pwr, with load detect
-  POWERED_SWITCH_TO_EXTERNAL_PWR = 15; // gnd, with load detect
+  GPIO_DEV_NONE = 0;
+  GPIO_DEV_SSR_2P = 1;                    // gnd, pp
+  GPIO_DEV_SSR_1P = 2;                    // pp, external ground
+  GPIO_DEV_COIL_UNIDIRECTIONAL_2P = 3;    // gnd, pu
+  GPIO_DEV_COIL_BIDIRECTIONAL_2P = 4;     // pp,pp toggled 01 or 10
+  GPIO_DEV_COIL_HIGH_SIDE_1P = 5;         // pu, external ground
+  GPIO_DEV_COIL_LOW_SIDE_1P = 6;          // pd, external ground
+  GPIO_DEV_MOTOR_UNIDIRECTIONAL_2P = 7;   // gnd, pp
+  GPIO_DEV_MOTOR_BIDIRECTIONAL_2P = 8;    // pp, pp, toggle 01 or 10
+  GPIO_DEV_MOTOR_HIGH_SIDE_1P = 9;        // pu, external to GND
+  GPIO_DEV_MOTOR_LOW_SIDE_1P = 10;        // pd, external to PWR
+  GPIO_DEV_LOAD_DETECT_2P = 11;           // old, old
+  GPIO_DEV_LOAD_DETECT_PULL_DOWN_1P = 12; // old, external GND
+  GPIO_DEV_LOAD_DETECT_PULL_UP_1P = 13;   // old, external PWR
+  GPIO_DEV_POWER_LOAD_DETECT_1P = 14;     // pwr, with load detect
+  GPIO_DEV_GND_LOAD_DETECT_1P = 15;       // gnd, with load detect
+  GPIO_DEV_POWER_1P = 16;                 // pwr, without load detect
+  GPIO_DEV_GND_1P = 17;                   // gnd, without load detect
 };
 
-enum ChannelStatus {
-  UNKNOWN = 0;
-  OPERATIONAL = 1;
-  OVERCURRENT = 2;
-  OPEN_LOAD = 3;
-  UNDERVOLTAGE = 4;
-  OVERVOLTAGE = 5;
-  OVERTEMPERATURE_SHUTDOWN = 6;
-  OVERTEMPERATURE_WARNING = 7;
-  POWER_ON_RESET = 8;
-  SPI_ERROR = 9;
+// Error flags
+enum GpioErrorFlags {
+  GPIO_ERR_NONE = 0;
+  GPIO_ERR_POWER_ON_RESET = 1;
+  GPIO_ERR_OVERVOLTAGE = 2;
+  GPIO_ERR_UNDERVOLTAGE = 4;
+  GPIO_ERR_OVERCURRENT = 8;
+  GPIO_ERR_OPEN_LOAD = 16;
+  GPIO_ERR_OVERTEMPERATURE_WARNING = 32;
+  GPIO_ERR_OVERTEMPERATURE_ERROR = 64;
+  GPIO_ERR_SPI_ERROR = 128;
 };
 
 // Each channel has a bitmask for which pins it uses.
@@ -58,7 +60,6 @@ message GpioModuleChannel {
   uint32 id = 1 [ (nanopb).int_size = IS_8 ];
   GpioDeviceType deviceType = 2;
   uint32 pinsMask = 3 [ (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  ChannelStatus status = 4 [ (brewblox).readonly = true ];
   ChannelConfig config = 5 [ (brewblox).readonly = true ];
   DigitalState state = 6 [ (brewblox).readonly = true ];
   int32 pwmDuty = 7 [ (brewblox).readonly = true, (nanopb).int_size = IS_16 ];
@@ -81,10 +82,9 @@ message OneWireGpioModule {
   uint32 pullDownStatus = 9 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
   uint32 pullDownWhenActive = 10 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
   uint32 pullDownWhenInactive = 11 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullUpOverCurrent = 12 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullDownOverCurrent = 13 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullUpOpenLoad = 14 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-  uint32 pullDownOpenLoad = 15 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 overCurrent = 12 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+  uint32 openLoad = 13 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
+
   // write a 1 to clear a status flag and re-enable channels in shutdown, always reads as zero
   uint32 moduleStatusClear = 16 [ (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
 }
