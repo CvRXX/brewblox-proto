@@ -84,7 +84,7 @@ message OneWireGpioModule {
   uint32 pullDownWhenInactive = 11 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
   uint32 overCurrent = 12 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
   uint32 openLoad = 13 [ (brewblox).readonly = true, (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
-
+  bool useExternalPower = 14;
   // write a 1 to clear a status flag and re-enable channels in shutdown, always reads as zero
   uint32 moduleStatusClear = 32 [ (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
 }
