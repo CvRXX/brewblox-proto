@@ -6,6 +6,18 @@ import "IoArray.proto";
 
 package blox;
 
+enum MockPinsChannelIds {
+  MOCKPINS_CHAN_NONE = 0;
+  MOCKPINS_CHAN_A = 1;
+  MOCKPINS_CHAN_B = 2;
+  MOCKPINS_CHAN_C = 3;
+  MOCKPINS_CHAN_D = 4;
+  MOCKPINS_CHAN_E = 5;
+  MOCKPINS_CHAN_F = 6;
+  MOCKPINS_CHAN_G = 7;
+  MOCKPINS_CHAN_H = 8;
+};
+
 message MockPins {
   option (brewblox_msg).objtype = MockPins;
   option (brewblox_msg).impl = IoArrayInterface;

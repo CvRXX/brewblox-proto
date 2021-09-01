@@ -6,6 +6,12 @@ import "IoArray.proto";
 
 package blox;
 
+enum DS2413ChannelIds {
+  DS2413_CHAN_NONE = 0;
+  DS2413_CHAN_A = 1;
+  DS2413_CHAN_B = 2;
+};
+
 message DS2413 {
   option (brewblox_msg).objtype = DS2413;
   option (brewblox_msg).impl = IoArrayInterface;

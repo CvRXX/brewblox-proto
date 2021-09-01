@@ -6,17 +6,20 @@ import "IoArray.proto";
 
 package blox;
 
-message DS2408IoPin {
-  oneof Pin {
-    IoChannel A = 1;
-    IoChannel B = 2;
-    IoChannel C = 3;
-    IoChannel D = 4;
-    IoChannel E = 5;
-    IoChannel F = 6;
-    IoChannel G = 7;
-    IoChannel H = 8;
-  };
+enum DS2408ChannelIds {
+  DS2408_CHAN_NONE = 0;
+  DS2408_CHAN_A = 1;
+  DS2408_CHAN_B = 2;
+  DS2408_CHAN_C = 3;
+  DS2408_CHAN_D = 4;
+  DS2408_CHAN_E = 5;
+  DS2408_CHAN_F = 6;
+  DS2408_CHAN_G = 7;
+  DS2408_CHAN_H = 8;
+  DS2408_VALVE_NONE = 0;
+  DS2408_VALVE_A = 1;
+  DS2408_VALVE_B = 5;
+  option allow_alias = true;
 };
 
 message DS2408 {
@@ -35,5 +38,8 @@ message DS2408 {
 
   PinConnectMode connectMode = 9;
   uint32 oneWireBusId = 10 [ (brewblox).objtype = OneWireBus, (nanopb).int_size = IS_16, (brewblox).readonly = true ];
+
+  // if connectMode is valve, the channels are [1,5]. Each valve uses 4 pins
+  // if connectMode is actuator, the channels are [1,2,3,4,5,6,7,8]
   repeated IoChannel channels = 11 [ (nanopb).max_count = 8, (brewblox).readonly = true ];
 }

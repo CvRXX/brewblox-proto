@@ -6,13 +6,13 @@ import "IoArray.proto";
 
 package blox;
 
-enum Spark3PinIds {
+enum Spark3ChannelIds {
   SPARK3_NO_PIN = 0;
-  SPARK3_TOP1 = 1;
-  SPARK3_TOP2 = 2;
-  SPARK3_TOP3 = 3;
-  SPARK3_BOTTOM1 = 4;
-  SPARK3_BOTTOM2 = 5;
+  SPARK3_CHAN_TOP1 = 1;
+  SPARK3_CHAN_TOP2 = 2;
+  SPARK3_CHAN_TOP3 = 3;
+  SPARK3_CHAN_BOTTOM1 = 4;
+  SPARK3_CHAN_BOTTOM2 = 5;
 };
 
 message Spark3Pins {
