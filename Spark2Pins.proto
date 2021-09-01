@@ -6,13 +6,12 @@ import "IoArray.proto";
 
 package blox;
 
-message Spark2PinsIoPin {
-  oneof Pin {
-    IoChannel bottom1 = 1;
-    IoChannel bottom2 = 2;
-    IoChannel bottom3 = 3;
-    IoChannel bottom0 = 4;
-  };
+enum Spark2PinIds {
+  SPARK2_NO_PIN = 0;
+  SPARK2_BOTTOM1 = 1;
+  SPARK2_BOTTOM2 = 2;
+  SPARK2_BOTTOM3 = 3;
+  SPARK2_BOTTOM0 = 4;
 };
 
 message Spark2Pins {
@@ -25,12 +24,7 @@ message Spark2Pins {
     HW_SPARK2 = 2;
   }
 
-  repeated Spark2PinsIoPin pins = 1 [
-    (nanopb).max_count = 4,
-    (nanopb).fixed_length = true,
-    (brewblox).readonly = true
-  ];
   bool soundAlarm = 5;
-
   Hardware hardware = 8 [ (brewblox).readonly = true ];
+  repeated IoChannel channels = 9 [ (nanopb).max_count = 4, (nanopb).fixed_length = true, (brewblox).readonly = true ];
 }

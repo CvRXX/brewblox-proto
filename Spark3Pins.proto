@@ -6,36 +6,23 @@ import "IoArray.proto";
 
 package blox;
 
-message Spark3IoPin {
-  oneof Pin {
-    IoChannel top1 = 1;
-    IoChannel top2 = 2;
-    IoChannel top3 = 3;
-    IoChannel bottom1 = 4;
-    IoChannel bottom2 = 5;
-  };
+enum Spark3PinIds {
+  SPARK3_NO_PIN = 0;
+  SPARK3_TOP1 = 1;
+  SPARK3_TOP2 = 2;
+  SPARK3_TOP3 = 3;
+  SPARK3_BOTTOM1 = 4;
+  SPARK3_BOTTOM2 = 5;
 };
 
 message Spark3Pins {
   option (brewblox_msg).objtype = Spark3Pins;
   option (brewblox_msg).impl = IoArrayInterface;
 
-  repeated Spark3IoPin pins = 1 [
-    (nanopb).max_count = 5,
-    (nanopb).fixed_length = true,
-    (brewblox).readonly = true
-  ];
   bool enableIoSupply5V = 2;
   bool enableIoSupply12V = 3;
   bool soundAlarm = 5;
-  uint32 voltage5 = 6 [
-    (brewblox).readonly = true,
-    (nanopb).int_size = IS_16,
-    (brewblox).scale = 410
-  ]; // 2^12 / 4 (R-divider) / 2.5 (ref)
-  uint32 voltage12 = 7 [
-    (brewblox).readonly = true,
-    (nanopb).int_size = IS_16,
-    (brewblox).scale = 149
-  ]; // 2^12 / 11 (R-divider) / 2.5 (ref)
+  uint32 voltage5 = 6 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (brewblox).scale = 410 ];  // 2^12 / 4 (R-divider) / 2.5 (ref)
+  uint32 voltage12 = 7 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (brewblox).scale = 149 ]; // 2^12 / 11 (R-divider) / 2.5 (ref)
+  repeated IoChannel channels = 8 [ (nanopb).max_count = 5, (nanopb).fixed_length = true, (brewblox).readonly = true ];
 }

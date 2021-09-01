@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "nanopb.proto";
+
 package blox;
 
 enum DigitalState {
@@ -16,25 +18,4 @@ enum DigitalState {
   Unknown = 2;
 }
 
-enum ChannelConfig {
-  option allow_alias = true;
-
-  CHANNEL_UNUSED = 0;
-  CHANNEL_DRIVING_OFF = 1;
-  CHANNEL_DRIVING_ON = 2;
-  CHANNEL_DRIVING_REVERSE = 3;
-  CHANNEL_DRIVING_BRAKE_LOW_SIDE = 4;
-  CHANNEL_DRIVING_BRAKE_HIGH_SIDE = 5;
-  CHANNEL_DRIVING_PWM = 6;
-  CHANNEL_DRIVING_PWM_REVERSE = 7;
-  CHANNEL_INPUT = 10;
-  CHANNEL_UNKNOWN = 255;
-
-  CHANNEL_ACTIVE_LOW = 1;
-  CHANNEL_ACTIVE_HIGH = 2;
-}
-
-message IoChannel {
-  ChannelConfig config = 1;
-  DigitalState state = 2;
-};
+message IoChannel { uint32 id = 1 [ (nanopb).int_size = IS_8 ]; };

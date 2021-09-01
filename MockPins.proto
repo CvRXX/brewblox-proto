@@ -6,26 +6,9 @@ import "IoArray.proto";
 
 package blox;
 
-message MockPinsIoPin {
-  oneof Pin {
-    IoChannel mock1 = 1;
-    IoChannel mock2 = 2;
-    IoChannel mock3 = 3;
-    IoChannel mock4 = 4;
-    IoChannel mock5 = 5;
-    IoChannel mock6 = 6;
-    IoChannel mock7 = 7;
-    IoChannel mock8 = 8;
-  };
-};
-
 message MockPins {
   option (brewblox_msg).objtype = MockPins;
   option (brewblox_msg).impl = IoArrayInterface;
 
-  repeated MockPinsIoPin pins = 1 [
-    (nanopb).max_count = 8,
-    (nanopb).fixed_length = true,
-    (brewblox).readonly = true
-  ];
+  repeated IoChannel channels = 2 [ (nanopb).max_count = 8, (nanopb).fixed_length = true, (brewblox).readonly = true ];
 }

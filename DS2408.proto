@@ -33,7 +33,7 @@ message DS2408 {
   fixed64 address = 1 [ (brewblox).hexed = true ];
   bool connected = 6 [ (brewblox).readonly = true ];
 
-  repeated DS2408IoPin pins = 7 [ (nanopb).max_count = 8, (nanopb).fixed_length = true, (brewblox).readonly = true ];
   PinConnectMode connectMode = 9;
   uint32 oneWireBusId = 10 [ (brewblox).objtype = OneWireBus, (nanopb).int_size = IS_16, (brewblox).readonly = true ];
+  repeated IoChannel channels = 11 [ (nanopb).max_count = 8, (brewblox).readonly = true ];
 }
