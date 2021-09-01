@@ -63,6 +63,7 @@ message GpioModuleChannel {
   GpioDeviceType deviceType = 2;
   uint32 pinsMask = 3 [ (nanopb).int_size = IS_8, (brewblox).bitfield = true ];
   uint32 width = 4 [ (nanopb).int_size = IS_8 ];
+  string name = 5 [ (nanopb).max_size = 32 ];
 }
 
 message OneWireGpioModule {
