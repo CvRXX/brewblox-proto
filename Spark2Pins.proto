@@ -27,4 +27,8 @@ message Spark2Pins {
   bool soundAlarm = 5;
   Hardware hardware = 8 [ (brewblox).readonly = true ];
   repeated IoChannel channels = 9 [ (nanopb).max_count = 4, (nanopb).fixed_length = true, (brewblox).readonly = true ];
+
+  // "pins" was renamed to "channels".
+  // Keep an explicitly ignored field around to avoid import errors
+  bool pins = 90 [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
 }

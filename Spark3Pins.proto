@@ -25,4 +25,8 @@ message Spark3Pins {
   uint32 voltage5 = 6 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (brewblox).scale = 410 ];  // 2^12 / 4 (R-divider) / 2.5 (ref)
   uint32 voltage12 = 7 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (brewblox).scale = 149 ]; // 2^12 / 11 (R-divider) / 2.5 (ref)
   repeated IoChannel channels = 8 [ (nanopb).max_count = 5, (nanopb).fixed_length = true, (brewblox).readonly = true ];
+
+  // "pins" was renamed to "channels".
+  // Keep an explicitly ignored field around to avoid import errors
+  bool pins = 90 [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
 }
