@@ -1,6 +1,5 @@
 syntax = "proto2";
 
-import "google/protobuf/any.proto";
 import "brewblox.proto";
 
 enum ControlboxOpcode {
@@ -74,7 +73,7 @@ message ControlboxPayload {
   optional uint32 blockId = 1;
   optional BrewBloxTypes.BlockType blockType = 2;
   optional ControlboxPayloadType payloadType = 3;
-  optional google.protobuf.Any data = 4;
+  optional bytes data = 4;
 }
 
 message ControlboxRequest {
