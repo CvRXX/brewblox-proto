@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.Mutex;
 
 message Mutex {
   option (brewblox_msg).objtype = Mutex;

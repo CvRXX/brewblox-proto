@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.DigitalConstraints;
 
 message Mutexed {
   uint32 mutexId = 1

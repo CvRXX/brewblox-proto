@@ -4,7 +4,7 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "AnalogConstraints.proto";
 
-package blox;
+package blox.ActuatorAnalogMock;
 
 message ActuatorAnalogMock {
   option (brewblox_msg).objtype = ActuatorAnalogMock;
@@ -28,7 +28,7 @@ message ActuatorAnalogMock {
   sint32 minValue = 6 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
   sint32 maxValue = 7 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
 
-  AnalogConstraints constrainedBy = 8;
+  AnalogConstraints.AnalogConstraints constrainedBy = 8;
 
   sint32 desiredSetting = 9 [
     (brewblox).logged = true,

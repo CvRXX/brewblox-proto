@@ -4,7 +4,7 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
 
-package blox;
+package blox.DS2408;
 
 enum DS2408ChannelIds {
   DS2408_CHAN_NONE = 0;
@@ -38,11 +38,16 @@ message DS2408 {
   bool connected = 6 [ (brewblox).readonly = true ];
 
   PinConnectMode connectMode = 9;
-  uint32 oneWireBusId = 10 [ (brewblox).objtype = OneWireBus, (nanopb).int_size = IS_16, (brewblox).readonly = true ];
+  uint32 oneWireBusId = 10 [
+    (brewblox).objtype = OneWireBus,
+    (nanopb).int_size = IS_16,
+    (brewblox).readonly = true
+  ];
 
   // if connectMode is valve, the channels are [1,5]. Each valve uses 4 pins
   // if connectMode is actuator, the channels are [1,2,3,4,5,6,7,8]
-  repeated IoChannel channels = 11 [ (nanopb).max_count = 8, (brewblox).readonly = true ];
+  repeated IoArray.IoChannel channels = 11
+      [ (nanopb).max_count = 8, (brewblox).readonly = true ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors

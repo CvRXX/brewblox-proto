@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.OneWireBus;
 
 // Command encodes the next command to perform when the object is read
 // data is optional and only used in some commands. For example when doing a

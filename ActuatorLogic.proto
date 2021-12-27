@@ -2,7 +2,8 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
-package blox;
+
+package blox.ActuatorLogic;
 
 message Compare {
   enum Result {
@@ -45,7 +46,7 @@ message DigitalCompare {
     (brewblox).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
-  DigitalState rhs = 4;
+  IoArray.DigitalState rhs = 4;
 };
 
 message AnalogCompare {

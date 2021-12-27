@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.TempSensorCombi;
 
 enum SensorCombiFunc {
   SENSOR_COMBI_FUNC_AVG = 0;

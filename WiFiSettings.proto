@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.WiFiSettings;
 
 message WiFiSettings {
   option (brewblox_msg).objtype = WiFiSettings;

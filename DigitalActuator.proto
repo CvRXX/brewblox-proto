@@ -5,7 +5,7 @@ import "nanopb.proto";
 import "DigitalConstraints.proto";
 import "IoArray.proto";
 
-package blox;
+package blox.DigitalActuator;
 
 message DigitalActuator {
   option (brewblox_msg).objtype = DigitalActuator;
@@ -17,11 +17,11 @@ message DigitalActuator {
     (nanopb).int_size = IS_16
   ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
-  DigitalState state = 3
+  IoArray.DigitalState state = 3
       [ (brewblox).logged = true, (brewblox).readonly = true ];
   bool invert = 4;
-  DigitalConstraints constrainedBy = 5;
-  DigitalState desiredState = 6 [ (brewblox).logged = true ];
+  DigitalConstraints.DigitalConstraints constrainedBy = 5;
+  IoArray.DigitalState desiredState = 6 [ (brewblox).logged = true ];
   repeated uint32 strippedFields = 99 [
     (brewblox).readonly = true,
     (nanopb).int_size = IS_16,

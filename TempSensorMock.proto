@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.TempSensorMock;
 
 message Fluctuation {
   sint32 amplitude = 1 [

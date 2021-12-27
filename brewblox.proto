@@ -1,9 +1,9 @@
-syntax = "proto2";
+syntax = "proto3";
 
 import "google/protobuf/descriptor.proto";
 import "nanopb.proto";
 
-message BrewBloxTypes {
+message BrewbloxTypes {
   enum UnitType {
     NotSet = 0;
     Celsius = 1;
@@ -68,27 +68,111 @@ message BrewBloxTypes {
   }
 }
 
-message BrewBloxMessageOptions {
-  option (nanopb_msgopt).skip_message = true;
-  optional BrewBloxTypes.BlockType objtype = 3;
-  repeated BrewBloxTypes.BlockType impl = 9 [ (nanopb).max_count = 5 ];
+message ControlboxTypes {
+  enum Opcode {
+    OPCODE_NONE = 0;
+    OPCODE_READ_OBJECT = 1;
+    OPCODE_WRITE_OBJECT = 2;
+    OPCODE_CREATE_OBJECT = 3;
+    OPCODE_DELETE_OBJECT = 4;
+    OPCODE_LIST_OBJECTS = 5;
+    OPCODE_READ_STORED_OBJECT = 6;
+    OPCODE_LIST_STORED_OBJECTS = 7;
+    OPCODE_CLEAR_OBJECTS = 8;
+    OPCODE_REBOOT = 9;
+    OPCODE_FACTORY_RESET = 10;
+    OPCODE_LIST_COMPATIBLE_OBJECTS = 11;
+    OPCODE_DISCOVER_OBJECTS = 12;
+    OPCODE_FIRMWARE_UPDATE = 100;
+  }
+
+  enum ErrorCode {
+    ERR_OK = 0;
+    ERR_UNKNOWN_ERROR = 1;
+
+    // object creation
+    ERR_INSUFFICIENT_HEAP = 4;
+
+    // generic stream errors
+    ERR_STREAM_ERROR_UNSPECIFIED = 8;
+    ERR_OUTPUT_STREAM_WRITE_ERROR = 9;
+    ERR_INPUT_STREAM_READ_ERROR = 10;
+    ERR_INPUT_STREAM_DECODING_ERROR = 11;
+    ERR_OUTPUT_STREAM_ENCODING_ERROR = 12;
+
+    // storage errors
+    ERR_INSUFFICIENT_PERSISTENT_STORAGE = 16;
+    ERR_PERSISTED_OBJECT_NOT_FOUND = 17;
+    ERR_INVALID_PERSISTED_BLOCK_TYPE = 18;
+    ERR_COULD_NOT_READ_PERSISTED_BLOCK_SIZE = 19;
+    ERR_PERSISTED_BLOCK_STREAM_ERROR = 20;
+    ERR_PERSISTED_STORAGE_WRITE_ERROR = 21;
+    ERR_CRC_ERROR_IN_STORED_OBJECT = 22;
+
+    // invalid actions
+    ERR_OBJECT_NOT_WRITABLE = 32;
+    ERR_OBJECT_NOT_READABLE = 33;
+    ERR_OBJECT_NOT_CREATABLE = 34;
+    ERR_OBJECT_NOT_DELETABLE = 35;
+
+    // invalid parameters
+    ERR_INVALID_COMMAND = 63;
+    ERR_INVALID_OBJECT_ID = 64;
+    ERR_INVALID_OBJECT_TYPE = 65;
+    ERR_INVALID_OBJECT_GROUPS = 66;
+    ERR_CRC_ERROR_IN_COMMAND = 67;
+    ERR_OBJECT_DATA_NOT_ACCEPTED = 68;
+
+    // freak events that should not be possible
+    ERR_WRITE_TO_INACTIVE_OBJECT = 200;
+  }
 }
 
-message BrewBloxFieldOptions {
+message BrewbloxMessageOptions {
   option (nanopb_msgopt).skip_message = true;
-
-  optional BrewBloxTypes.UnitType unit = 1;
-  optional uint32 scale = 2;
-  optional BrewBloxTypes.BlockType objtype = 3;
-  optional bool hexed = 4;
-  optional bool readonly = 5;
-  optional bool logged = 6;
-  optional bool hexstr = 7;
-  optional bool driven = 8;
-  optional bool ignored = 9;
-  optional bool bitfield = 10;
+  BrewbloxTypes.BlockType objtype = 3;
+  repeated BrewbloxTypes.BlockType impl = 9 [ (nanopb).max_count = 5 ];
+  uint32 subtype = 11 [ (nanopb).int_size = IS_16 ];
 }
 
-extend google.protobuf.FieldOptions { optional BrewBloxFieldOptions brewblox = 50001 [ (nanopb).type = FT_IGNORE ]; }
+message BrewbloxFieldOptions {
+  option (nanopb_msgopt).skip_message = true;
 
-extend google.protobuf.MessageOptions { optional BrewBloxMessageOptions brewblox_msg = 50001 [ (nanopb).type = FT_IGNORE ]; }
+  BrewbloxTypes.UnitType unit = 1;
+  uint32 scale = 2;
+  BrewbloxTypes.BlockType objtype = 3;
+  bool hexed = 4;
+  bool readonly = 5;
+  bool logged = 6;
+  bool hexstr = 7;
+  bool driven = 8;
+  bool ignored = 9;
+  bool bitfield = 10;
+}
+
+extend google.protobuf.FieldOptions {
+  BrewbloxFieldOptions brewblox = 50001 [ (nanopb).type = FT_IGNORE ];
+}
+
+extend google.protobuf.MessageOptions {
+  BrewbloxMessageOptions brewblox_msg = 50001 [ (nanopb).type = FT_IGNORE ];
+}
+
+message ControlboxPayload {
+  uint32 blockId = 1;
+  BrewbloxTypes.BlockType objtype = 2;
+  uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
+  bytes data = 4;
+}
+
+message ControlboxRequest {
+  uint32 msgId = 1;
+  ControlboxTypes.Opcode opcode = 2;
+  ControlboxPayload payload = 3;
+}
+
+message ControlboxResponse {
+  uint32 msgId = 1;
+  ControlboxTypes.ErrorCode error = 2;
+  repeated ControlboxPayload payload = 3;
+}

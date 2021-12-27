@@ -4,7 +4,7 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "AnalogConstraints.proto";
 
-package blox;
+package blox.ActuatorPwm;
 
 message ActuatorPwm {
   option (brewblox_msg).objtype = ActuatorPwm;
@@ -28,7 +28,7 @@ message ActuatorPwm {
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true
   ];
-  AnalogConstraints constrainedBy = 6;
+  AnalogConstraints.AnalogConstraints constrainedBy = 6;
   uint32 drivenActuatorId = 7 [
     (brewblox).objtype = ActuatorDigitalInterface,
     (brewblox).driven = true,

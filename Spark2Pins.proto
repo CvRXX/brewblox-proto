@@ -4,7 +4,7 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
 
-package blox;
+package blox.Spark2Pins;
 
 enum Spark2ChannelIds {
   SPARK2_CHAN_NONE = 0;
@@ -26,7 +26,11 @@ message Spark2Pins {
 
   bool soundAlarm = 5;
   Hardware hardware = 8 [ (brewblox).readonly = true ];
-  repeated IoChannel channels = 9 [ (nanopb).max_count = 4, (nanopb).fixed_length = true, (brewblox).readonly = true ];
+  repeated IoArray.IoChannel channels = 9 [
+    (nanopb).max_count = 4,
+    (nanopb).fixed_length = true,
+    (brewblox).readonly = true
+  ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors

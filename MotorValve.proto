@@ -5,7 +5,7 @@ import "nanopb.proto";
 import "DigitalConstraints.proto";
 import "IoArray.proto";
 
-package blox;
+package blox.MotorValve;
 
 message MotorValve {
   option (brewblox_msg).objtype = MotorValve;
@@ -27,12 +27,12 @@ message MotorValve {
     (nanopb).int_size = IS_16
   ];
   uint32 startChannel = 2 [ (nanopb).int_size = IS_8 ];
-  DigitalState state = 3
+  IoArray.DigitalState state = 3
       [ (brewblox).logged = true, (brewblox).readonly = true ];
-  DigitalConstraints constrainedBy = 5;
+  DigitalConstraints.DigitalConstraints constrainedBy = 5;
   ValveState valveState = 6
       [ (brewblox).logged = true, (brewblox).readonly = true ];
-  DigitalState desiredState = 7 [ (brewblox).logged = true ];
+  IoArray.DigitalState desiredState = 7 [ (brewblox).logged = true ];
 
   repeated uint32 strippedFields = 99 [
     (brewblox).readonly = true,

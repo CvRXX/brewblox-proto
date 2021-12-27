@@ -4,7 +4,7 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "AnalogConstraints.proto";
 
-package blox;
+package blox.ActuatorOffset;
 
 message ActuatorOffset {
   option (brewblox_msg).objtype = ActuatorOffset;
@@ -32,7 +32,7 @@ message ActuatorOffset {
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true
   ];
-  AnalogConstraints constrainedBy = 8;
+  AnalogConstraints.AnalogConstraints constrainedBy = 8;
   uint32 drivenTargetId = 9 [
     (brewblox).objtype = ProcessValueInterface,
     (brewblox).driven = true,

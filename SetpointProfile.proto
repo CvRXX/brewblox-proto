@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.SetpointProfile;
 
 message Point {
   uint32 time = 1;

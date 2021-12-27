@@ -4,7 +4,7 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "SetpointSensorPair.proto";
 
-package blox;
+package blox.Pid;
 
 message Pid {
   option (brewblox_msg).objtype = Pid;
@@ -121,7 +121,8 @@ message Pid {
   bool boilModeActive = 26
       [ (brewblox).logged = true, (brewblox).readonly = true ];
 
-  FilterChoice derivativeFilter = 27 [ (brewblox).readonly = true ];
+  SetpointSensorPair.FilterChoice derivativeFilter = 27
+      [ (brewblox).readonly = true ];
 
   repeated uint32 strippedFields = 99 [
     (brewblox).readonly = true,
