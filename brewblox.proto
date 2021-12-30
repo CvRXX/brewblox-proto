@@ -162,7 +162,7 @@ message ControlboxPayload {
   uint32 blockId = 1;
   BrewbloxTypes.BlockType objtype = 2;
   uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
-  bytes data = 4;
+  string data = 4;
 }
 
 message ControlboxRequest {
