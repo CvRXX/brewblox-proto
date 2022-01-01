@@ -43,3 +43,9 @@ message EdgeCase {
     (nanopb).max_count = 2
   ];
 }
+
+message SubCase {
+  option (brewblox_msg).subtype = 1;
+
+  uint32 subvalue = 1;
+}
