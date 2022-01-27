@@ -6,7 +6,7 @@ import "IoArray.proto";
 
 package blox.Spark2Pins;
 
-enum Spark2ChannelIds {
+enum ChannelId {
   SPARK2_CHAN_NONE = 0;
   SPARK2_CHAN_BOTTOM1 = 1;
   SPARK2_CHAN_BOTTOM2 = 2;
@@ -14,7 +14,7 @@ enum Spark2ChannelIds {
   SPARK2_CHAN_BOTTOM0 = 4;
 };
 
-message Spark2Pins {
+message Block {
   option (brewblox_msg).objtype = Spark2Pins;
   option (brewblox_msg).impl = IoArrayInterface;
 

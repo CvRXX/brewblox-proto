@@ -21,7 +21,7 @@ message NestedLink {
 
 // This message allows testing combinations that are possible, but not likely in
 // real protobuf messages.
-message EdgeCase {
+message Block {
   Settings settings = 1;
   State state = 2;
   uint32 link = 3 [ (brewblox).objtype = ActuatorAnalogInterface ];

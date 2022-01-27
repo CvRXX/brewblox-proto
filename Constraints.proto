@@ -3,7 +3,14 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox.DigitalConstraints;
+package blox.Constraints;
+
+message Balanced {
+  uint32 balancerId = 1
+      [ (brewblox).objtype = BalancerInterface, (nanopb).int_size = IS_16 ];
+  uint32 granted = 2 [ (brewblox).scale = 4096, (brewblox).readonly = true ];
+  uint32 id = 3 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
+}
 
 message Mutexed {
   uint32 mutexId = 1
@@ -15,6 +22,19 @@ message Mutexed {
   ];
   bool hasCustomHoldTime = 3;
   bool hasLock = 4 [ (brewblox).readonly = true ];
+}
+
+message AnalogConstraint {
+  oneof constraint {
+    sint32 min = 1 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+    sint32 max = 2 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+    Balanced balanced = 3;
+  }
+  bool limiting = 100 [ (brewblox).readonly = true ];
+}
+
+message AnalogConstraints {
+  repeated AnalogConstraint constraints = 1 [ (nanopb).max_count = 8 ];
 }
 
 message DigitalConstraint {

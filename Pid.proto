@@ -6,7 +6,7 @@ import "SetpointSensorPair.proto";
 
 package blox.Pid;
 
-message Pid {
+message Block {
   option (brewblox_msg).objtype = Pid;
 
   uint32 inputId = 1 [

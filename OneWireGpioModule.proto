@@ -66,7 +66,7 @@ message GpioModuleChannel {
   string name = 5 [ (nanopb).max_size = 32 ];
 }
 
-message OneWireGpioModule {
+message Block {
   option (brewblox_msg).objtype = OneWireGpioModule;
   option (brewblox_msg).impl = IoArrayInterface;
   option (brewblox_msg).impl = OneWireBusInterface;

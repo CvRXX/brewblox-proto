@@ -15,7 +15,7 @@ enum FilterChoice {
   FILTER_30m = 6;
 }
 
-message SetpointSensorPair {
+message Block {
   option (brewblox_msg).objtype = SetpointSensorPair;
   option (brewblox_msg).impl = ProcessValueInterface;
   option (brewblox_msg).impl = SetpointSensorPairInterface;

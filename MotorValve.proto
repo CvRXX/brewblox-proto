@@ -2,24 +2,24 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "DigitalConstraints.proto";
+import "Constraints.proto";
 import "IoArray.proto";
 
 package blox.MotorValve;
 
-message MotorValve {
+enum ValveState {
+  VALVE_UNKNOWN = 0;
+  VALVE_OPEN = 1;
+  VALVE_CLOSED = 2;
+  VALVE_OPENING = 3;
+  VALVE_CLOSING = 4;
+  VALVE_HALF_OPEN_IDLE = 5;
+  VALVE_INIT_IDLE = 6;
+}
+
+message Block {
   option (brewblox_msg).objtype = MotorValve;
   option (brewblox_msg).impl = ActuatorDigitalInterface;
-
-  enum ValveState {
-    VALVE_UNKNOWN = 0;
-    VALVE_OPEN = 1;
-    VALVE_CLOSED = 2;
-    VALVE_OPENING = 3;
-    VALVE_CLOSING = 4;
-    VALVE_HALF_OPEN_IDLE = 5;
-    VALVE_INIT_IDLE = 6;
-  }
 
   uint32 hwDevice = 1 [
     (brewblox).objtype = DS2408Interface,
@@ -29,7 +29,7 @@ message MotorValve {
   uint32 startChannel = 2 [ (nanopb).int_size = IS_8 ];
   IoArray.DigitalState state = 3
       [ (brewblox).logged = true, (brewblox).readonly = true ];
-  DigitalConstraints.DigitalConstraints constrainedBy = 5;
+  Constraints.DigitalConstraints constrainedBy = 5;
   ValveState valveState = 6
       [ (brewblox).logged = true, (brewblox).readonly = true ];
   IoArray.DigitalState desiredState = 7 [ (brewblox).logged = true ];

@@ -3,144 +3,82 @@ syntax = "proto3";
 import "google/protobuf/descriptor.proto";
 import "nanopb.proto";
 
-message BrewbloxTypes {
-  enum UnitType {
-    NotSet = 0;
-    Celsius = 1;
-    InverseCelsius = 2;
-    Second = 3;
-    Minute = 4;
-    Hour = 5;
-    DeltaCelsius = 6;
-    DeltaCelsiusPerSecond = 7;
-    DeltaCelsiusPerMinute = 8;
-    DeltaCelsiusPerHour = 9;
-    DeltaCelsiusMultSecond = 10;
-    DeltaCelsiusMultMinute = 11;
-    DeltaCelsiusMultHour = 12;
-  }
-
-  enum BlockType {
-    Invalid = 0;
-    ProcessValueInterface = 1;
-    TempSensorInterface = 2;
-    SetpointSensorPairInterface = 4;
-    ActuatorAnalogInterface = 5;
-    ActuatorDigitalInterface = 6;
-    BalancerInterface = 7;
-    MutexInterface = 8;
-    OneWireDeviceInterface = 9;
-    IoArrayInterface = 10;
-    DS2408Interface = 11;
-    OneWireBusInterface = 12;
-    IoModuleInterface = 13;
-    OneWireDeviceBlockInterface = 14;
-    Any = 255;
-    SysInfo = 256;
-    Ticks = 257;
-    OneWireBus = 258;
-    BoardPins = 259;
-    TempSensorMock = 301;
-    TempSensorOneWire = 302;
-    SetpointSensorPair = 303;
-    Pid = 304;
-    ActuatorAnalogMock = 305;
-    ActuatorPin = 306; // deprecated
-    ActuatorPwm = 307;
-    ActuatorOffset = 308;
-    Balancer = 309;
-    Mutex = 310;
-    SetpointProfile = 311;
-    WiFiSettings = 312;
-    TouchSettings = 313;
-    DisplaySettings = 314;
-    DS2413 = 315;
-    ActuatorOneWire = 316; // deprecated
-    DS2408 = 317;
-    DigitalActuator = 318;
-    Spark3Pins = 319;
-    Spark2Pins = 320;
-    MotorValve = 321;
-    ActuatorLogic = 322;
-    MockPins = 323;
-    TempSensorCombi = 324;
-    OneWireGpioModule = 325;
-  }
+enum UnitType {
+  NotSet = 0;
+  Celsius = 1;
+  InverseCelsius = 2;
+  Second = 3;
+  Minute = 4;
+  Hour = 5;
+  DeltaCelsius = 6;
+  DeltaCelsiusPerSecond = 7;
+  DeltaCelsiusPerMinute = 8;
+  DeltaCelsiusPerHour = 9;
+  DeltaCelsiusMultSecond = 10;
+  DeltaCelsiusMultMinute = 11;
+  DeltaCelsiusMultHour = 12;
 }
 
-message ControlboxTypes {
-  enum Opcode {
-    OPCODE_NONE = 0;
-    OPCODE_READ_OBJECT = 1;
-    OPCODE_WRITE_OBJECT = 2;
-    OPCODE_CREATE_OBJECT = 3;
-    OPCODE_DELETE_OBJECT = 4;
-    OPCODE_LIST_OBJECTS = 5;
-    OPCODE_READ_STORED_OBJECT = 6;
-    OPCODE_LIST_STORED_OBJECTS = 7;
-    OPCODE_CLEAR_OBJECTS = 8;
-    OPCODE_REBOOT = 9;
-    OPCODE_FACTORY_RESET = 10;
-    OPCODE_LIST_COMPATIBLE_OBJECTS = 11;
-    OPCODE_DISCOVER_OBJECTS = 12;
-    OPCODE_FIRMWARE_UPDATE = 100;
-  }
-
-  enum ErrorCode {
-    ERR_OK = 0;
-    ERR_UNKNOWN_ERROR = 1;
-
-    // object creation
-    ERR_INSUFFICIENT_HEAP = 4;
-
-    // generic stream errors
-    ERR_STREAM_ERROR_UNSPECIFIED = 8;
-    ERR_OUTPUT_STREAM_WRITE_ERROR = 9;
-    ERR_INPUT_STREAM_READ_ERROR = 10;
-    ERR_INPUT_STREAM_DECODING_ERROR = 11;
-    ERR_OUTPUT_STREAM_ENCODING_ERROR = 12;
-
-    // storage errors
-    ERR_INSUFFICIENT_PERSISTENT_STORAGE = 16;
-    ERR_PERSISTED_OBJECT_NOT_FOUND = 17;
-    ERR_INVALID_PERSISTED_BLOCK_TYPE = 18;
-    ERR_COULD_NOT_READ_PERSISTED_BLOCK_SIZE = 19;
-    ERR_PERSISTED_BLOCK_STREAM_ERROR = 20;
-    ERR_PERSISTED_STORAGE_WRITE_ERROR = 21;
-    ERR_CRC_ERROR_IN_STORED_OBJECT = 22;
-
-    // invalid actions
-    ERR_OBJECT_NOT_WRITABLE = 32;
-    ERR_OBJECT_NOT_READABLE = 33;
-    ERR_OBJECT_NOT_CREATABLE = 34;
-    ERR_OBJECT_NOT_DELETABLE = 35;
-
-    // invalid parameters
-    ERR_INVALID_COMMAND = 63;
-    ERR_INVALID_OBJECT_ID = 64;
-    ERR_INVALID_OBJECT_TYPE = 65;
-    ERR_INVALID_OBJECT_GROUPS = 66;
-    ERR_CRC_ERROR_IN_COMMAND = 67;
-    ERR_OBJECT_DATA_NOT_ACCEPTED = 68;
-
-    // freak events that should not be possible
-    ERR_WRITE_TO_INACTIVE_OBJECT = 200;
-  }
+enum BlockType {
+  Invalid = 0;
+  ProcessValueInterface = 1;
+  TempSensorInterface = 2;
+  SetpointSensorPairInterface = 4;
+  ActuatorAnalogInterface = 5;
+  ActuatorDigitalInterface = 6;
+  BalancerInterface = 7;
+  MutexInterface = 8;
+  OneWireDeviceInterface = 9;
+  IoArrayInterface = 10;
+  DS2408Interface = 11;
+  OneWireBusInterface = 12;
+  IoModuleInterface = 13;
+  OneWireDeviceBlockInterface = 14;
+  Any = 255;
+  SysInfo = 256;
+  Ticks = 257;
+  OneWireBus = 258;
+  BoardPins = 259;
+  TempSensorMock = 301;
+  TempSensorOneWire = 302;
+  SetpointSensorPair = 303;
+  Pid = 304;
+  ActuatorAnalogMock = 305;
+  ActuatorPin = 306; // deprecated
+  ActuatorPwm = 307;
+  ActuatorOffset = 308;
+  Balancer = 309;
+  Mutex = 310;
+  SetpointProfile = 311;
+  WiFiSettings = 312;
+  TouchSettings = 313;
+  DisplaySettings = 314;
+  DS2413 = 315;
+  ActuatorOneWire = 316; // deprecated
+  DS2408 = 317;
+  DigitalActuator = 318;
+  Spark3Pins = 319;
+  Spark2Pins = 320;
+  MotorValve = 321;
+  ActuatorLogic = 322;
+  MockPins = 323;
+  TempSensorCombi = 324;
+  OneWireGpioModule = 325;
 }
 
-message BrewbloxMessageOptions {
+message MessageOpts {
   option (nanopb_msgopt).skip_message = true;
-  BrewbloxTypes.BlockType objtype = 3;
-  repeated BrewbloxTypes.BlockType impl = 9 [ (nanopb).max_count = 5 ];
+  BlockType objtype = 3;
+  repeated BlockType impl = 9 [ (nanopb).max_count = 5 ];
   uint32 subtype = 11 [ (nanopb).int_size = IS_16 ];
 }
 
-message BrewbloxFieldOptions {
+message FieldOpts {
   option (nanopb_msgopt).skip_message = true;
 
-  BrewbloxTypes.UnitType unit = 1;
+  UnitType unit = 1;
   uint32 scale = 2;
-  BrewbloxTypes.BlockType objtype = 3;
+  BlockType objtype = 3;
   bool hexed = 4;
   bool readonly = 5;
   bool logged = 6;
@@ -151,28 +89,9 @@ message BrewbloxFieldOptions {
 }
 
 extend google.protobuf.FieldOptions {
-  BrewbloxFieldOptions brewblox = 50001 [ (nanopb).type = FT_IGNORE ];
+  FieldOpts brewblox = 50001 [ (nanopb).type = FT_IGNORE ];
 }
 
 extend google.protobuf.MessageOptions {
-  BrewbloxMessageOptions brewblox_msg = 50001 [ (nanopb).type = FT_IGNORE ];
-}
-
-message ControlboxPayload {
-  uint32 blockId = 1;
-  BrewbloxTypes.BlockType objtype = 2;
-  uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
-  string data = 4;
-}
-
-message ControlboxRequest {
-  uint32 msgId = 1;
-  ControlboxTypes.Opcode opcode = 2;
-  ControlboxPayload payload = 3;
-}
-
-message ControlboxResponse {
-  uint32 msgId = 1;
-  ControlboxTypes.ErrorCode error = 2;
-  repeated ControlboxPayload payload = 3;
+  MessageOpts brewblox_msg = 50001 [ (nanopb).type = FT_IGNORE ];
 }

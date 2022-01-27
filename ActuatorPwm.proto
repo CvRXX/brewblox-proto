@@ -2,11 +2,11 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "AnalogConstraints.proto";
+import "Constraints.proto";
 
 package blox.ActuatorPwm;
 
-message ActuatorPwm {
+message Block {
   option (brewblox_msg).objtype = ActuatorPwm;
   option (brewblox_msg).impl = ProcessValueInterface;
   option (brewblox_msg).impl = ActuatorAnalogInterface;
@@ -28,7 +28,7 @@ message ActuatorPwm {
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true
   ];
-  AnalogConstraints.AnalogConstraints constrainedBy = 6;
+  Constraints.AnalogConstraints constrainedBy = 6;
   uint32 drivenActuatorId = 7 [
     (brewblox).objtype = ActuatorDigitalInterface,
     (brewblox).driven = true,

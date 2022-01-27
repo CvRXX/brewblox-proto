@@ -5,7 +5,7 @@ import "nanopb.proto";
 
 package blox.TempSensorOneWire;
 
-message TempSensorOneWire {
+message Block {
   option (brewblox_msg).objtype = TempSensorOneWire;
   option (brewblox_msg).impl = TempSensorInterface;
   option (brewblox_msg).impl = OneWireDeviceInterface;

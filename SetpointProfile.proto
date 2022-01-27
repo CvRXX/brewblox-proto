@@ -17,7 +17,7 @@ message Point {
   }
 }
 
-message SetpointProfile {
+message Block {
   option (brewblox_msg).objtype = SetpointProfile;
 
   repeated Point points = 1;

@@ -25,7 +25,7 @@ message BalancedActuator {
   ];
 }
 
-message Balancer {
+message Block {
   option (brewblox_msg).objtype = Balancer;
   option (brewblox_msg).impl = BalancerInterface;
 

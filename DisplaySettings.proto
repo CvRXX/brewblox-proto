@@ -28,13 +28,13 @@ message Widget {
   };
 }
 
-message DisplaySettings {
-  option (brewblox_msg).objtype = DisplaySettings;
+enum TemperatureUnit {
+  TEMP_CELSIUS = 0;
+  TEMP_FAHRENHEIT = 1;
+};
 
-  enum TemperatureUnit {
-    TEMP_CELSIUS = 0;
-    TEMP_FAHRENHEIT = 1;
-  };
+message Block {
+  option (brewblox_msg).objtype = DisplaySettings;
 
   repeated Widget widgets = 1 [ (nanopb).max_count = 6 ];
   string name = 2 [ (nanopb).max_size = 40 ];

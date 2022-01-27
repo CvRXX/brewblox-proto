@@ -2,18 +2,18 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "AnalogConstraints.proto";
+import "Constraints.proto";
 
 package blox.ActuatorOffset;
 
-message ActuatorOffset {
+enum ReferenceKind {
+  REF_SETTING = 0;
+  REF_VALUE = 1;
+}
+
+message Block {
   option (brewblox_msg).objtype = ActuatorOffset;
   option (brewblox_msg).impl = ActuatorAnalogInterface;
-
-  enum ReferenceKind {
-    REF_SETTING = 0;
-    REF_VALUE = 1;
-  }
 
   uint32 targetId = 1
       [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
@@ -32,7 +32,7 @@ message ActuatorOffset {
     (nanopb).int_size = IS_32,
     (brewblox).readonly = true
   ];
-  AnalogConstraints.AnalogConstraints constrainedBy = 8;
+  Constraints.AnalogConstraints constrainedBy = 8;
   uint32 drivenTargetId = 9 [
     (brewblox).objtype = ProcessValueInterface,
     (brewblox).driven = true,
