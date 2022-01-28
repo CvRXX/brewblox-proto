@@ -14,15 +14,15 @@ enum ChannelId {
   SPARK2_CHAN_BOTTOM0 = 4;
 };
 
+enum Hardware {
+  HW_UNKNOWN = 0;
+  HW_SPARK1 = 1;
+  HW_SPARK2 = 2;
+}
+
 message Block {
   option (brewblox.msg).objtype = Spark2Pins;
   option (brewblox.msg).impl = IoArrayInterface;
-
-  enum Hardware {
-    HW_UNKNOWN = 0;
-    HW_SPARK1 = 1;
-    HW_SPARK2 = 2;
-  }
 
   bool soundAlarm = 5;
   Hardware hardware = 8 [ (brewblox.field).readonly = true ];
