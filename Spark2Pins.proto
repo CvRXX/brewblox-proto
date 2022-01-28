@@ -15,8 +15,8 @@ enum ChannelId {
 };
 
 message Block {
-  option (brewblox_msg).objtype = Spark2Pins;
-  option (brewblox_msg).impl = IoArrayInterface;
+  option (brewblox.msg).objtype = Spark2Pins;
+  option (brewblox.msg).impl = IoArrayInterface;
 
   enum Hardware {
     HW_UNKNOWN = 0;
@@ -25,14 +25,14 @@ message Block {
   }
 
   bool soundAlarm = 5;
-  Hardware hardware = 8 [ (brewblox).readonly = true ];
+  Hardware hardware = 8 [ (brewblox.field).readonly = true ];
   repeated IoArray.IoChannel channels = 9 [
     (nanopb).max_count = 4,
     (nanopb).fixed_length = true,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

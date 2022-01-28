@@ -13,25 +13,25 @@ enum ChannelId {
 };
 
 message Block {
-  option (brewblox_msg).objtype = DS2413;
-  option (brewblox_msg).impl = IoArrayInterface;
-  option (brewblox_msg).impl = OneWireDeviceInterface;
+  option (brewblox.msg).objtype = DS2413;
+  option (brewblox.msg).impl = IoArrayInterface;
+  option (brewblox.msg).impl = OneWireDeviceInterface;
 
-  fixed64 address = 1 [ (brewblox).hexed = true ];
-  bool connected = 6 [ (brewblox).readonly = true ];
+  fixed64 address = 1 [ (brewblox.field).hexed = true ];
+  bool connected = 6 [ (brewblox.field).readonly = true ];
 
   uint32 oneWireBusId = 8 [
-    (brewblox).objtype = OneWireBus,
+    (brewblox.field).objtype = OneWireBus,
     (nanopb).int_size = IS_16,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   repeated IoArray.IoChannel channels = 9 [
     (nanopb).max_count = 2,
     (nanopb).fixed_length = true,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

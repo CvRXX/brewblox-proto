@@ -16,29 +16,29 @@ enum ChannelId {
 };
 
 message Block {
-  option (brewblox_msg).objtype = Spark3Pins;
-  option (brewblox_msg).impl = IoArrayInterface;
+  option (brewblox.msg).objtype = Spark3Pins;
+  option (brewblox.msg).impl = IoArrayInterface;
 
   bool enableIoSupply5V = 2;
   bool enableIoSupply12V = 3;
   bool soundAlarm = 5;
   uint32 voltage5 = 6 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
-    (brewblox).scale = 410
+    (brewblox.field).scale = 410
   ]; // 2^12 / 4 (R-divider) / 2.5 (ref)
   uint32 voltage12 = 7 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
-    (brewblox).scale = 149
+    (brewblox.field).scale = 149
   ]; // 2^12 / 11 (R-divider) / 2.5 (ref)
   repeated IoArray.IoChannel channels = 8 [
     (nanopb).max_count = 5,
     (nanopb).fixed_length = true,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

@@ -12,7 +12,7 @@ enum Calibrated {
 }
 
 message Block {
-  option (brewblox_msg).objtype = TouchSettings;
+  option (brewblox.msg).objtype = TouchSettings;
 
   Calibrated calibrated = 1;
   int32 xOffset = 2 [ (nanopb).int_size = IS_16 ];

@@ -6,30 +6,30 @@ import "nanopb.proto";
 package blox.Ticks;
 
 message Block {
-  option (brewblox_msg).objtype = Ticks;
+  option (brewblox.msg).objtype = Ticks;
 
   uint32 millisSinceBoot = 1
-      [ (brewblox).readonly = true, (nanopb).int_size = IS_32 ];
+      [ (brewblox.field).readonly = true, (nanopb).int_size = IS_32 ];
   uint32 secondsSinceEpoch = 2 [ (nanopb).int_size = IS_32 ];
 
   uint32 avgCommunicationTask = 3 [
-    (brewblox).readonly = true,
-    (brewblox).scale = 32,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 32,
     (nanopb).int_size = IS_32
   ];
   uint32 avgBlocksUpdateTask = 4 [
-    (brewblox).readonly = true,
-    (brewblox).scale = 32,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 32,
     (nanopb).int_size = IS_32
   ];
   uint32 avgDisplayTask = 5 [
-    (brewblox).readonly = true,
-    (brewblox).scale = 32,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 32,
     (nanopb).int_size = IS_32
   ];
   uint32 avgSystemTask = 6 [
-    (brewblox).readonly = true,
-    (brewblox).scale = 32,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 32,
     (nanopb).int_size = IS_32
   ];
 }

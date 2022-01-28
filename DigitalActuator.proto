@@ -8,22 +8,22 @@ import "IoArray.proto";
 package blox.DigitalActuator;
 
 message Block {
-  option (brewblox_msg).objtype = DigitalActuator;
-  option (brewblox_msg).impl = ActuatorDigitalInterface;
+  option (brewblox.msg).objtype = DigitalActuator;
+  option (brewblox.msg).impl = ActuatorDigitalInterface;
 
   uint32 hwDevice = 1 [
-    (brewblox).objtype = IoArrayInterface,
-    (brewblox).driven = true,
+    (brewblox.field).objtype = IoArrayInterface,
+    (brewblox.field).driven = true,
     (nanopb).int_size = IS_16
   ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
   IoArray.DigitalState state = 3
-      [ (brewblox).logged = true, (brewblox).readonly = true ];
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   bool invert = 4;
   Constraints.DigitalConstraints constrainedBy = 5;
-  IoArray.DigitalState desiredState = 6 [ (brewblox).logged = true ];
+  IoArray.DigitalState desiredState = 6 [ (brewblox.field).logged = true ];
   repeated uint32 strippedFields = 99 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
     (nanopb).max_count = 1
   ];

@@ -23,19 +23,19 @@ enum Cipher {
 }
 
 message Block {
-  option (brewblox_msg).objtype = WiFiSettings;
+  option (brewblox.msg).objtype = WiFiSettings;
 
   string ssid = 1 [ (nanopb).max_size = 33 ];
   string password = 2 [ (nanopb).max_size = 64 ];
   Security security = 3;
   Cipher cipher = 4;
   int32 signal = 5 [
-    (brewblox).readonly = true,
-    (brewblox).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
     (nanopb).int_size = IS_8
   ];
   string ip = 6 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).max_size = 16,
     (nanopb).fixed_length = true
   ];

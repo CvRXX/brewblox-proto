@@ -10,25 +10,27 @@ message Point {
   // prevent removal of items with time 0 and temp 0 with a oneof
   oneof temperature_oneof {
     int32 temperature = 2 [
-      (brewblox).unit = Celsius,
-      (brewblox).scale = 4096,
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
       (nanopb).int_size = IS_32
     ];
   }
 }
 
 message Block {
-  option (brewblox_msg).objtype = SetpointProfile;
+  option (brewblox.msg).objtype = SetpointProfile;
 
   repeated Point points = 1;
   bool enabled = 3;
-  uint32 targetId = 4
-      [ (brewblox).objtype = SetpointSensorPair, (nanopb).int_size = IS_16 ];
+  uint32 targetId = 4 [
+    (brewblox.field).objtype = SetpointSensorPair,
+    (nanopb).int_size = IS_16
+  ];
   uint32 drivenTargetId = 5 [
-    (brewblox).objtype = SetpointSensorPair,
-    (brewblox).driven = true,
+    (brewblox.field).objtype = SetpointSensorPair,
+    (brewblox.field).driven = true,
     (nanopb).int_size = IS_16,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   uint32 start = 6;
 }

@@ -6,17 +6,19 @@ import "nanopb.proto";
 package blox.EdgeCase;
 
 message Settings {
-  fixed64 address = 1 [ (brewblox).hexed = true ];
-  sint32 offset = 2 [ (brewblox).unit = DeltaCelsius, (brewblox).scale = 256 ];
+  fixed64 address = 1 [ (brewblox.field).hexed = true ];
+  sint32 offset = 2
+      [ (brewblox.field).unit = DeltaCelsius, (brewblox.field).scale = 256 ];
 }
 
 message State {
-  sint32 value = 1 [ (brewblox).unit = Celsius, (brewblox).scale = 256 ];
-  bool connected = 2 [ (brewblox).readonly = true ];
+  sint32 value = 1
+      [ (brewblox.field).unit = Celsius, (brewblox.field).scale = 256 ];
+  bool connected = 2 [ (brewblox.field).readonly = true ];
 }
 
 message NestedLink {
-  uint32 connection = 1 [ (brewblox).objtype = TempSensorInterface ];
+  uint32 connection = 1 [ (brewblox.field).objtype = TempSensorInterface ];
 }
 
 // This message allows testing combinations that are possible, but not likely in
@@ -24,28 +26,30 @@ message NestedLink {
 message Block {
   Settings settings = 1;
   State state = 2;
-  uint32 link = 3 [ (brewblox).objtype = ActuatorAnalogInterface ];
+  uint32 link = 3 [ (brewblox.field).objtype = ActuatorAnalogInterface ];
   repeated NestedLink additionalLinks = 4;
   repeated float listValues = 5
-      [ (brewblox).unit = Celsius, (brewblox).scale = 256 ];
-  uint32 deltaV = 6
-      [ (brewblox).unit = DeltaCelsiusPerSecond, (brewblox).scale = 256 ];
-  uint32 logged = 7 [ (brewblox).logged = true ];
+      [ (brewblox.field).unit = Celsius, (brewblox.field).scale = 256 ];
+  uint32 deltaV = 6 [
+    (brewblox.field).unit = DeltaCelsiusPerSecond,
+    (brewblox.field).scale = 256
+  ];
+  uint32 logged = 7 [ (brewblox.field).logged = true ];
   uint32 unLogged = 8;
   uint32 drivenDevice = 9 [
-    (brewblox).objtype = DS2413,
-    (brewblox).driven = true,
+    (brewblox.field).objtype = DS2413,
+    (brewblox.field).driven = true,
     (nanopb).int_size = IS_16
   ];
   repeated uint32 strippedFields = 99 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
     (nanopb).max_count = 2
   ];
 }
 
 message SubCase {
-  option (brewblox_msg).subtype = 1;
+  option (brewblox.msg).subtype = 1;
 
   uint32 subvalue = 1;
 }

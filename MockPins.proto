@@ -19,16 +19,16 @@ enum ChannelId {
 };
 
 message Block {
-  option (brewblox_msg).objtype = MockPins;
-  option (brewblox_msg).impl = IoArrayInterface;
+  option (brewblox.msg).objtype = MockPins;
+  option (brewblox.msg).impl = IoArrayInterface;
 
   repeated IoArray.IoChannel channels = 2 [
     (nanopb).max_count = 8,
     (nanopb).fixed_length = true,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

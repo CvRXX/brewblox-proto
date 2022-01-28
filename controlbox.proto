@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package Controlbox;
+package controlbox;
 
 enum Opcode {
   OPCODE_NONE = 0;
@@ -65,7 +65,7 @@ enum ErrorCode {
 
 message Payload {
   uint32 blockId = 1;
-  BlockType objtype = 2;
+  brewblox.BlockType objtype = 2;
   uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
   string data = 4;
 }

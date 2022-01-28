@@ -7,125 +7,126 @@ import "SetpointSensorPair.proto";
 package blox.Pid;
 
 message Block {
-  option (brewblox_msg).objtype = Pid;
+  option (brewblox.msg).objtype = Pid;
 
   uint32 inputId = 1 [
-    (brewblox).objtype = SetpointSensorPairInterface,
+    (brewblox.field).objtype = SetpointSensorPairInterface,
     (nanopb).int_size = IS_16
   ];
   uint32 outputId = 2 [
-    (brewblox).objtype = ActuatorAnalogInterface,
+    (brewblox.field).objtype = ActuatorAnalogInterface,
     (nanopb).int_size = IS_16
   ];
 
   sint32 inputValue = 5 [
-    (brewblox).logged = true,
-    (brewblox).unit = Celsius,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   sint32 inputSetting = 6 [
-    (brewblox).logged = true,
-    (brewblox).unit = Celsius,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   sint32 outputValue = 7 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   sint32 outputSetting = 8 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
-  bool enabled = 11 [ (brewblox).logged = true ];
-  bool active = 12 [ (brewblox).logged = true, (brewblox).readonly = true ];
+  bool enabled = 11 [ (brewblox.field).logged = true ];
+  bool active = 12
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
   sint32 kp = 13 [
-    (brewblox).unit = InverseCelsius,
-    (brewblox).scale = 4096,
+    (brewblox.field).unit = InverseCelsius,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
-  uint32 ti = 14 [ (brewblox).unit = Second, (nanopb).int_size = IS_16 ];
-  uint32 td = 15 [ (brewblox).unit = Second, (nanopb).int_size = IS_16 ];
+  uint32 ti = 14 [ (brewblox.field).unit = Second, (nanopb).int_size = IS_16 ];
+  uint32 td = 15 [ (brewblox.field).unit = Second, (nanopb).int_size = IS_16 ];
 
   sint32 p = 16 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   sint32 i = 17 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   sint32 d = 18 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   sint32 error = 19 [
-    (brewblox).logged = true,
-    (brewblox).unit = DeltaCelsius,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   sint32 integral = 20 [
-    (brewblox).logged = true,
-    (brewblox).unit = DeltaCelsiusMultHour,
-    (brewblox).scale = 14745600,
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = DeltaCelsiusMultHour,
+    (brewblox.field).scale = 14745600,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   sint32 derivative = 21 [
-    (brewblox).logged = true,
-    (brewblox).unit = DeltaCelsiusPerMinute,
-    (brewblox).scale = 139810,
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = DeltaCelsiusPerMinute,
+    (brewblox.field).scale = 139810,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   uint32 drivenOutputId = 22 [
-    (brewblox).objtype = ActuatorAnalogInterface,
-    (brewblox).driven = true,
+    (brewblox.field).objtype = ActuatorAnalogInterface,
+    (brewblox.field).driven = true,
     (nanopb).int_size = IS_16,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   sint32 integralReset = 23 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ]; // when non-zero, resets integral to make i equal to what has been sent
 
   sint32 boilPointAdjust = 24 [
-    (brewblox).unit = DeltaCelsius,
-    (brewblox).scale = 4096,
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 boilMinOutput = 25
-      [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
   bool boilModeActive = 26
-      [ (brewblox).logged = true, (brewblox).readonly = true ];
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
   SetpointSensorPair.FilterChoice derivativeFilter = 27
-      [ (brewblox).readonly = true ];
+      [ (brewblox.field).readonly = true ];
 
   repeated uint32 strippedFields = 99 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
     (nanopb).max_count = 4
   ];

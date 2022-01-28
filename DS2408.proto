@@ -29,27 +29,27 @@ enum PinConnectMode {
 }
 
 message Block {
-  option (brewblox_msg).objtype = DS2408;
-  option (brewblox_msg).impl = IoArrayInterface;
-  option (brewblox_msg).impl = DS2408Interface;
-  option (brewblox_msg).impl = OneWireDeviceInterface;
+  option (brewblox.msg).objtype = DS2408;
+  option (brewblox.msg).impl = IoArrayInterface;
+  option (brewblox.msg).impl = DS2408Interface;
+  option (brewblox.msg).impl = OneWireDeviceInterface;
 
-  fixed64 address = 1 [ (brewblox).hexed = true ];
-  bool connected = 6 [ (brewblox).readonly = true ];
+  fixed64 address = 1 [ (brewblox.field).hexed = true ];
+  bool connected = 6 [ (brewblox.field).readonly = true ];
 
   PinConnectMode connectMode = 9;
   uint32 oneWireBusId = 10 [
-    (brewblox).objtype = OneWireBus,
+    (brewblox.field).objtype = OneWireBus,
     (nanopb).int_size = IS_16,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
 
   // if connectMode is valve, the channels are [1,5]. Each valve uses 4 pins
   // if connectMode is actuator, the channels are [1,2,3,4,5,6,7,8]
   repeated IoArray.IoChannel channels = 11
-      [ (nanopb).max_count = 8, (brewblox).readonly = true ];
+      [ (nanopb).max_count = 8, (brewblox.field).readonly = true ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

@@ -3,6 +3,8 @@ syntax = "proto3";
 import "google/protobuf/descriptor.proto";
 import "nanopb.proto";
 
+package brewblox;
+
 enum UnitType {
   NotSet = 0;
   Celsius = 1;
@@ -89,9 +91,9 @@ message FieldOpts {
 }
 
 extend google.protobuf.FieldOptions {
-  FieldOpts brewblox = 50001 [ (nanopb).type = FT_IGNORE ];
+  FieldOpts field = 50001 [ (nanopb).type = FT_IGNORE ];
 }
 
 extend google.protobuf.MessageOptions {
-  MessageOpts brewblox_msg = 50001 [ (nanopb).type = FT_IGNORE ];
+  MessageOpts msg = 50001 [ (nanopb).type = FT_IGNORE ];
 }

@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
@@ -39,9 +40,9 @@ enum AnalogOperator {
 
 message DigitalCompare {
   DigitalOperator op = 1;
-  Result result = 2 [ (brewblox).readonly = true ];
+  Result result = 2 [ (brewblox.field).readonly = true ];
   uint32 id = 3 [
-    (brewblox).objtype = ActuatorDigitalInterface,
+    (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
   IoArray.DigitalState rhs = 4;
@@ -49,29 +50,33 @@ message DigitalCompare {
 
 message AnalogCompare {
   AnalogOperator op = 1;
-  Result result = 2 [ (brewblox).readonly = true ];
-  uint32 id = 3
-      [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
-  sint32 rhs = 4 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+  Result result = 2 [ (brewblox.field).readonly = true ];
+  uint32 id = 3 [
+    (brewblox.field).objtype = ProcessValueInterface,
+    (nanopb).int_size = IS_16
+  ];
+  sint32 rhs = 4 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 };
 
 message Block {
-  option (brewblox_msg).objtype = ActuatorLogic;
+  option (brewblox.msg).objtype = ActuatorLogic;
 
   uint32 targetId = 1 [
-    (brewblox).objtype = ActuatorDigitalInterface,
+    (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
   uint32 drivenTargetId = 2 [
-    (brewblox).objtype = ActuatorDigitalInterface,
+    (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16,
-    (brewblox).driven = true,
-    (brewblox).readonly = true
+    (brewblox.field).driven = true,
+    (brewblox.field).readonly = true
   ];
   bool enabled = 3;
-  Result result = 4 [ (brewblox).logged = true, (brewblox).readonly = true ];
+  Result result = 4
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   string expression = 5 [ (nanopb).max_length = 64 ];
   repeated DigitalCompare digital = 6 [ (nanopb).max_count = 16 ];
   repeated AnalogCompare analog = 7 [ (nanopb).max_count = 16 ];
-  uint32 errorPos = 8 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
+  uint32 errorPos = 8
+      [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
 }

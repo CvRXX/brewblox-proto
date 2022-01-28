@@ -10,21 +10,24 @@ message Widget {
   bytes color = 2 [
     (nanopb).max_size = 3,
     (nanopb).fixed_length = true,
-    (brewblox).hexstr = true
+    (brewblox.field).hexstr = true
   ];
   string name = 3 [ (nanopb).max_size = 16 ];
   oneof WidgetType {
-    uint32 tempSensor = 10
-        [ (brewblox).objtype = TempSensorInterface, (nanopb).int_size = IS_16 ];
+    uint32 tempSensor = 10 [
+      (brewblox.field).objtype = TempSensorInterface,
+      (nanopb).int_size = IS_16
+    ];
     uint32 setpointSensorPair = 11 [
-      (brewblox).objtype = SetpointSensorPairInterface,
+      (brewblox.field).objtype = SetpointSensorPairInterface,
       (nanopb).int_size = IS_16
     ];
     uint32 actuatorAnalog = 12 [
-      (brewblox).objtype = ActuatorAnalogInterface,
+      (brewblox.field).objtype = ActuatorAnalogInterface,
       (nanopb).int_size = IS_16
     ];
-    uint32 pid = 14 [ (brewblox).objtype = Pid, (nanopb).int_size = IS_16 ];
+    uint32 pid = 14
+        [ (brewblox.field).objtype = Pid, (nanopb).int_size = IS_16 ];
   };
 }
 
@@ -34,7 +37,7 @@ enum TemperatureUnit {
 };
 
 message Block {
-  option (brewblox_msg).objtype = DisplaySettings;
+  option (brewblox.msg).objtype = DisplaySettings;
 
   repeated Widget widgets = 1 [ (nanopb).max_count = 6 ];
   string name = 2 [ (nanopb).max_size = 40 ];
