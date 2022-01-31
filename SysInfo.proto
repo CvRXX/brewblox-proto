@@ -3,7 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.SysInfo;
 
 message Trace {
   enum Action {
@@ -51,31 +51,40 @@ message Trace {
   uint32 type = 3 [ (nanopb).int_size = IS_16 ];
 }
 
-message SysInfo {
-  option (brewblox_msg).objtype = SysInfo;
+enum Platform {
+  PLATFORM_UNKNOWN = 0;
+  PLATFORM_GCC = 3;
+  PLATFORM_PHOTON = 6;
+  PLATFORM_P1 = 8;
+}
 
-  enum Platform {
-    PLATFORM_UNKNOWN = 0;
-    PLATFORM_GCC = 3;
-    PLATFORM_PHOTON = 6;
-    PLATFORM_P1 = 8;
-  }
+enum Command {
+  SYS_CMD_NONE = 0;
+  SYS_CMD_TRACE_READ = 1;
+  SYS_CMD_TRACE_RESUME = 2;
+  SYS_CMD_TRACE_READ_RESUME = 3;
+}
 
-  enum SysInfoCommand {
-    SYS_CMD_NONE = 0;
-    SYS_CMD_TRACE_READ = 1;
-    SYS_CMD_TRACE_RESUME = 2;
-    SYS_CMD_TRACE_READ_RESUME = 3;
-  }
+message Block {
+  option (brewblox.msg).objtype = SysInfo;
 
-  bytes deviceId = 1 [ (brewblox).readonly = true, (nanopb).max_size = 12, (brewblox).hexstr = true ];
-  string version = 2 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
-  Platform platform = 3 [ (brewblox).readonly = true ];
+  bytes deviceId = 1 [
+    (brewblox.field).readonly = true,
+    (nanopb).max_size = 12,
+    (brewblox.field).hexstr = true
+  ];
+  string version = 2
+      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
+  Platform platform = 3 [ (brewblox.field).readonly = true ];
 
-  string protocolVersion = 7 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
-  string releaseDate = 8 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
-  string protocolDate = 9 [ (brewblox).readonly = true, (nanopb).max_size = 12 ];
+  string protocolVersion = 7
+      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
+  string releaseDate = 8
+      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
+  string protocolDate = 9
+      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
 
-  SysInfoCommand command = 10;
-  repeated Trace trace = 11 [ (brewblox).readonly = true, (nanopb).max_count = 10 ];
+  Command command = 10;
+  repeated Trace trace = 11
+      [ (brewblox.field).readonly = true, (nanopb).max_count = 10 ];
 }

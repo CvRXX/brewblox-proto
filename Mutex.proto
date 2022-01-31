@@ -3,18 +3,18 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.Mutex;
 
-message Mutex {
-  option (brewblox_msg).objtype = Mutex;
-  option (brewblox_msg).impl = MutexInterface;
+message Block {
+  option (brewblox.msg).objtype = Mutex;
+  option (brewblox.msg).impl = MutexInterface;
 
   uint32 differentActuatorWait = 1
-      [ (brewblox).unit = Second, (brewblox).scale = 1000 ];
+      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
   uint32 waitRemaining = 2 [
-    (brewblox).readonly = true,
-    (brewblox).unit = Second,
-    (brewblox).scale = 1000,
+    (brewblox.field).readonly = true,
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
     (nanopb).int_size = IS_32
   ];
 }

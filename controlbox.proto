@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package controlbox;
+
+enum Opcode {
+  OPCODE_NONE = 0;
+  OPCODE_READ_OBJECT = 1;
+  OPCODE_WRITE_OBJECT = 2;
+  OPCODE_CREATE_OBJECT = 3;
+  OPCODE_DELETE_OBJECT = 4;
+  OPCODE_LIST_OBJECTS = 5;
+  OPCODE_READ_STORED_OBJECT = 6;
+  OPCODE_LIST_STORED_OBJECTS = 7;
+  OPCODE_CLEAR_OBJECTS = 8;
+  OPCODE_REBOOT = 9;
+  OPCODE_FACTORY_RESET = 10;
+  OPCODE_LIST_COMPATIBLE_OBJECTS = 11;
+  OPCODE_DISCOVER_OBJECTS = 12;
+  OPCODE_FIRMWARE_UPDATE = 100;
+}
+
+enum ErrorCode {
+  ERR_OK = 0;
+  ERR_UNKNOWN_ERROR = 1;
+
+  // object creation
+  ERR_INSUFFICIENT_HEAP = 4;
+
+  // generic stream errors
+  ERR_STREAM_ERROR_UNSPECIFIED = 8;
+  ERR_OUTPUT_STREAM_WRITE_ERROR = 9;
+  ERR_INPUT_STREAM_READ_ERROR = 10;
+  ERR_INPUT_STREAM_DECODING_ERROR = 11;
+  ERR_OUTPUT_STREAM_ENCODING_ERROR = 12;
+
+  // storage errors
+  ERR_INSUFFICIENT_PERSISTENT_STORAGE = 16;
+  ERR_PERSISTED_OBJECT_NOT_FOUND = 17;
+  ERR_INVALID_PERSISTED_BLOCK_TYPE = 18;
+  ERR_COULD_NOT_READ_PERSISTED_BLOCK_SIZE = 19;
+  ERR_PERSISTED_BLOCK_STREAM_ERROR = 20;
+  ERR_PERSISTED_STORAGE_WRITE_ERROR = 21;
+  ERR_CRC_ERROR_IN_STORED_OBJECT = 22;
+
+  // invalid actions
+  ERR_OBJECT_NOT_WRITABLE = 32;
+  ERR_OBJECT_NOT_READABLE = 33;
+  ERR_OBJECT_NOT_CREATABLE = 34;
+  ERR_OBJECT_NOT_DELETABLE = 35;
+
+  // invalid parameters
+  ERR_INVALID_COMMAND = 63;
+  ERR_INVALID_OBJECT_ID = 64;
+  ERR_INVALID_OBJECT_TYPE = 65;
+  ERR_INVALID_OBJECT_GROUPS = 66;
+  ERR_CRC_ERROR_IN_COMMAND = 67;
+  ERR_OBJECT_DATA_NOT_ACCEPTED = 68;
+
+  // freak events that should not be possible
+  ERR_WRITE_TO_INACTIVE_OBJECT = 200;
+}
+
+message Payload {
+  uint32 blockId = 1;
+  brewblox.BlockType objtype = 2;
+  uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
+  string data = 4;
+}
+
+message Request {
+  uint32 msgId = 1;
+  Opcode opcode = 2;
+  Payload payload = 3;
+}
+
+message Response {
+  uint32 msgId = 1;
+  ErrorCode error = 2;
+  repeated Payload payload = 3;
+}

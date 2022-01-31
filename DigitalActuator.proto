@@ -2,28 +2,28 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "DigitalConstraints.proto";
+import "Constraints.proto";
 import "IoArray.proto";
 
-package blox;
+package blox.DigitalActuator;
 
-message DigitalActuator {
-  option (brewblox_msg).objtype = DigitalActuator;
-  option (brewblox_msg).impl = ActuatorDigitalInterface;
+message Block {
+  option (brewblox.msg).objtype = DigitalActuator;
+  option (brewblox.msg).impl = ActuatorDigitalInterface;
 
   uint32 hwDevice = 1 [
-    (brewblox).objtype = IoArrayInterface,
-    (brewblox).driven = true,
+    (brewblox.field).objtype = IoArrayInterface,
+    (brewblox.field).driven = true,
     (nanopb).int_size = IS_16
   ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
-  DigitalState state = 3
-      [ (brewblox).logged = true, (brewblox).readonly = true ];
+  IoArray.DigitalState state = 3
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   bool invert = 4;
-  DigitalConstraints constrainedBy = 5;
-  DigitalState desiredState = 6 [ (brewblox).logged = true ];
+  Constraints.DigitalConstraints constrainedBy = 5;
+  IoArray.DigitalState desiredState = 6 [ (brewblox.field).logged = true ];
   repeated uint32 strippedFields = 99 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
     (nanopb).max_count = 1
   ];

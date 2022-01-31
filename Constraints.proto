@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox.Constraints;
+
+message Balanced {
+  uint32 balancerId = 1 [
+    (brewblox.field).objtype = BalancerInterface,
+    (nanopb).int_size = IS_16
+  ];
+  uint32 granted = 2
+      [ (brewblox.field).scale = 4096, (brewblox.field).readonly = true ];
+  uint32 id = 3 [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
+}
+
+message Mutexed {
+  uint32 mutexId = 1
+      [ (brewblox.field).objtype = MutexInterface, (nanopb).int_size = IS_16 ];
+  uint32 extraHoldTime = 2 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (nanopb).int_size = IS_32
+  ];
+  bool hasCustomHoldTime = 3;
+  bool hasLock = 4 [ (brewblox.field).readonly = true ];
+}
+
+message AnalogConstraint {
+  oneof constraint {
+    sint32 min = 1 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+    sint32 max = 2 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+    Balanced balanced = 3;
+  }
+  bool limiting = 100 [ (brewblox.field).readonly = true ];
+}
+
+message AnalogConstraints {
+  repeated AnalogConstraint constraints = 1 [ (nanopb).max_count = 8 ];
+}
+
+message DigitalConstraint {
+  oneof constraint {
+    uint32 minOff = 1 [
+      (brewblox.field).unit = Second,
+      (brewblox.field).scale = 1000,
+      (nanopb).int_size = IS_32
+    ];
+    uint32 minOn = 2 [
+      (brewblox.field).unit = Second,
+      (brewblox.field).scale = 1000,
+      (nanopb).int_size = IS_32
+    ];
+    Mutexed mutexed = 4;
+    uint32 delayedOff = 5 [
+      (brewblox.field).unit = Second,
+      (brewblox.field).scale = 1000,
+      (nanopb).int_size = IS_32
+    ];
+    uint32 delayedOn = 6 [
+      (brewblox.field).unit = Second,
+      (brewblox.field).scale = 1000,
+      (nanopb).int_size = IS_32
+    ];
+
+    // deprecated format, will automatically be converted to nr 4
+    uint32 mutex = 3 [
+      (brewblox.field).objtype = MutexInterface,
+      (nanopb).int_size = IS_16
+    ];
+  }
+
+  uint32 limiting = 100
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+
+  uint32 remaining = 101 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+}
+
+message DigitalConstraints {
+  repeated DigitalConstraint constraints = 1 [ (nanopb).max_count = 8 ];
+}

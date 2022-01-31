@@ -3,27 +3,41 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.DisplaySettings;
 
 message Widget {
   uint32 pos = 1 [ (nanopb).int_size = IS_8 ];
-  bytes color = 2 [ (nanopb).max_size = 3, (nanopb).fixed_length = true, (brewblox).hexstr = true ];
+  bytes color = 2 [
+    (nanopb).max_size = 3,
+    (nanopb).fixed_length = true,
+    (brewblox.field).hexstr = true
+  ];
   string name = 3 [ (nanopb).max_size = 16 ];
   oneof WidgetType {
-    uint32 tempSensor = 10 [ (brewblox).objtype = TempSensorInterface, (nanopb).int_size = IS_16 ];
-    uint32 setpointSensorPair = 11 [ (brewblox).objtype = SetpointSensorPairInterface, (nanopb).int_size = IS_16 ];
-    uint32 actuatorAnalog = 12 [ (brewblox).objtype = ActuatorAnalogInterface, (nanopb).int_size = IS_16 ];
-    uint32 pid = 14 [ (brewblox).objtype = Pid, (nanopb).int_size = IS_16 ];
+    uint32 tempSensor = 10 [
+      (brewblox.field).objtype = TempSensorInterface,
+      (nanopb).int_size = IS_16
+    ];
+    uint32 setpointSensorPair = 11 [
+      (brewblox.field).objtype = SetpointSensorPairInterface,
+      (nanopb).int_size = IS_16
+    ];
+    uint32 actuatorAnalog = 12 [
+      (brewblox.field).objtype = ActuatorAnalogInterface,
+      (nanopb).int_size = IS_16
+    ];
+    uint32 pid = 14
+        [ (brewblox.field).objtype = Pid, (nanopb).int_size = IS_16 ];
   };
 }
 
-message DisplaySettings {
-  option (brewblox_msg).objtype = DisplaySettings;
+enum TemperatureUnit {
+  TEMP_CELSIUS = 0;
+  TEMP_FAHRENHEIT = 1;
+};
 
-  enum TemperatureUnit {
-    TEMP_CELSIUS = 0;
-    TEMP_FAHRENHEIT = 1;
-  };
+message Block {
+  option (brewblox.msg).objtype = DisplaySettings;
 
   repeated Widget widgets = 1 [ (nanopb).max_count = 6 ];
   string name = 2 [ (nanopb).max_size = 40 ];

@@ -2,42 +2,46 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "AnalogConstraints.proto";
+import "Constraints.proto";
 
-package blox;
+package blox.ActuatorAnalogMock;
 
-message ActuatorAnalogMock {
-  option (brewblox_msg).objtype = ActuatorAnalogMock;
-  option (brewblox_msg).impl = ActuatorAnalogInterface;
-  option (brewblox_msg).impl = ProcessValueInterface;
+message Block {
+  option (brewblox.msg).objtype = ActuatorAnalogMock;
+  option (brewblox.msg).impl = ActuatorAnalogInterface;
+  option (brewblox.msg).impl = ProcessValueInterface;
 
   sint32 setting = 1 [
-    (brewblox).logged = true,
-    (brewblox).readonly = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 value = 2 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
-  sint32 minSetting = 4 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
-  sint32 maxSetting = 5 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
-  sint32 minValue = 6 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
-  sint32 maxValue = 7 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+  sint32 minSetting = 4
+      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+  sint32 maxSetting = 5
+      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+  sint32 minValue = 6
+      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+  sint32 maxValue = 7
+      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 
-  AnalogConstraints constrainedBy = 8;
+  Constraints.AnalogConstraints constrainedBy = 8;
 
   sint32 desiredSetting = 9 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
 
   repeated uint32 strippedFields = 99 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
     (nanopb).max_count = 2
   ];

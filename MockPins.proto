@@ -4,9 +4,9 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
 
-package blox;
+package blox.MockPins;
 
-enum MockPinsChannelIds {
+enum ChannelId {
   MOCKPINS_CHAN_NONE = 0;
   MOCKPINS_CHAN_A = 1;
   MOCKPINS_CHAN_B = 2;
@@ -18,13 +18,17 @@ enum MockPinsChannelIds {
   MOCKPINS_CHAN_H = 8;
 };
 
-message MockPins {
-  option (brewblox_msg).objtype = MockPins;
-  option (brewblox_msg).impl = IoArrayInterface;
+message Block {
+  option (brewblox.msg).objtype = MockPins;
+  option (brewblox.msg).impl = IoArrayInterface;
 
-  repeated IoChannel channels = 2 [ (nanopb).max_count = 8, (nanopb).fixed_length = true, (brewblox).readonly = true ];
+  repeated IoArray.IoChannel channels = 2 [
+    (nanopb).max_count = 8,
+    (nanopb).fixed_length = true,
+    (brewblox.field).readonly = true
+  ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

@@ -3,17 +3,35 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox;
+package blox.TempSensorOneWire;
 
-message TempSensorOneWire {
-  option (brewblox_msg).objtype = TempSensorOneWire;
-  option (brewblox_msg).impl = TempSensorInterface;
-  option (brewblox_msg).impl = OneWireDeviceInterface;
+message Block {
+  option (brewblox.msg).objtype = TempSensorOneWire;
+  option (brewblox.msg).impl = TempSensorInterface;
+  option (brewblox.msg).impl = OneWireDeviceInterface;
 
-  sint32 value = 1 [ (brewblox).logged = true, (brewblox).unit = Celsius, (brewblox).scale = 4096, (nanopb).int_size = IS_32, (brewblox).readonly = true ];
-  sint32 offset = 3 [ (brewblox).unit = DeltaCelsius, (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
-  fixed64 address = 4 [ (brewblox).hexed = true ];
-  uint32 oneWireBusId = 5 [ (brewblox).objtype = OneWireBus, (nanopb).int_size = IS_16, (brewblox).readonly = true ];
+  sint32 value = 1 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 offset = 3 [
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+  fixed64 address = 4 [ (brewblox.field).hexed = true ];
+  uint32 oneWireBusId = 5 [
+    (brewblox.field).objtype = OneWireBus,
+    (nanopb).int_size = IS_16,
+    (brewblox.field).readonly = true
+  ];
 
-  repeated uint32 strippedFields = 99 [ (brewblox).readonly = true, (nanopb).int_size = IS_16, (nanopb).max_count = 1 ];
+  repeated uint32 strippedFields = 99 [
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16,
+    (nanopb).max_count = 1
+  ];
 }

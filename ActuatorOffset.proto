@@ -2,52 +2,56 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "AnalogConstraints.proto";
+import "Constraints.proto";
 
-package blox;
+package blox.ActuatorOffset;
 
-message ActuatorOffset {
-  option (brewblox_msg).objtype = ActuatorOffset;
-  option (brewblox_msg).impl = ActuatorAnalogInterface;
+enum ReferenceKind {
+  REF_SETTING = 0;
+  REF_VALUE = 1;
+}
 
-  enum ReferenceKind {
-    REF_SETTING = 0;
-    REF_VALUE = 1;
-  }
+message Block {
+  option (brewblox.msg).objtype = ActuatorOffset;
+  option (brewblox.msg).impl = ActuatorAnalogInterface;
 
-  uint32 targetId = 1
-      [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
-  uint32 referenceId = 3
-      [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
+  uint32 targetId = 1 [
+    (brewblox.field).objtype = ProcessValueInterface,
+    (nanopb).int_size = IS_16
+  ];
+  uint32 referenceId = 3 [
+    (brewblox.field).objtype = ProcessValueInterface,
+    (nanopb).int_size = IS_16
+  ];
   ReferenceKind referenceSettingOrValue = 4;
   sint32 setting = 6 [
-    (brewblox).logged = true,
-    (brewblox).readonly = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 value = 7 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
-  AnalogConstraints constrainedBy = 8;
+  Constraints.AnalogConstraints constrainedBy = 8;
   uint32 drivenTargetId = 9 [
-    (brewblox).objtype = ProcessValueInterface,
-    (brewblox).driven = true,
+    (brewblox.field).objtype = ProcessValueInterface,
+    (brewblox.field).driven = true,
     (nanopb).int_size = IS_16,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   bool enabled = 10;
   sint32 desiredSetting = 11 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
 
   repeated uint32 strippedFields = 99 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
     (nanopb).max_count = 2
   ];

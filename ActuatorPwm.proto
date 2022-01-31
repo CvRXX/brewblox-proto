@@ -2,48 +2,49 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "AnalogConstraints.proto";
+import "Constraints.proto";
 
-package blox;
+package blox.ActuatorPwm;
 
-message ActuatorPwm {
-  option (brewblox_msg).objtype = ActuatorPwm;
-  option (brewblox_msg).impl = ProcessValueInterface;
-  option (brewblox_msg).impl = ActuatorAnalogInterface;
+message Block {
+  option (brewblox.msg).objtype = ActuatorPwm;
+  option (brewblox.msg).impl = ProcessValueInterface;
+  option (brewblox.msg).impl = ActuatorAnalogInterface;
 
   uint32 actuatorId = 1 [
-    (brewblox).objtype = ActuatorDigitalInterface,
+    (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
-  uint32 period = 3 [ (brewblox).unit = Second, (brewblox).scale = 1000 ];
+  uint32 period = 3
+      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
   sint32 setting = 4 [
-    (brewblox).logged = true,
-    (brewblox).readonly = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 value = 5 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
-  AnalogConstraints constrainedBy = 6;
+  Constraints.AnalogConstraints constrainedBy = 6;
   uint32 drivenActuatorId = 7 [
-    (brewblox).objtype = ActuatorDigitalInterface,
-    (brewblox).driven = true,
+    (brewblox.field).objtype = ActuatorDigitalInterface,
+    (brewblox.field).driven = true,
     (nanopb).int_size = IS_16,
-    (brewblox).readonly = true
+    (brewblox.field).readonly = true
   ];
   bool enabled = 8;
   sint32 desiredSetting = 9 [
-    (brewblox).logged = true,
-    (brewblox).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
 
   repeated uint32 strippedFields = 99 [
-    (brewblox).readonly = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16,
     (nanopb).max_count = 2
   ];

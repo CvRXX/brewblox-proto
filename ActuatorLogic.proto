@@ -1,79 +1,82 @@
 syntax = "proto3";
+
 import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
-package blox;
 
-message Compare {
-  enum Result {
-    RESULT_FALSE = 0;
-    RESULT_TRUE = 1;
-    RESULT_EMPTY = 2;
-    RESULT_EMPTY_SUBSTRING = 3;
-    RESULT_BLOCK_NOT_FOUND = 4;
-    RESULT_INVALID_DIGITAL_OP = 5;
-    RESULT_INVALID_ANALOG_OP = 6;
-    RESULT_UNDEFINED_DIGITAL_COMPARE = 8;
-    RESULT_UNDEFINED_ANALOG_COMPARE = 7;
-    RESULT_UNEXPECTED_OPEN_BRACKET = 11;
-    RESULT_UNEXPECTED_CLOSE_BRACKET = 9;
-    RESULT_UNEXPECTED_CHARACTER = 12;
-    RESULT_UNEXPECTED_COMPARISON = 13;
-    RESULT_UNEXPECTED_OPERATOR = 14;
-    RESULT_MISSING_CLOSE_BRACKET = 10;
-  }
+package blox.ActuatorLogic;
 
-  enum DigitalOperator {
-    OP_VALUE_IS = 0;
-    OP_VALUE_IS_NOT = 1;
-    OP_DESIRED_IS = 10;
-    OP_DESIRED_IS_NOT = 11;
-  };
-
-  enum AnalogOperator {
-    OP_VALUE_LE = 0;
-    OP_VALUE_GE = 1;
-    OP_SETTING_LE = 10;
-    OP_SETTING_GE = 11;
-  };
+enum Result {
+  RESULT_FALSE = 0;
+  RESULT_TRUE = 1;
+  RESULT_EMPTY = 2;
+  RESULT_EMPTY_SUBSTRING = 3;
+  RESULT_BLOCK_NOT_FOUND = 4;
+  RESULT_INVALID_DIGITAL_OP = 5;
+  RESULT_INVALID_ANALOG_OP = 6;
+  RESULT_UNDEFINED_DIGITAL_COMPARE = 8;
+  RESULT_UNDEFINED_ANALOG_COMPARE = 7;
+  RESULT_UNEXPECTED_OPEN_BRACKET = 11;
+  RESULT_UNEXPECTED_CLOSE_BRACKET = 9;
+  RESULT_UNEXPECTED_CHARACTER = 12;
+  RESULT_UNEXPECTED_COMPARISON = 13;
+  RESULT_UNEXPECTED_OPERATOR = 14;
+  RESULT_MISSING_CLOSE_BRACKET = 10;
 }
 
+enum DigitalOperator {
+  OP_VALUE_IS = 0;
+  OP_VALUE_IS_NOT = 1;
+  OP_DESIRED_IS = 10;
+  OP_DESIRED_IS_NOT = 11;
+};
+
+enum AnalogOperator {
+  OP_VALUE_LE = 0;
+  OP_VALUE_GE = 1;
+  OP_SETTING_LE = 10;
+  OP_SETTING_GE = 11;
+};
+
 message DigitalCompare {
-  Compare.DigitalOperator op = 1;
-  Compare.Result result = 2 [ (brewblox).readonly = true ];
+  DigitalOperator op = 1;
+  Result result = 2 [ (brewblox.field).readonly = true ];
   uint32 id = 3 [
-    (brewblox).objtype = ActuatorDigitalInterface,
+    (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
-  DigitalState rhs = 4;
+  IoArray.DigitalState rhs = 4;
 };
 
 message AnalogCompare {
-  Compare.AnalogOperator op = 1;
-  Compare.Result result = 2 [ (brewblox).readonly = true ];
-  uint32 id = 3
-      [ (brewblox).objtype = ProcessValueInterface, (nanopb).int_size = IS_16 ];
-  sint32 rhs = 4 [ (brewblox).scale = 4096, (nanopb).int_size = IS_32 ];
+  AnalogOperator op = 1;
+  Result result = 2 [ (brewblox.field).readonly = true ];
+  uint32 id = 3 [
+    (brewblox.field).objtype = ProcessValueInterface,
+    (nanopb).int_size = IS_16
+  ];
+  sint32 rhs = 4 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 };
 
-message ActuatorLogic {
-  option (brewblox_msg).objtype = ActuatorLogic;
+message Block {
+  option (brewblox.msg).objtype = ActuatorLogic;
 
   uint32 targetId = 1 [
-    (brewblox).objtype = ActuatorDigitalInterface,
+    (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
   uint32 drivenTargetId = 2 [
-    (brewblox).objtype = ActuatorDigitalInterface,
+    (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16,
-    (brewblox).driven = true,
-    (brewblox).readonly = true
+    (brewblox.field).driven = true,
+    (brewblox.field).readonly = true
   ];
   bool enabled = 3;
-  Compare.Result result = 4
-      [ (brewblox).logged = true, (brewblox).readonly = true ];
+  Result result = 4
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   string expression = 5 [ (nanopb).max_length = 64 ];
   repeated DigitalCompare digital = 6 [ (nanopb).max_count = 16 ];
   repeated AnalogCompare analog = 7 [ (nanopb).max_count = 16 ];
-  uint32 errorPos = 8 [ (brewblox).readonly = true, (nanopb).int_size = IS_8 ];
+  uint32 errorPos = 8
+      [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
 }
