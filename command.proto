@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package command;
+
+enum Opcode {
+  NONE = 0;
+  VERSION = 1;
+
+  BLOCK_READ = 10;
+  BLOCK_READ_ALL = 11;
+  BLOCK_WRITE = 12;
+  BLOCK_CREATE = 13;
+  BLOCK_DELETE = 14;
+  BLOCK_DISCOVER = 15;
+
+  STORAGE_READ = 20;
+  STORAGE_READ_ALL = 21;
+
+  REBOOT = 30;
+  CLEAR_BLOCKS = 31;
+  CLEAR_WIFI = 32;
+  FACTORY_RESET = 33;
+
+  FIRMWARE_UPDATE = 40;
+}
+
+enum ErrorCode {
+  OK = 0;
+  UNKNOWN_ERROR = 1;
+  INVALID_OPCODE = 2;
+
+  // Memory errors
+  INSUFFICIENT_HEAP = 4;
+  INSUFFICIENT_STORAGE = 5;
+
+  // Network I/O errors
+  NETWORK_ERROR = 10;
+  NETWORK_READ_ERROR = 11;
+  NETWORK_DECODING_ERROR = 12;
+  NETWORK_WRITE_ERROR = 13;
+  NETWORK_ENCODING_ERROR = 14;
+
+  // Storage I/O errors
+  STORAGE_ERROR = 20;
+  STORAGE_READ_ERROR = 21;
+  STORAGE_DECODING_ERROR = 22;
+  STORAGE_CRC_ERROR = 23;
+  STORAGE_WRITE_ERROR = 24;
+  STORAGE_ENCODING_ERROR = 25;
+
+  // Invalid actions
+  BLOCK_NOT_WRITABLE = 30;
+  BLOCK_NOT_READABLE = 31;
+  BLOCK_NOT_CREATABLE = 32;
+  BLOCK_NOT_DELETABLE = 33;
+
+  // Invalid block data
+  INVALID_BLOCK = 40;
+  INVALID_BLOCK_ID = 41;
+  INVALID_BLOCK_TYPE = 42;
+  INVALID_BLOCK_SUBTYPE = 43;
+  INVALID_BLOCK_CONTENT = 44;
+
+  // Invalid stored block data
+  INVALID_STORED_BLOCK = 50;
+  INVALID_STORED_BLOCK_ID = 51;
+  INVALID_STORED_BLOCK_TYPE = 52;
+  INVALID_STORED_BLOCK_SUBTYPE = 53;
+  INVALID_STORED_BLOCK_CONTENT = 54;
+}
+
+message Payload {
+  uint32 blockId = 1 [ (nanopb).int_size = IS_16 ];
+  brewblox.BlockType blockType = 2;
+  uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
+  string content = 4; // Block message: proto encoded, then base64 encoded
+}
+
+message Request {
+  uint32 msgId = 1;
+  Opcode opcode = 2;
+  Payload payload = 3;
+}
+
+message Response {
+  uint32 msgId = 1;
+  ErrorCode error = 2;
+  repeated Payload payload = 3;
+}
