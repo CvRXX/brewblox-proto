@@ -66,6 +66,7 @@ enum BlockType {
   MockPins = 323;
   TempSensorCombi = 324;
   OneWireGpioModule = 325;
+  Stepper = 326;
 }
 
 message MessageOpts {
