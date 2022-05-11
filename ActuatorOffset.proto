@@ -14,6 +14,7 @@ enum ReferenceKind {
 message Block {
   option (brewblox.msg).objtype = ActuatorOffset;
   option (brewblox.msg).impl = ActuatorAnalogInterface;
+  option (brewblox.msg).impl = EnablerInterface;
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = ProcessValueInterface,

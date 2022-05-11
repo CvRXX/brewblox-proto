@@ -36,7 +36,7 @@ enum BlockType {
   OneWireBusInterface = 12;
   IoModuleInterface = 13;
   OneWireDeviceBlockInterface = 14;
-  SupportsEnabledInterface = 15;
+  EnablerInterface = 15;
   Any = 255;
   SysInfo = 256;
   Ticks = 257;

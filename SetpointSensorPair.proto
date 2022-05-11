@@ -19,6 +19,7 @@ message Block {
   option (brewblox.msg).objtype = SetpointSensorPair;
   option (brewblox.msg).impl = ProcessValueInterface;
   option (brewblox.msg).impl = SetpointSensorPairInterface;
+  option (brewblox.msg).impl = EnablerInterface;
 
   uint32 sensorId = 2 [
     (brewblox.field).objtype = TempSensorInterface,
