@@ -162,7 +162,8 @@ message Block {
 
   bool enabled = 1 [ (brewblox.field).logged = true ];
   repeated Instruction instructions = 2;
-  InstructionReset reset = 3;
+
+  oneof reset_oneof { InstructionReset reset = 3; }
 
   uint32 activeInstruction = 4 [
     (nanopb).int_size = IS_16,
