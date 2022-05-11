@@ -1,0 +1,184 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "IoArray.proto";
+
+package blox.Sequence;
+
+message Restart {}
+
+message EnableDisable {
+  uint32 target = 1 [
+    (brewblox.field).objtype = SupportsEnabledInterface,
+    (nanopb).int_size = IS_16
+  ];
+}
+
+message WaitDuration { uint32 duration = 1 [ (nanopb).int_size = IS_32 ]; }
+
+message WaitUntil { uint32 time = 1 [ (nanopb).int_size = IS_32 ]; }
+
+message WaitTemperature {
+  uint32 target = 1 [
+    (brewblox.field).objtype = TempSensorInterface,
+    (nanopb).int_size = IS_16
+  ];
+  sint32 lower = 2 [
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 upper = 3 [
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+}
+
+message WaitTemperatureBoundary {
+  uint32 target = 1 [
+    (brewblox.field).objtype = TempSensorInterface,
+    (nanopb).int_size = IS_16
+  ];
+  sint32 value = 2 [
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+}
+
+message SetSetpoint {
+  uint32 target = 1 [
+    (brewblox.field).objtype = SetpointSensorPairInterface,
+    (nanopb).int_size = IS_16
+  ];
+  sint32 setting = 2 [
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+}
+
+message WaitSetpoint {
+  uint32 target = 1 [
+    (brewblox.field).objtype = SetpointSensorPairInterface,
+    (nanopb).int_size = IS_16
+  ];
+  sint32 precision = 2 [
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+}
+
+message SetDigital {
+  uint32 target = 1 [
+    (brewblox.field).objtype = ActuatorDigitalInterface,
+    (nanopb).int_size = IS_16
+  ];
+  IoArray.DigitalState setting = 2;
+}
+
+message WaitDigital {
+  uint32 target = 1 [
+    (brewblox.field).objtype = ActuatorDigitalInterface,
+    (nanopb).int_size = IS_16
+  ];
+}
+
+message SetPwm {
+  uint32 target = 1
+      [ (brewblox.field).objtype = ActuatorPwm, (nanopb).int_size = IS_16 ];
+  sint32 setting = 2
+      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+}
+
+message WaitPwm {
+  uint32 target = 1
+      [ (brewblox.field).objtype = ActuatorPwm, (nanopb).int_size = IS_16 ];
+}
+
+message StartWaitProfile {
+  uint32 target = 1
+      [ (brewblox.field).objtype = SetpointProfile, (nanopb).int_size = IS_16 ];
+}
+
+message StartWaitSequence {
+  uint32 target = 1
+      [ (brewblox.field).objtype = Sequence, (nanopb).int_size = IS_16 ];
+}
+
+message Instruction {
+  oneof instruction_oneof {
+    Restart restart = 1;
+    EnableDisable enable = 2;
+    EnableDisable disable = 3;
+    WaitDuration waitDuration = 4;
+    WaitUntil waitUntil = 5;
+    WaitTemperature waitTemperature = 6;
+    WaitTemperatureBoundary waitTemperatureAbove = 7;
+    WaitTemperatureBoundary waitTemperatureBelow = 8;
+    SetSetpoint setSetpoint = 9;
+    WaitSetpoint waitSetpoint = 10;
+    SetDigital setDigital = 11;
+    WaitDigital waitDigital = 12;
+    SetPwm setPwm = 13;
+    WaitPwm waitPwm = 14;
+    StartWaitProfile startProfile = 15;
+    StartWaitProfile waitProfile = 16;
+    StartWaitSequence startSequence = 17;
+    StartWaitSequence waitSequence = 18;
+  }
+}
+
+enum SequenceStatus {
+  UNKNOWN = 0;
+  DISABLED = 1;
+  PAUSED = 2;
+  ACTIVE = 3;
+  WAITING = 4;
+  DONE = 5;
+  ERROR = 6;
+}
+
+enum SequenceError {
+  NONE = 0;
+  INVALID_ARGUMENT = 1;
+  INVALID_TARGET = 2;
+  INVALID_TARGET_TYPE = 3;
+  TARGET_DISABLED = 4;
+  SYSTEM_TIME_NOT_AVAILABLE = 5;
+}
+
+message InstructionReset {
+  uint32 activeInstruction = 1 [ (nanopb).int_size = IS_16 ];
+  uint32 activeInstructionStartedAt = 2 [ (nanopb).int_size = IS_32 ];
+}
+
+message Block {
+  option (brewblox.msg).objtype = Sequence;
+  option (brewblox.msg).impl = SupportsEnabledInterface;
+
+  bool enabled = 1 [ (brewblox.field).logged = true ];
+  repeated Instruction instructions = 2;
+  InstructionReset reset = 3;
+
+  uint32 activeInstruction = 4 [
+    (nanopb).int_size = IS_16,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true
+  ];
+  uint32 activeInstructionStartedAt = 5 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true
+  ];
+  uint32 disabledAt = 6
+      [ (nanopb).int_size = IS_32, (brewblox.field).readonly = true ];
+  uint32 disabledDuration = 7
+      [ (nanopb).int_size = IS_32, (brewblox.field).readonly = true ];
+
+  SequenceStatus status = 8 [ (brewblox.field).readonly = true ];
+  SequenceError error = 9 [ (brewblox.field).readonly = true ];
+}
