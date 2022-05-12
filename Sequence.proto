@@ -97,6 +97,8 @@ message SetPwm {
 message WaitPwm {
   uint32 target = 1
       [ (brewblox.field).objtype = ActuatorPwm, (nanopb).int_size = IS_16 ];
+  sint32 precision = 2
+      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 }
 
 message StartWaitProfile {
