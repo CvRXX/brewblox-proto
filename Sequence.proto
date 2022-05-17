@@ -113,24 +113,24 @@ message StartWaitSequence {
 
 message Instruction {
   oneof instruction_oneof {
-    Restart restart = 1;
-    EnableDisable enable = 2;
-    EnableDisable disable = 3;
-    WaitDuration waitDuration = 4;
-    WaitUntil waitUntil = 5;
-    WaitTemperature waitTemperature = 6;
-    WaitTemperatureBoundary waitTemperatureAbove = 7;
-    WaitTemperatureBoundary waitTemperatureBelow = 8;
-    SetSetpoint setSetpoint = 9;
-    WaitSetpoint waitSetpoint = 10;
-    SetDigital setDigital = 11;
-    WaitDigital waitDigital = 12;
-    SetPwm setPwm = 13;
-    WaitPwm waitPwm = 14;
-    StartWaitProfile startProfile = 15;
-    StartWaitProfile waitProfile = 16;
-    StartWaitSequence startSequence = 17;
-    StartWaitSequence waitSequence = 18;
+    Restart RESTART = 1;
+    EnableDisable ENABLE = 2;
+    EnableDisable DISABLE = 3;
+    WaitDuration WAIT_DURATION = 4;
+    WaitUntil WAIT_UNTIL = 5;
+    WaitTemperature WAIT_TEMPERATURE_BETWEEN = 6;
+    WaitTemperatureBoundary WAIT_TEMPERATURE_ABOVE = 7;
+    WaitTemperatureBoundary WAIT_TEMPERATURE_BELOW = 8;
+    SetSetpoint SET_SETPOINT = 9;
+    WaitSetpoint WAIT_SETPOINT = 10;
+    SetDigital SET_DIGITAL = 11;
+    WaitDigital WAIT_DIGITAL = 12;
+    SetPwm SET_PWM = 13;
+    WaitPwm WAIT_PWM = 14;
+    StartWaitProfile START_PROFILE = 15;
+    StartWaitProfile WAIT_PROFILE = 16;
+    StartWaitSequence START_SEQUENCE = 17;
+    StartWaitSequence WAIT_SEQUENCE = 18;
   }
 }
 
@@ -150,7 +150,7 @@ enum SequenceError {
   INVALID_ARGUMENT = 1;
   INVALID_TARGET = 2;
   INVALID_TARGET_TYPE = 3;
-  TARGET_DISABLED = 4;
+  DISABLED_TARGET = 4;
   SYSTEM_TIME_NOT_AVAILABLE = 5;
 }
 
