@@ -90,6 +90,7 @@ message FieldOpts {
   bool driven = 8;
   bool ignored = 9;
   bool bitfield = 10;
+  bool datetime = 11;
 }
 
 extend google.protobuf.FieldOptions {

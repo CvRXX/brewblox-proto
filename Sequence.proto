@@ -15,9 +15,15 @@ message EnableDisable {
   ];
 }
 
-message WaitDuration { uint32 duration = 1 [ (nanopb).int_size = IS_32 ]; }
+message WaitDuration {
+  uint32 duration = 1
+      [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
+}
 
-message WaitUntil { uint32 time = 1 [ (nanopb).int_size = IS_32 ]; }
+message WaitUntil {
+  uint32 time = 1
+      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+}
 
 message WaitTemperature {
   uint32 target = 1 [
@@ -175,13 +181,20 @@ message Block {
   ];
   uint32 activeInstructionStartedAt = 5 [
     (nanopb).int_size = IS_32,
-    (brewblox.field).logged = true,
+    (brewblox.field).datetime = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  uint32 disabledAt = 6 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).datetime = true,
     (brewblox.field).readonly = true
   ];
-  uint32 disabledAt = 6
-      [ (nanopb).int_size = IS_32, (brewblox.field).readonly = true ];
-  uint32 disabledDuration = 7
-      [ (nanopb).int_size = IS_32, (brewblox.field).readonly = true ];
+  uint32 disabledDuration = 7 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).unit = Second,
+    (brewblox.field).readonly = true
+  ];
 
   SequenceStatus status = 8 [ (brewblox.field).readonly = true ];
   SequenceError error = 9 [ (brewblox.field).readonly = true ];
