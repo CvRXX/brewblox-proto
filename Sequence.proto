@@ -25,7 +25,7 @@ message WaitUntil {
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
 }
 
-message WaitTemperature {
+message WaitTemperatureRange {
   uint32 target = 1 [
     (brewblox.field).objtype = TempSensorInterface,
     (nanopb).int_size = IS_16
@@ -100,19 +100,12 @@ message SetPwm {
       [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 }
 
-message WaitPwm {
-  uint32 target = 1
-      [ (brewblox.field).objtype = ActuatorPwm, (nanopb).int_size = IS_16 ];
-  sint32 precision = 2
-      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
-}
-
-message StartWaitProfile {
+message TargetProfile {
   uint32 target = 1
       [ (brewblox.field).objtype = SetpointProfile, (nanopb).int_size = IS_16 ];
 }
 
-message StartWaitSequence {
+message TargetSequence {
   uint32 target = 1
       [ (brewblox.field).objtype = Sequence, (nanopb).int_size = IS_16 ];
 }
@@ -124,19 +117,20 @@ message Instruction {
     EnableDisable DISABLE = 3;
     WaitDuration WAIT_DURATION = 4;
     WaitUntil WAIT_UNTIL = 5;
-    WaitTemperature WAIT_TEMPERATURE_BETWEEN = 6;
-    WaitTemperatureBoundary WAIT_TEMPERATURE_ABOVE = 7;
-    WaitTemperatureBoundary WAIT_TEMPERATURE_BELOW = 8;
-    SetSetpoint SET_SETPOINT = 9;
-    WaitSetpoint WAIT_SETPOINT = 10;
-    SetDigital SET_DIGITAL = 11;
-    WaitDigital WAIT_DIGITAL = 12;
-    SetPwm SET_PWM = 13;
-    WaitPwm WAIT_PWM = 14;
-    StartWaitProfile START_PROFILE = 15;
-    StartWaitProfile WAIT_PROFILE = 16;
-    StartWaitSequence START_SEQUENCE = 17;
-    StartWaitSequence WAIT_SEQUENCE = 18;
+    WaitTemperatureRange WAIT_TEMP_BETWEEN = 6;
+    WaitTemperatureRange WAIT_TEMP_NOT_BETWEEN = 7;
+    WaitTemperatureRange WAIT_TEMP_UNEXPECTED = 8;
+    WaitTemperatureBoundary WAIT_TEMP_ABOVE = 9;
+    WaitTemperatureBoundary WAIT_TEMP_BELOW = 10;
+    SetSetpoint SET_SETPOINT = 11;
+    WaitSetpoint WAIT_SETPOINT = 12;
+    SetDigital SET_DIGITAL = 13;
+    WaitDigital WAIT_DIGITAL = 14;
+    SetPwm SET_PWM = 15;
+    TargetProfile START_PROFILE = 16;
+    TargetProfile WAIT_PROFILE = 17;
+    TargetSequence START_SEQUENCE = 18;
+    TargetSequence WAIT_SEQUENCE = 19;
   }
 }
 
@@ -158,11 +152,6 @@ enum SequenceError {
   INACTIVE_TARGET = 3;
   DISABLED_TARGET = 4;
   SYSTEM_TIME_NOT_AVAILABLE = 5;
-}
-
-message InstructionReset {
-  uint32 activeInstruction = 1 [ (nanopb).int_size = IS_16 ];
-  uint32 activeInstructionStartedAt = 2 [ (nanopb).int_size = IS_32 ];
 }
 
 message Block {
