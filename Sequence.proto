@@ -139,7 +139,7 @@ enum SequenceStatus {
   DISABLED = 1;
   PAUSED = 2;
   NEXT = 3;
-  WAITING = 4;
+  WAIT = 4;
   END = 5;
   RESTART = 6;
   ERROR = 7;
