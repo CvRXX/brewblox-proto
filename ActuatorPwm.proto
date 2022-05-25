@@ -10,6 +10,7 @@ message Block {
   option (brewblox.msg).objtype = ActuatorPwm;
   option (brewblox.msg).impl = ProcessValueInterface;
   option (brewblox.msg).impl = ActuatorAnalogInterface;
+  option (brewblox.msg).impl = EnablerInterface;
 
   uint32 actuatorId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,

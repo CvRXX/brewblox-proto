@@ -8,6 +8,7 @@ package blox.Pid;
 
 message Block {
   option (brewblox.msg).objtype = Pid;
+  option (brewblox.msg).impl = EnablerInterface;
 
   uint32 inputId = 1 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
