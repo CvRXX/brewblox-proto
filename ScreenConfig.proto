@@ -1,17 +1,18 @@
 syntax = "proto3";
 
-import "brewblox.proto";
 import "nanopb.proto";
 
-package blox.ScreenConfig;
+package ScreenConfig;
 
-enum Type {
-  Row = 0;
-  Column = 1;
-  Content = 2;
-}
+
 
 message LayoutNode {
+  enum Type {
+    Row = 0;
+    Column = 1;
+    Content = 2;
+  }
+
   uint32 parent = 1 [(nanopb).int_size = IS_8];
   uint32 nodeId = 2 [(nanopb).int_size = IS_8];
   Type type = 3;
@@ -36,7 +37,7 @@ message ColorWidget {
 
 message ContentNode {
   uint32 layoutNodeId = 1 [(nanopb).int_size = IS_8];
-  oneof Content {
+  oneof content {
     NumericValueWidget numericValueWidget = 2;
     ColorWidget colorWidget = 3;
   }
