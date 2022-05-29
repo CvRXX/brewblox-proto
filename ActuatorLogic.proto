@@ -60,6 +60,7 @@ message AnalogCompare {
 
 message Block {
   option (brewblox.msg).objtype = ActuatorLogic;
+  option (brewblox.msg).impl = EnablerInterface;
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,

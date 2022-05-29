@@ -19,6 +19,7 @@ message Point {
 
 message Block {
   option (brewblox.msg).objtype = SetpointProfile;
+  option (brewblox.msg).impl = EnablerInterface;
 
   repeated Point points = 1;
   bool enabled = 3;
