@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "nanopb.proto";
 
-package ScreenConfig;
+package screen;
 
 
 
@@ -43,7 +43,7 @@ message ContentNode {
   }
 }
 
-message ScreenConfig {
+message Config {
   repeated LayoutNode layoutNodes = 1 ;
   repeated ContentNode contentNodes = 2;
 }
