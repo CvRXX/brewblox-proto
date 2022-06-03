@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "nanopb.proto";
+
+package screen;
+
+
+
+message LayoutNode {
+  enum Type {
+    Row = 0;
+    Column = 1;
+    Content = 2;
+  }
+
+  uint32 parent = 1 [(nanopb).int_size = IS_8];
+  uint32 nodeId = 2 [(nanopb).int_size = IS_8];
+  Type type = 3;
+  uint32 weight = 4 [(nanopb).int_size = IS_16];
+}
+
+message Color {
+  uint32 r = 1 [(nanopb).int_size = IS_8];
+  uint32 g = 2 [(nanopb).int_size = IS_8];
+  uint32 b = 3 [(nanopb).int_size = IS_8];
+}
+
+message NumericValueWidget {
+  Color color = 1;
+  uint32 value = 2 [(nanopb).int_size = IS_8];
+  string label = 3 [(nanopb).max_length = 40];
+}
+
+message ColorWidget {
+  Color color = 1;
+}
+
+message ContentNode {
+  uint32 layoutNodeId = 1 [(nanopb).int_size = IS_8];
+  oneof content {
+    NumericValueWidget numericValueWidget = 2;
+    ColorWidget colorWidget = 3;
+  }
+}
+
+message Config {
+  repeated LayoutNode layoutNodes = 1 ;
+  repeated ContentNode contentNodes = 2;
+}
