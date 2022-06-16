@@ -72,8 +72,8 @@ enum ErrorCode {
   INVALID_STORED_BLOCK_CONTENT = 54;
 }
 
-enum PresenceMode {
-  ALL = 0;
+enum MaskMode {
+  ANY = 0;
   INCLUSIVE = 1;
   EXCLUSIVE = 2;
 }
@@ -83,8 +83,8 @@ message Payload {
   brewblox.BlockType blockType = 2;
   uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
   string content = 4; // Block message: proto encoded, then base64 encoded
-  repeated uint32 presence = 5 [ (nanopb).int_size = IS_16 ];
-  PresenceMode presenceMode = 6;
+  repeated uint32 mask = 5 [ (nanopb).int_size = IS_16 ];
+  MaskMode maskMode = 6;
 }
 
 message Request {
