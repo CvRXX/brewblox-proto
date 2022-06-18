@@ -33,10 +33,4 @@ message Block {
   ValveState valveState = 6
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   IoArray.DigitalState desiredState = 7 [ (brewblox.field).logged = true ];
-
-  repeated uint32 strippedFields = 99 [
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16,
-    (nanopb).max_count = 2
-  ];
 }

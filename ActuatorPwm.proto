@@ -43,10 +43,4 @@ message Block {
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
-
-  repeated uint32 strippedFields = 99 [
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16,
-    (nanopb).max_count = 2
-  ];
 }
