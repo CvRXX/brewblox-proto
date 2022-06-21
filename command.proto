@@ -72,11 +72,19 @@ enum ErrorCode {
   INVALID_STORED_BLOCK_CONTENT = 54;
 }
 
+enum MaskMode {
+  NO_MASK = 0;
+  INCLUSIVE = 1;
+  EXCLUSIVE = 2;
+}
+
 message Payload {
   uint32 blockId = 1 [ (nanopb).int_size = IS_16 ];
   brewblox.BlockType blockType = 2;
   uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
   string content = 4; // Block message: proto encoded, then base64 encoded
+  repeated uint32 mask = 5 [ (nanopb).int_size = IS_16 ];
+  MaskMode maskMode = 6;
 }
 
 message Request {
