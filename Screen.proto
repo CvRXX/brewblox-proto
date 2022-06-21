@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "nanopb.proto";
+import "brewblox.proto";
 
 package screen;
 
@@ -31,6 +32,24 @@ message NumericValueWidget {
   string label = 3 [(nanopb).max_length = 40];
 }
 
+message TemperatureWidget {
+  Color color = 1;
+  string label = 2 [(nanopb).max_length = 40];
+  uint32 tempSensor = 3 [
+      (brewblox.field).objtype = TempSensorInterface,
+      (nanopb).int_size = IS_16
+    ];
+}
+
+message SetpointSensorPairWidget {
+  Color color = 1;
+  string label = 2 [(nanopb).max_length = 40];
+  uint32 setpointSensorPair = 3 [
+      (brewblox.field).objtype = SetpointSensorPairInterface,
+      (nanopb).int_size = IS_16
+    ];
+}
+
 message ColorWidget {
   Color color = 1;
 }
@@ -40,6 +59,8 @@ message ContentNode {
   oneof content {
     NumericValueWidget numericValueWidget = 2;
     ColorWidget colorWidget = 3;
+    TemperatureWidget temperatureWidget = 4;
+    SetpointSensorPairWidget setpointSensorPairWidget = 5;
   }
 }
 
