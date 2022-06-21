@@ -73,7 +73,7 @@ enum ErrorCode {
 }
 
 enum MaskMode {
-  ANY = 0;
+  NO_MASK = 0;
   INCLUSIVE = 1;
   EXCLUSIVE = 2;
 }
