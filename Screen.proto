@@ -64,7 +64,18 @@ message ContentNode {
   }
 }
 
-message Config {
-  repeated LayoutNode layoutNodes = 1 ;
+
+enum TemperatureUnit {
+  TEMP_CELSIUS = 0;
+  TEMP_FAHRENHEIT = 1;
+};
+
+message Block {
+  option (brewblox.msg).objtype = ScreenConfig;
+  repeated LayoutNode layoutNodes = 1;
   repeated ContentNode contentNodes = 2;
+  string name = 3 [ (nanopb).max_size = 40 ];
+  TemperatureUnit tempUnit = 4;
+  uint32 brightness = 5 [ (nanopb).int_size = IS_8 ];
+  string timeZone = 6 [ (nanopb).max_size = 32 ];
 }
