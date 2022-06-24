@@ -39,10 +39,4 @@ message Block {
   ];
 
   repeated Fluctuation fluctuations = 5;
-
-  repeated uint32 strippedFields = 99 [
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16,
-    (nanopb).max_count = 1
-  ];
 }
