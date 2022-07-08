@@ -10,19 +10,17 @@ message Block {
   option (brewblox.msg).impl = TempSensorInterface;
   option (brewblox.msg).impl = EnablerInterface;
 
-  sint32 setting = 1 [
+  bool enabled = 1;
+  uint32 timeout = 2
+      [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
+  uint32 lastUpdated = 3
+      [ (brewblox.field).logged = true, (nanopb).int_size = IS_32 ];
+  sint32 setting = 4 [
     (brewblox.field).logged = true,
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
-
-  bool enabled = 2;
-  uint32 timeout = 3
-      [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
-
-  uint32 lastUpdated = 4
-      [ (brewblox.field).logged = true, (nanopb).int_size = IS_32 ];
 
   sint32 value = 5 [
     (brewblox.field).logged = true,
