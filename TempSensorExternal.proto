@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox.TempSensorExternal;
+
+message Block {
+  option (brewblox.msg).objtype = TempSensorExternal;
+  option (brewblox.msg).impl = TempSensorInterface;
+  option (brewblox.msg).impl = EnablerInterface;
+
+  bool enabled = 1;
+  uint32 timeout = 2
+      [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
+
+  sint32 setting = 3 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 lastUpdated = 4 [
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 value = 5 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+}

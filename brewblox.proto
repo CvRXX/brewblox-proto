@@ -68,6 +68,7 @@ enum BlockType {
   TempSensorCombi = 324;
   OneWireGpioModule = 325;
   Sequence = 326;
+  TempSensorExternal = 328;
 }
 
 message MessageOpts {
