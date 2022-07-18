@@ -34,9 +34,4 @@ message Block {
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_8
   ];
-  string ip = 6 [
-    (brewblox.field).readonly = true,
-    (nanopb).max_size = 16,
-    (nanopb).fixed_length = true
-  ];
 }

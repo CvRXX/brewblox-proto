@@ -92,6 +92,7 @@ message FieldOpts {
   bool ignored = 9;
   bool bitfield = 10;
   bool datetime = 11;
+  bool ipv4address = 12;
 }
 
 extend google.protobuf.FieldOptions {
