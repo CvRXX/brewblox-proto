@@ -7,8 +7,7 @@ package blox.SetpointProfile;
 
 message Point {
   // Offset from start
-  uint32 time = 1
-      [ (brewblox.field).unit = Celsius, (nanopb).int_size = IS_32 ];
+  uint32 time = 1 [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
   // prevent removal of items with time 0 and temp 0 with a oneof
   oneof temperature_oneof {
     int32 temperature = 2 [
