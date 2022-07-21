@@ -23,6 +23,7 @@ message Block {
 
   uint32 lastUpdated = 4 [
     (brewblox.field).logged = true,
+    (brewblox.field).datetime = true,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
