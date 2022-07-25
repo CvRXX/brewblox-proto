@@ -9,7 +9,7 @@ The repository is split in three parts:
 
 `/ts` contains TypeScript enum and type definitions.
 
-`/spec` contains JSON/YAML type descriptions for human consumption.
+`/docs` contains JSON/YAML data to build documentation.
 
 ## Get started
 
