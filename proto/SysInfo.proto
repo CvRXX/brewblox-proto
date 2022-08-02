@@ -84,7 +84,13 @@ message Block {
   string protocolDate = 9
       [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
 
-  Command command = 10;
-  repeated Trace trace = 11
+  uint32 ip = 10 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).ipv4address = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  Command command = 100;
+  repeated Trace trace = 101
       [ (brewblox.field).readonly = true, (nanopb).max_count = 10 ];
 }

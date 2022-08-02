@@ -69,6 +69,7 @@ enum BlockType {
   OneWireGpioModule = 325;
   Sequence = 326;
   ScreenConfig = 327;
+  TempSensorExternal = 328;
 }
 
 message MessageOpts {
@@ -92,6 +93,7 @@ message FieldOpts {
   bool ignored = 9;
   bool bitfield = 10;
   bool datetime = 11;
+  bool ipv4address = 12;
 }
 
 extend google.protobuf.FieldOptions {
