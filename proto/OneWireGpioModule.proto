@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
+import "IoArray.proto";
 
 package blox.OneWireGpioModule;
 
@@ -65,6 +66,7 @@ message GpioModuleChannel {
       [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
   uint32 width = 4 [ (nanopb).int_size = IS_8 ];
   string name = 5 [ (nanopb).max_size = 32 ];
+  uint32 capabilities = 6 [ (nanopb).int_size = IS_16, (brewblox.field).bitfield = true ];
 }
 
 message Block {

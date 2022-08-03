@@ -7,6 +7,7 @@ import "IoArray.proto";
 
 package blox.DigitalActuator;
 
+
 message Block {
   option (brewblox.msg).objtype = DigitalActuator;
   option (brewblox.msg).impl = ActuatorDigitalInterface;
@@ -22,4 +23,8 @@ message Block {
   bool invert = 4;
   Constraints.DigitalConstraints constrainedBy = 5;
   IoArray.DigitalState desiredState = 6 [ (brewblox.field).logged = true ];
+
+  IoArray.SoftTransitions softTransitions = 7;
+  uint32 transitionDurationSetting = 8 [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
+  uint32 transitionDuration = 9 [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000, (brewblox.field).readonly = true ];
 }
