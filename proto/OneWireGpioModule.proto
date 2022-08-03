@@ -2,7 +2,6 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "IoArray.proto";
 
 package blox.OneWireGpioModule;
 
