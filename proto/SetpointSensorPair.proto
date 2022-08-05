@@ -63,4 +63,9 @@ message Block {
     (brewblox.field).readonly = true
   ];
   bool resetFilter = 12;
+  uint32 claimedBy = 13 [
+    (brewblox.field).objtype = Any,
+    (nanopb).int_size = IS_16
+  ];
+
 }
