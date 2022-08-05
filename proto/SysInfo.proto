@@ -5,52 +5,6 @@ import "nanopb.proto";
 
 package blox.SysInfo;
 
-message Trace {
-  enum Action {
-    // cbox actions
-    NONE = 0;
-    // all commands (except NOOP)
-    READ_OBJECT = 1;
-    WRITE_OBJECT = 2;
-    CREATE_OBJECT = 3;
-    DELETE_OBJECT = 4;
-    LIST_ACTIVE_OBJECTS = 5;
-    READ_STORED_OBJECT = 6;
-    LIST_STORED_OBJECTS = 7;
-    CLEAR_OBJECTS = 8;
-    REBOOT = 9;
-    FACTORY_RESET = 10;
-    LIST_COMPATIBLE_OBJECTS = 11;
-    DISCOVER_NEW_OBJECTS = 12;
-
-    // object actions
-    CONSTRUCT_OBJECT = 20;
-    DESTRUCT_OBJECT = 21;
-    STREAM_FROM_OBJECT = 22;
-    STREAM_TO_OBJECT = 23;
-    UPDATE_OBJECT = 24;
-    PERSIST_OBJECT = 25;
-    LOAD_STORED_OBJECT = 26;
-    UPDATE_OBJECTS = 27;
-    UPDATE_CONNECTIONS = 28;
-
-    // app specific > 100
-    UPDATE_DISPLAY = 101;
-    SYSTEM_TASKS = 102;
-    MANAGE_CONNECTIVITY = 103;
-    MDNS_START = 104;
-    MDNS_PROCESS = 105;
-    HTTP_START = 106;
-    HTTP_STOP = 107;
-    HTTP_RESPONSE = 108;
-    WIFI_CONNECT = 109;
-    FIRMWARE_UPDATE_STARTED = 110;
-  }
-  Action action = 1;
-  uint32 id = 2 [ (nanopb).int_size = IS_16 ];
-  uint32 type = 3 [ (nanopb).int_size = IS_16 ];
-}
-
 enum Platform {
   PLATFORM_UNKNOWN = 0;
   PLATFORM_GCC = 3;
@@ -58,12 +12,10 @@ enum Platform {
   PLATFORM_P1 = 8;
 }
 
-enum Command {
-  SYS_CMD_NONE = 0;
-  SYS_CMD_TRACE_READ = 1;
-  SYS_CMD_TRACE_RESUME = 2;
-  SYS_CMD_TRACE_READ_RESUME = 3;
-}
+enum TemperatureUnit {
+  TEMP_CELSIUS = 0;
+  TEMP_FAHRENHEIT = 1;
+};
 
 message Block {
   option (brewblox.msg).objtype = SysInfo;
@@ -90,7 +42,27 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  Command command = 100;
-  repeated Trace trace = 101
-      [ (brewblox.field).readonly = true, (nanopb).max_count = 10 ];
+  uint32 uptime = 11 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 updatesPerSecond = 12 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 1000,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 systemTime = 13
+      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+
+  string timeZone = 14 [ (nanopb).max_size = 32 ];
+
+  TemperatureUnit tempUnit = 15;
+
+  uint32 displayBrightness = 16 [ (nanopb).int_size = IS_8 ];
 }
