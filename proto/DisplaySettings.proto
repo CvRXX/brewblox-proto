@@ -31,17 +31,9 @@ message Widget {
   };
 }
 
-enum TemperatureUnit {
-  TEMP_CELSIUS = 0;
-  TEMP_FAHRENHEIT = 1;
-};
-
 message Block {
   option (brewblox.msg).objtype = DisplaySettings;
 
   repeated Widget widgets = 1 [ (nanopb).max_count = 6 ];
   string name = 2 [ (nanopb).max_size = 40 ];
-  TemperatureUnit tempUnit = 3;
-  uint32 brightness = 4 [ (nanopb).int_size = IS_8 ];
-  string timeZone = 5 [ (nanopb).max_size = 32 ];
 }
