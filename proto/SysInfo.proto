@@ -44,17 +44,25 @@ message Block {
 
   uint32 uptime = 11 [
     (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (nanopb).int_size = IS_32
   ];
 
-  uint32 systemTime = 12
+  uint32 updatesPerSecond = 12 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 1000,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 systemTime = 13
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
 
-  string timeZone = 13 [ (nanopb).max_size = 32 ];
+  string timeZone = 14 [ (nanopb).max_size = 32 ];
 
-  TemperatureUnit tempUnit = 14;
+  TemperatureUnit tempUnit = 15;
 
-  uint32 displayBrightness = 15 [ (nanopb).int_size = IS_8 ];
+  uint32 displayBrightness = 16 [ (nanopb).int_size = IS_8 ];
 }

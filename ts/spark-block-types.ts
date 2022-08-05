@@ -299,10 +299,7 @@ export interface DisplaySettingsBlock extends Block {
   type: 'DisplaySettings';
   data: {
     name: string;
-    tempUnit: DisplayTempUnit;
     widgets: DisplaySlot[];
-    brightness: number;
-    timeZone: string;
   };
 }
 // #endregion DisplaySettings
@@ -550,10 +547,13 @@ export interface SysInfoBlock extends Block {
     releaseDate: Readonly<string>;
     protocolDate: Readonly<string>;
     ip: Readonly<string>;
+    uptime: Readonly<Quantity>;
+    updatesPerSecond: Readonly<number>;
 
-    // internal use only
-    command: any;
-    trace: Readonly<any[]>;
+    systemTime: DateString;
+    timeZone: string;
+    tempUnit: DisplayTempUnit;
+    displayBrightness: number;
   };
 }
 // #endregion SysInfo
@@ -610,20 +610,6 @@ export interface TempSensorExternalBlock extends Block {
   };
 }
 // #endregion TempSensorExternal
-
-// #region Ticks
-export interface TicksBlock extends Block {
-  type: 'Ticks';
-  data: {
-    secondsSinceEpoch: DateString;
-    millisSinceBoot: Readonly<number>;
-    avgCommunicationTask: Readonly<number>;
-    avgBlocksUpdateTask: Readonly<number>;
-    avgDisplayTask: Readonly<number>;
-    avgSystemTask: Readonly<number>;
-  };
-}
-// #endregion Ticks
 
 // #region TouchSettings
 export interface TouchSettingsBlock extends Block {

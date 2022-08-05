@@ -39,7 +39,7 @@ enum BlockType {
   EnablerInterface = 15;
   Any = 255;
   SysInfo = 256;
-  Ticks = 257;
+  Ticks = 257; // deprecated
   OneWireBus = 258;
   BoardPins = 259;
   TempSensorMock = 301;
