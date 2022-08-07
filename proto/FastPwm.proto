@@ -36,8 +36,14 @@ message Block {
     (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
-  ];
-  Constraints.AnalogConstraints constrainedBy = 6;
+    ];
+  sint32 value = 6 [
+      (brewblox.field).logged = true,
+      (brewblox.field).readonly = true,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+  Constraints.AnalogConstraints constrainedBy = 7;
 
-  bool enabled = 7;
+  bool enabled = 8;
 }
