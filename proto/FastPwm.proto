@@ -3,6 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 import "Constraints.proto";
+import "IoArray.proto";
 
 package blox.FastPwm;
 
@@ -44,6 +45,9 @@ message Block {
       (nanopb).int_size = IS_32
     ];
   Constraints.AnalogConstraints constrainedBy = 7;
-
   bool enabled = 8;
+
+  IoArray.TransitionDurationPreset transitionDurationPreset = 9;
+  uint32 transitionDurationSetting = 10 [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
+  uint32 transitionDurationValue = 11 [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000, (brewblox.field).readonly = true ];
 }

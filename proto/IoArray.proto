@@ -18,7 +18,7 @@ enum DigitalState {
   Unknown = 2;
 };
 
-enum SoftTransitions {
+enum TransitionDurationPreset {
   ST_OFF = 0;
   ST_FAST = 1;
   ST_MEDIUM = 2;
