@@ -133,6 +133,5 @@ message Block {
   bool useExternalPower = 14;
   // write a 1 to clear a status flag and re-enable channels in shutdown, always
   // reads as zero
-  uint32 moduleStatusClear = 32
-      [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
+  bool clearFaults = 32;
 }
