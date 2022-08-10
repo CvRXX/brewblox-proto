@@ -3,48 +3,56 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 import "Constraints.proto";
+import "IoArray.proto";
 
-package blox.ActuatorPwm;
+package blox.FastPwm;
 
 message Block {
-  option (brewblox.msg).objtype = ActuatorPwm;
+  option (brewblox.msg).objtype = FastPwm;
   option (brewblox.msg).impl = ProcessValueInterface;
   option (brewblox.msg).impl = ActuatorAnalogInterface;
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  uint32 actuatorId = 1 [
-    (brewblox.field).objtype = ActuatorDigitalInterface,
+  uint32 hwDevice = 1 [
+    (brewblox.field).objtype = IoArrayInterface,
     (nanopb).int_size = IS_16
   ];
-  uint32 period = 3
-      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
+  uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
+  IoArray.PwmFrequency frequency = 3;
   sint32 setting = 4 [
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
-  sint32 value = 5 [
-    (brewblox.field).logged = true,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
-  ];
-  Constraints.AnalogConstraints constrainedBy = 6;
-  bool enabled = 8;
-  sint32 desiredSetting = 9 [
+  sint32 desiredSetting = 5 [
     (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
+  sint32 value = 6 [
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+  Constraints.AnalogConstraints constrainedBy = 7;
+  bool enabled = 8;
 
-  uint32 claimedBy = 10 [
+  IoArray.TransitionDurationPreset transitionDurationPreset = 9;
+  uint32 transitionDurationSetting = 10
+      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
+  uint32 transitionDurationValue = 11 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (brewblox.field).readonly = true
+  ];
+  bool invert = 12;
+
+  uint32 claimedBy = 13 [
     (brewblox.field).objtype = Any,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
-
-  // Deprecated field
-  bool drivenTargetId = 90 [ (brewblox.field).ignored = true ];
 }

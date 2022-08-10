@@ -15,6 +15,7 @@ message Block {
   option (brewblox.msg).objtype = ActuatorOffset;
   option (brewblox.msg).impl = ActuatorAnalogInterface;
   option (brewblox.msg).impl = EnablerInterface;
+  option (brewblox.msg).impl = ClaimableInterface;
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = ProcessValueInterface,
@@ -38,16 +39,19 @@ message Block {
     (brewblox.field).readonly = true
   ];
   Constraints.AnalogConstraints constrainedBy = 8;
-  uint32 drivenTargetId = 9 [
-    (brewblox.field).objtype = ProcessValueInterface,
-    (brewblox.field).driven = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).readonly = true
-  ];
   bool enabled = 10;
   sint32 desiredSetting = 11 [
     (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
+
+  uint32 claimedBy = 12 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
+
+  // Deprecated field
+  bool drivenTargetId = 90 [ (brewblox.field).ignored = true ];
 }

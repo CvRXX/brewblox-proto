@@ -37,6 +37,7 @@ enum BlockType {
   IoModuleInterface = 13;
   OneWireDeviceBlockInterface = 14;
   EnablerInterface = 15;
+  ClaimableInterface = 16;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
@@ -69,6 +70,7 @@ enum BlockType {
   OneWireGpioModule = 325;
   Sequence = 326;
   TempSensorExternal = 328;
+  FastPwm = 329;
 }
 
 message MessageOpts {

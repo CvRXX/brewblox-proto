@@ -66,12 +66,6 @@ message Block {
     (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
-  uint32 drivenTargetId = 2 [
-    (brewblox.field).objtype = ActuatorDigitalInterface,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).driven = true,
-    (brewblox.field).readonly = true
-  ];
   bool enabled = 3;
   Result result = 4
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
@@ -80,4 +74,7 @@ message Block {
   repeated AnalogCompare analog = 7 [ (nanopb).max_count = 16 ];
   uint32 errorPos = 8
       [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
+
+  // Deprecated field
+  bool drivenTargetId = 90 [ (brewblox.field).ignored = true ];
 }

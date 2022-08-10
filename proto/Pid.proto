@@ -100,18 +100,12 @@ message Block {
     (brewblox.field).readonly = true
   ];
 
-  uint32 drivenOutputId = 22 [
-    (brewblox.field).objtype = ActuatorAnalogInterface,
-    (brewblox.field).driven = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).readonly = true
-  ];
-
+  // when non-zero, resets integral to make i equal to what has been sent
   sint32 integralReset = 23 [
     (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
-  ]; // when non-zero, resets integral to make i equal to what has been sent
+  ];
 
   sint32 boilPointAdjust = 24 [
     (brewblox.field).unit = DeltaCelsius,
@@ -125,4 +119,7 @@ message Block {
 
   SetpointSensorPair.FilterChoice derivativeFilter = 27
       [ (brewblox.field).readonly = true ];
+
+  // Deprecated field
+  bool drivenOutputId = 90 [ (brewblox.field).ignored = true ];
 }
