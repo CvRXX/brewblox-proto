@@ -20,12 +20,10 @@ enum ValveState {
 message Block {
   option (brewblox.msg).objtype = MotorValve;
   option (brewblox.msg).impl = ActuatorDigitalInterface;
+  option (brewblox.msg).impl = ClaimableInterface;
 
-  uint32 hwDevice = 1 [
-    (brewblox.field).objtype = DS2408Interface,
-    (brewblox.field).driven = true,
-    (nanopb).int_size = IS_16
-  ];
+  uint32 hwDevice = 1
+      [ (brewblox.field).objtype = DS2408Interface, (nanopb).int_size = IS_16 ];
   uint32 startChannel = 2 [ (nanopb).int_size = IS_8 ];
   IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];

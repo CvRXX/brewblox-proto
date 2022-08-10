@@ -74,4 +74,7 @@ message Block {
   repeated AnalogCompare analog = 7 [ (nanopb).max_count = 16 ];
   uint32 errorPos = 8
       [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
+
+  // Deprecated field
+  bool drivenTargetId = 90 [ (brewblox.field).ignored = true ];
 }

@@ -15,6 +15,7 @@ message Block {
   option (brewblox.msg).objtype = ActuatorOffset;
   option (brewblox.msg).impl = ActuatorAnalogInterface;
   option (brewblox.msg).impl = EnablerInterface;
+  option (brewblox.msg).impl = ClaimableInterface;
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = ProcessValueInterface,
@@ -50,4 +51,7 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
+
+  // Deprecated field
+  bool drivenTargetId = 90 [ (brewblox.field).ignored = true ];
 }

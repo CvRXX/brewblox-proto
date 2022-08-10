@@ -20,6 +20,7 @@ message Block {
   option (brewblox.msg).impl = ProcessValueInterface;
   option (brewblox.msg).impl = SetpointSensorPairInterface;
   option (brewblox.msg).impl = EnablerInterface;
+  option (brewblox.msg).impl = ClaimableInterface;
 
   uint32 sensorId = 2 [
     (brewblox.field).objtype = TempSensorInterface,
@@ -70,7 +71,6 @@ message Block {
     (nanopb).int_size = IS_16
   ];
 
-  // Deprecated field, kept around to prevent key errors
-  // during json -> proto conversion
+  // Renamed field
   bool settingEnabled = 90 [ (brewblox.field).ignored = true ];
 }

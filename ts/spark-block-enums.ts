@@ -23,6 +23,7 @@ export const BlockIntfType = Enum(
   'IoArrayInterface',
   'DS2408Interface',
   'EnablerInterface',
+  'ClaimableInterface',
 );
 // #endregion BlockIntfType
 
@@ -125,6 +126,14 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.SetpointSensorPair,
     BlockType.SetpointProfile,
     BlockType.TempSensorExternal,
+  ],
+  ClaimableInterface: [
+    BlockType.ActuatorOffset,
+    BlockType.ActuatorPwm,
+    BlockType.DigitalActuator,
+    BlockType.FastPwm,
+    BlockType.MotorValve,
+    BlockType.SetpointSensorPair,
   ],
 };
 // #endregion COMPATIBLE_TYPES

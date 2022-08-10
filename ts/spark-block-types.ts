@@ -77,12 +77,28 @@ export interface IoChannel {
   claimedBy: Readonly<Link>;
 }
 
-export interface IoArrayBlock extends Block {
+export interface IoArrayInterfaceBlock extends Block {
   data: {
     channels: IoChannel[];
   };
 }
 // #endregion IoChannel
+
+// #region EnablerInterfaceBlock
+export interface EnablerInterfaceBlock extends Block {
+  data: {
+    enabled: boolean;
+  };
+}
+// #endregion EnablerInterfaceBlock
+
+// #region ClaimableInterfaceBlock
+export interface ClaimableInterfaceBlock extends Block {
+  data: {
+    claimedBy: Readonly<Link>;
+  };
+}
+// #endregion ClaimableInterfaceBlock
 
 // #region Constraints
 export interface MinConstraint {

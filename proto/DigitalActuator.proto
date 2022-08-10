@@ -10,6 +10,7 @@ package blox.DigitalActuator;
 message Block {
   option (brewblox.msg).objtype = DigitalActuator;
   option (brewblox.msg).impl = ActuatorDigitalInterface;
+  option (brewblox.msg).impl = ClaimableInterface;
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,

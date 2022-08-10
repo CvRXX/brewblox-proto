@@ -140,7 +140,11 @@ message Block {
     (brewblox.field).bitfield = true
   ];
   bool useExternalPower = 14;
-  // write a 1 to clear a status flag and re-enable channels in shutdown, always
-  // reads as zero
+
+  // Write true to clear a status flag and re-enable channels in shutdown
+  // Read value is always false
   bool clearFaults = 32;
+
+  // Field was renamed to clearFaults
+  uint32 moduleStatusClear = 90 [ (brewblox.field).ignored = true ];
 }
