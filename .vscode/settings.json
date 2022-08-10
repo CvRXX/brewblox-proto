@@ -5,5 +5,10 @@
   },
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "protoc": {
+    "options": [
+      "--proto_path=${workspaceRoot}/proto"
+    ]
   }
 }

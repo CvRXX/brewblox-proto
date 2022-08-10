@@ -21,6 +21,9 @@ import type {
   ValveState,
   WifiCipherType,
   WifiSecurityType,
+  TransitionDurationPreset,
+  PwmFrequency,
+  ChannelCapabilities,
 } from './spark-block-enums';
 
 // #region Block
@@ -70,6 +73,8 @@ export type DateString = string;
 // #region IoChannel
 export interface IoChannel {
   id: number;
+  capabilities: Readonly<ChannelCapabilities>;
+  claimedBy: Readonly<Link>;
 }
 
 export interface IoArrayBlock extends Block {
@@ -202,7 +207,6 @@ export interface ActuatorLogicBlock extends Block {
     errorPos: Readonly<number>;
 
     targetId: Link;
-    drivenTargetId: Readonly<Link>;
   };
 }
 // #endregion ActuatorLogic
@@ -215,12 +219,13 @@ export interface ActuatorOffsetBlock extends Block {
     referenceId: Link;
     referenceSettingOrValue: ReferenceKind;
     targetId: Link;
-    drivenTargetId: Readonly<Link>;
     constrainedBy: AnalogConstraintsObj;
 
     desiredSetting: number;
     setting: Readonly<number>;
     value: Readonly<number>;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion ActuatorOffset
@@ -232,12 +237,13 @@ export interface ActuatorPwmBlock extends Block {
     enabled: boolean;
     period: Quantity;
     actuatorId: Link;
-    drivenActuatorId: Readonly<Link>;
     constrainedBy: AnalogConstraintsObj;
 
     desiredSetting: number;
     setting: Readonly<number>;
     value: Readonly<number>;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion ActuatorPwm
@@ -278,6 +284,12 @@ export interface DigitalActuatorBlock extends Block {
     state: Readonly<DigitalState | null>;
 
     constrainedBy: DigitalConstraintsObj;
+
+    transitionDurationPreset: TransitionDurationPreset;
+    transitionDurationSetting: Quantity;
+    transitionDurationValue: Readonly<Quantity>;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion DigitalActuator
@@ -329,6 +341,30 @@ export interface DS2413Block extends Block {
 }
 // #endregion DS2413
 
+export interface FastPwmBlock extends Block {
+  type: 'FastPwm';
+  data: {
+    enabled: boolean;
+
+    hwDevice: Link;
+    channel: number;
+    invert: boolean;
+    frequency: PwmFrequency;
+
+    desiredSetting: Quantity;
+    setting: Readonly<Quantity>;
+    value: Readonly<Quantity>;
+
+    constrainedBy: AnalogConstraintsObj;
+
+    transitionDurationPreset: TransitionDurationPreset;
+    transitionDurationSetting: Quantity;
+    transitionDurationValue: Readonly<Quantity>;
+
+    claimedBy: Readonly<Link>;
+  };
+}
+
 // #region InactiveObject
 export interface InactiveObjectBlock extends Block {
   type: 'InactiveObject';
@@ -359,6 +395,8 @@ export interface MotorValveBlock extends Block {
     valveState: Readonly<ValveState | null>;
 
     constrainedBy: DigitalConstraintsObj;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion MotorValve
@@ -448,7 +486,6 @@ export interface PidBlock extends Block {
     derivative: Readonly<Quantity>;
     derivativeFilter: Readonly<FilterChoice>;
 
-    drivenOutputId: Readonly<Link>;
     integralReset: number;
 
     boilPointAdjust: Quantity;
@@ -488,7 +525,6 @@ export interface SetpointProfileBlock extends Block {
     points: Setpoint[];
     enabled: boolean;
     targetId: Link;
-    drivenTargetId: Readonly<Link>;
   };
 }
 // #endregion SetpointProfile
@@ -507,6 +543,8 @@ export interface SetpointSensorPairBlock extends Block {
     sensorId: Link;
     value: Readonly<Quantity>;
     valueUnfiltered: Readonly<Quantity>;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion SetpointSensorPair

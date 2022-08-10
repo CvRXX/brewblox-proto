@@ -100,13 +100,6 @@ message Block {
     (brewblox.field).readonly = true
   ];
 
-  uint32 drivenOutputId = 22 [
-    (brewblox.field).objtype = ActuatorAnalogInterface,
-    (brewblox.field).driven = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).readonly = true
-  ];
-
   sint32 integralReset = 23 [
     (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,

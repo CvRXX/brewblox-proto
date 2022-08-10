@@ -62,10 +62,19 @@ message GpioModuleChannel {
   uint32 id = 1 [ (nanopb).int_size = IS_8 ];
   GpioDeviceType deviceType = 2;
   uint32 pinsMask = 3
-      [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
+      [ (brewblox.field).bitfield = true, (nanopb).int_size = IS_8 ];
   uint32 width = 4 [ (nanopb).int_size = IS_8 ];
   string name = 5 [ (nanopb).max_size = 32 ];
-  uint32 capabilities = 6 [ (nanopb).int_size = IS_16, (brewblox.field).bitfield = true ];
+  uint32 capabilities = 6 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).bitfield = true,
+    (nanopb).int_size = IS_16,
+  ];
+  uint32 claimedBy = 7 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
 }
 
 message Block {

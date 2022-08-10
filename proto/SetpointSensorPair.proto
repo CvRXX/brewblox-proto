@@ -63,9 +63,14 @@ message Block {
     (brewblox.field).readonly = true
   ];
   bool resetFilter = 12;
+
   uint32 claimedBy = 13 [
     (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
 
+  // Deprecated field, kept around to prevent key errors
+  // during json -> proto conversion
+  bool settingEnabled = 90 [ (brewblox.field).ignored = true ];
 }

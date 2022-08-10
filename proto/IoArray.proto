@@ -46,5 +46,14 @@ enum PwmFrequency {
 
 message IoChannel {
   uint32 id = 1 [ (nanopb).int_size = IS_8 ];
-  uint32 capabilities = 2 [ (nanopb).int_size = IS_16, (brewblox.field).bitfield = true ];
+  uint32 capabilities = 2 [
+    (brewblox.field).bitfield = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
+  uint32 claimedBy = 3 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
 };
