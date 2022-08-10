@@ -68,7 +68,7 @@ message GpioModuleChannel {
   uint32 capabilities = 6 [
     (brewblox.field).readonly = true,
     (brewblox.field).bitfield = true,
-    (nanopb).int_size = IS_16,
+    (nanopb).int_size = IS_16
   ];
   uint32 claimedBy = 7 [
     (brewblox.field).objtype = Any,
