@@ -50,4 +50,5 @@ message Block {
   IoArray.TransitionDurationPreset transitionDurationPreset = 9;
   uint32 transitionDurationSetting = 10 [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
   uint32 transitionDurationValue = 11 [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000, (brewblox.field).readonly = true ];
+  bool invert = 12;
 }
