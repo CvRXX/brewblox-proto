@@ -146,5 +146,5 @@ message Block {
   bool clearFaults = 32;
 
   // Field was renamed to clearFaults
-  uint32 moduleStatusClear = 90 [ (brewblox.field).ignored = true ];
+  uint32 moduleStatusClear = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

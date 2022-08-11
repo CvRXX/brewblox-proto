@@ -121,5 +121,5 @@ message Block {
       [ (brewblox.field).readonly = true ];
 
   // Deprecated field
-  bool drivenOutputId = 90 [ (brewblox.field).ignored = true ];
+  bool drivenOutputId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

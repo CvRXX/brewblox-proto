@@ -32,5 +32,5 @@ message Block {
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
 
   // Deprecated field
-  bool drivenTargetId = 90 [ (brewblox.field).ignored = true ];
+  bool drivenTargetId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

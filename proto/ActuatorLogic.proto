@@ -76,5 +76,5 @@ message Block {
       [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
 
   // Deprecated field
-  bool drivenTargetId = 90 [ (brewblox.field).ignored = true ];
+  bool drivenTargetId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
