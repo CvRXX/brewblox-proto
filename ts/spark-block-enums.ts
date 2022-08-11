@@ -128,6 +128,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.TempSensorExternal,
   ],
   ClaimableInterface: [
+    BlockType.ActuatorAnalogMock,
     BlockType.ActuatorOffset,
     BlockType.ActuatorPwm,
     BlockType.DigitalActuator,

@@ -192,6 +192,7 @@ export interface ActuatorAnalogMockBlock extends Block {
     constrainedBy: AnalogConstraintsObj;
 
     setting: Readonly<number>;
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion ActuatorAnalogMock
