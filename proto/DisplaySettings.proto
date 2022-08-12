@@ -39,4 +39,6 @@ message Block {
 
   // Deprecated fields
   bool brightness = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool timeZone = 91 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool tempUnit = 92 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
