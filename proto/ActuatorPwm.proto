@@ -46,5 +46,5 @@ message Block {
   ];
 
   // Deprecated field
-  bool drivenTargetId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool drivenActuatorId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

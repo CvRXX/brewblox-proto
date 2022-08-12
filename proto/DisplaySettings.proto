@@ -36,4 +36,7 @@ message Block {
 
   repeated Widget widgets = 1 [ (nanopb).max_count = 6 ];
   string name = 2 [ (nanopb).max_size = 40 ];
+
+  // Deprecated fields
+  bool brightness = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
