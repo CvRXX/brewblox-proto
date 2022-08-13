@@ -53,7 +53,6 @@ export interface Link extends BloxField {
   __bloxtype: 'Link';
   id: string | null;
   type: BlockOrIntfType | null;
-  driven?: boolean;
 }
 // #endregion BloxField
 
