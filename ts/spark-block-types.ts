@@ -368,9 +368,9 @@ export interface FastPwmBlock extends Block {
     invert: boolean;
     frequency: PwmFrequency;
 
-    desiredSetting: Quantity;
-    setting: Readonly<Quantity>;
-    value: Readonly<Quantity>;
+    desiredSetting: number;
+    setting: Readonly<number>;
+    value: Readonly<number>;
 
     constrainedBy: AnalogConstraintsObj;
 
