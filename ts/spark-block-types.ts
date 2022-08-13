@@ -405,7 +405,7 @@ export interface MotorValveBlock extends Block {
   type: 'MotorValve';
   data: {
     hwDevice: Link;
-    startChannel: number;
+    channel: number;
 
     desiredState: DigitalState;
     state: Readonly<DigitalState | null>;
