@@ -21,6 +21,7 @@ message Block {
   option (brewblox.msg).objtype = MotorValve;
   option (brewblox.msg).impl = ActuatorDigitalInterface;
   option (brewblox.msg).impl = ClaimableInterface;
+  option (brewblox.msg).impl = IoDriverInterface;
 
   uint32 hwDevice = 1
       [ (brewblox.field).objtype = DS2408Interface, (nanopb).int_size = IS_16 ];

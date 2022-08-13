@@ -1,4 +1,4 @@
-import type {
+import {
   AnalogCompareOp,
   BlockOrIntfType,
   BlockType,
@@ -32,7 +32,7 @@ export interface Block {
   nid?: number;
   serviceId: string;
   type: BlockType;
-  data: any;
+  data: { [k: string]: any };
   meta?: { [k: string]: any };
 }
 // #endregion Block
@@ -56,15 +56,6 @@ export interface Link extends BloxField {
 }
 // #endregion BloxField
 
-export interface DefinedQuantity extends Quantity {
-  value: number;
-}
-
-export interface DefinedLink extends Link {
-  id: string;
-  type: BlockOrIntfType;
-}
-
 // #region DateString
 export type DateString = string;
 // #endregion DateString
@@ -79,6 +70,13 @@ export interface IoChannel {
 export interface IoArrayInterfaceBlock extends Block {
   data: {
     channels: IoChannel[];
+  };
+}
+
+export interface IoDriverInterfaceBlock extends Block {
+  data: {
+    hwDevice: Link;
+    channel: number;
   };
 }
 // #endregion IoChannel

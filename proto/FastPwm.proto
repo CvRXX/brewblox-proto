@@ -13,6 +13,7 @@ message Block {
   option (brewblox.msg).impl = ActuatorAnalogInterface;
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
+  option (brewblox.msg).impl = IoDriverInterface;
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,

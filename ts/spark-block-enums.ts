@@ -21,6 +21,7 @@ export const BlockIntfType = Enum(
   'OneWireDeviceInterface',
   'IoModuleInterface',
   'IoArrayInterface',
+  'IoDriverInterface',
   'DS2408Interface',
   'EnablerInterface',
   'ClaimableInterface',
@@ -114,6 +115,11 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.Spark3Pins,
     BlockType.OneWireGpioModule,
     BlockType.MockPins,
+  ],
+  IoDriverInterface: [
+    BlockType.DigitalActuator,
+    BlockType.MotorValve,
+    BlockType.FastPwm,
   ],
   DS2408Interface: [BlockType.DS2408],
   EnablerInterface: [

@@ -38,6 +38,7 @@ enum BlockType {
   OneWireDeviceBlockInterface = 14;
   EnablerInterface = 15;
   ClaimableInterface = 16;
+  IoDriverInterface = 17;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
