@@ -455,8 +455,8 @@ export interface OneWireGpioModuleBlock extends Block {
     channels: GpioModuleChannel[];
     modulePosition: number;
     moduleStatus: GpioModuleStatus;
-    moduleStatusClear: GpioPins; // write-only
     useExternalPower: boolean;
+    clearFaults: boolean; // write-only
 
     pullUpDesired: Readonly<GpioPins>;
     pullUpStatus: Readonly<GpioPins>;
