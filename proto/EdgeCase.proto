@@ -36,11 +36,8 @@ message Block {
   ];
   uint32 logged = 7 [ (brewblox.field).logged = true ];
   uint32 unLogged = 8;
-  uint32 drivenDevice = 9 [
-    (brewblox.field).objtype = DS2413,
-    (brewblox.field).driven = true,
-    (nanopb).int_size = IS_16
-  ];
+  uint32 ip = 10
+      [ (brewblox.field).ipv4address = true, (nanopb).int_size = IS_32 ];
 }
 
 message SubCase {

@@ -72,7 +72,7 @@ message DigitalConstraint {
   }
 
   uint32 limiting = 100
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE];
 
   uint32 remaining = 101 [
     (brewblox.field).unit = Second,

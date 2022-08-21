@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox.SysInfo;
+
+enum Platform {
+  PLATFORM_UNKNOWN = 0;
+  PLATFORM_GCC = 3;
+  PLATFORM_PHOTON = 6;
+  PLATFORM_P1 = 8;
+}
+
+enum TemperatureUnit {
+  TEMP_CELSIUS = 0;
+  TEMP_FAHRENHEIT = 1;
+};
+
+message Block {
+  option (brewblox.msg).objtype = SysInfo;
+
+  bytes deviceId = 1 [
+    (brewblox.field).readonly = true,
+    (nanopb).max_size = 12,
+    (brewblox.field).hexstr = true
+  ];
+  string version = 2
+      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
+  Platform platform = 3 [ (brewblox.field).readonly = true ];
+
+  string protocolVersion = 7
+      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
+  string releaseDate = 8
+      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
+  string protocolDate = 9
+      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
+
+  uint32 ip = 10 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).ipv4address = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 uptime = 11 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 updatesPerSecond = 12 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 1000,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 systemTime = 13
+      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+
+  string timeZone = 14 [ (nanopb).max_size = 32 ];
+
+  TemperatureUnit tempUnit = 15;
+
+  uint32 displayBrightness = 16 [ (nanopb).int_size = IS_8 ];
+}

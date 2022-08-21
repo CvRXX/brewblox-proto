@@ -20,17 +20,25 @@ enum ValveState {
 message Block {
   option (brewblox.msg).objtype = MotorValve;
   option (brewblox.msg).impl = ActuatorDigitalInterface;
+  option (brewblox.msg).impl = ClaimableInterface;
+  option (brewblox.msg).impl = IoDriverInterface;
 
-  uint32 hwDevice = 1 [
-    (brewblox.field).objtype = DS2408Interface,
-    (brewblox.field).driven = true,
-    (nanopb).int_size = IS_16
-  ];
-  uint32 startChannel = 2 [ (nanopb).int_size = IS_8 ];
+  uint32 hwDevice = 1
+      [ (brewblox.field).objtype = DS2408Interface, (nanopb).int_size = IS_16 ];
+  uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
   IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   Constraints.DigitalConstraints constrainedBy = 5;
   ValveState valveState = 6
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   IoArray.DigitalState desiredState = 7 [ (brewblox.field).logged = true ];
+
+  uint32 claimedBy = 8 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
+
+  // Deprecated fields
+  bool startChannel = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

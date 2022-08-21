@@ -1,0 +1,12 @@
+{
+  "name": "brewblox-proto",
+  "version": "1.0.0",
+  "description": "Shared interface types for the Brewblox project",
+  "main": "index.js",
+  "repository": "git@github.com:brewblox/brewblox-proto.git",
+  "author": "BrewPi <dev@brewpi.com>",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "typescript-string-enums": "^1.0.0"
+  }
+}

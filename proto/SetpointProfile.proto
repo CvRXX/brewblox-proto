@@ -6,7 +6,8 @@ import "nanopb.proto";
 package blox.SetpointProfile;
 
 message Point {
-  uint32 time = 1;
+  // Offset from start
+  uint32 time = 1 [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
   // prevent removal of items with time 0 and temp 0 with a oneof
   oneof temperature_oneof {
     int32 temperature = 2 [
@@ -27,11 +28,9 @@ message Block {
     (brewblox.field).objtype = SetpointSensorPair,
     (nanopb).int_size = IS_16
   ];
-  uint32 drivenTargetId = 5 [
-    (brewblox.field).objtype = SetpointSensorPair,
-    (brewblox.field).driven = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).readonly = true
-  ];
-  uint32 start = 6;
+  uint32 start = 6
+      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+
+  // Deprecated field
+  bool drivenTargetId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
