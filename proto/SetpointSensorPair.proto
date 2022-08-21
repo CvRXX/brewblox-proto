@@ -41,7 +41,7 @@ message Block {
     (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
-  bool settingEnabled = 7;
+  bool enabled = 7;
   sint32 storedSetting = 8 [
     (brewblox.field).logged = false,
     (brewblox.field).unit = Celsius,

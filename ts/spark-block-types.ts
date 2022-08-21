@@ -548,7 +548,7 @@ export interface SetpointSensorPairBlock extends Block {
   type: 'SetpointSensorPair';
   data: {
     storedSetting: Quantity;
-    settingEnabled: boolean;
+    enabled: boolean;
     filter: FilterChoice;
     filterThreshold: Quantity;
     resetFilter: boolean;
