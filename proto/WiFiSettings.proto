@@ -34,4 +34,7 @@ message Block {
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_8
   ];
+
+  // Deprecated fields
+  bool ip = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

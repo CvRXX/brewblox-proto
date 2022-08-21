@@ -183,16 +183,17 @@ export interface BlockRelation {
   source: string;
   target: string;
   relation: string[];
+  claimed?: boolean;
 }
 // #endregion BlockRelation
 
-// #region BlockDriveChain
-export interface BlockDriveChain {
+// #region BlockClaim
+export interface BlockClaim {
   source: string;
   target: string;
   intermediate: string[];
 }
-// #endregion BlockDriveChain
+// #endregion BlockClaim
 
 // #region SparkStateEvent
 export interface SparkStateEvent {
@@ -202,7 +203,7 @@ export interface SparkStateEvent {
     status: SparkStatusDescription;
     blocks: Block[];
     relations: BlockRelation[];
-    drive_chains: BlockDriveChain[];
+    claims: BlockClaim[];
   } | null;
 }
 // #endregion SparkStateEvent

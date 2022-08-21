@@ -9,6 +9,7 @@ import { Enum } from 'typescript-string-enums';
 
 // #region BlockIntfType
 export const BlockIntfType = Enum(
+  'Any',
   'ProcessValueInterface',
   'TempSensorInterface',
   'SetpointSensorPairInterface',
@@ -20,8 +21,10 @@ export const BlockIntfType = Enum(
   'OneWireDeviceInterface',
   'IoModuleInterface',
   'IoArrayInterface',
+  'IoDriverInterface',
   'DS2408Interface',
   'EnablerInterface',
+  'ClaimableInterface',
 );
 // #endregion BlockIntfType
 
@@ -30,7 +33,6 @@ export const SystemBlockType = Enum(
   'DisplaySettings',
   'OneWireBus',
   'SysInfo',
-  'Ticks',
   'TouchSettings',
   'WiFiSettings',
   'Spark2Pins',
@@ -48,6 +50,7 @@ export const UserBlockType = Enum(
   'DigitalActuator',
   'DS2408',
   'DS2413',
+  'FastPwm',
   'InactiveObject',
   'MockPins',
   'MotorValve',
@@ -75,9 +78,11 @@ export const BlockOrIntfType = Enum(
 
 // #region COMPATIBLE_TYPES
 export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
+  Any: Enum.values(BlockType),
   ProcessValueInterface: [
     BlockType.ActuatorAnalogMock,
     BlockType.ActuatorPwm,
+    BlockType.FastPwm,
     BlockType.SetpointSensorPair,
   ],
   TempSensorInterface: [
@@ -91,6 +96,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.ActuatorAnalogMock,
     BlockType.ActuatorOffset,
     BlockType.ActuatorPwm,
+    BlockType.FastPwm,
   ],
   ActuatorDigitalInterface: [BlockType.DigitalActuator, BlockType.MotorValve],
   BalancerInterface: [BlockType.Balancer],
@@ -110,6 +116,11 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.OneWireGpioModule,
     BlockType.MockPins,
   ],
+  IoDriverInterface: [
+    BlockType.DigitalActuator,
+    BlockType.MotorValve,
+    BlockType.FastPwm,
+  ],
   DS2408Interface: [BlockType.DS2408],
   EnablerInterface: [
     BlockType.ActuatorOffset,
@@ -117,9 +128,19 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.Pid,
     BlockType.Sequence,
     BlockType.ActuatorPwm,
+    BlockType.FastPwm,
     BlockType.SetpointSensorPair,
     BlockType.SetpointProfile,
     BlockType.TempSensorExternal,
+  ],
+  ClaimableInterface: [
+    BlockType.ActuatorAnalogMock,
+    BlockType.ActuatorOffset,
+    BlockType.ActuatorPwm,
+    BlockType.DigitalActuator,
+    BlockType.FastPwm,
+    BlockType.MotorValve,
+    BlockType.SetpointSensorPair,
   ],
 };
 // #endregion COMPATIBLE_TYPES
@@ -196,6 +217,38 @@ export const DigitalState = Enum(
   'STATE_REVERSE',
 );
 // #endregion DigitalState
+
+// #region TransitionDurationPreset
+export const TransitionDurationPreset = Enum(
+  'ST_OFF',
+  'ST_FAST',
+  'ST_MEDIUM',
+  'ST_SLOW',
+  'ST_CUSTOM',
+);
+// #endregion TransitionDurationPreset
+
+// #region ChannelCapabilities
+export enum ChannelCapabilities {
+  CHAN_SUPPORTS_NONE = 0,
+  CHAN_SUPPORTS_DIGITAL_OUTPUT = 1 << 0,
+  CHAN_SUPPORTS_PWM_80HZ = 1 << 1,
+  CHAN_SUPPORTS_PWM_100HZ = 1 << 2,
+  CHAN_SUPPORTS_PWM_200HZ = 1 << 3,
+  CHAN_SUPPORTS_PWM_2000HZ = 1 << 4,
+  CHAN_SUPPORTS_BIDIRECTIONAL = 1 << 5,
+  CHAN_SUPPORTS_DIGITAL_INPUT = 1 << 6,
+}
+// #endregion ChannelCapabilities
+
+// #region PwmFrequency
+export const PwmFrequency = Enum(
+  'PWM_FREQ_80HZ',
+  'PWM_FREQ_100HZ',
+  'PWM_FREQ_200HZ',
+  'PWM_FREQ_2000HZ',
+);
+// #endregion PwmFrequency
 
 // #region Logic
 export const DigitalCompareOp = Enum(
@@ -351,6 +404,8 @@ export type AnalogConstraintKey = Enum<typeof AnalogConstraintKey>;
 export type AnyConstraintKey = Enum<typeof AnyConstraintKey>;
 export type GpioDeviceType = Enum<typeof GpioDeviceType>;
 export type DigitalState = Enum<typeof DigitalState>;
+export type TransitionDurationPreset = Enum<typeof TransitionDurationPreset>;
+export type PwmFrequency = Enum<typeof PwmFrequency>;
 export type DigitalCompareOp = Enum<typeof DigitalCompareOp>;
 export type AnalogCompareOp = Enum<typeof AnalogCompareOp>;
 export type LogicResult = Enum<typeof LogicResult>;

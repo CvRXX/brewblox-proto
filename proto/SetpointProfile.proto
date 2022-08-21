@@ -28,12 +28,9 @@ message Block {
     (brewblox.field).objtype = SetpointSensorPair,
     (nanopb).int_size = IS_16
   ];
-  uint32 drivenTargetId = 5 [
-    (brewblox.field).objtype = SetpointSensorPair,
-    (brewblox.field).driven = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).readonly = true
-  ];
   uint32 start = 6
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+
+  // Deprecated field
+  bool drivenTargetId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

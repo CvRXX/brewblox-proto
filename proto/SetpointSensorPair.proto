@@ -20,6 +20,7 @@ message Block {
   option (brewblox.msg).impl = ProcessValueInterface;
   option (brewblox.msg).impl = SetpointSensorPairInterface;
   option (brewblox.msg).impl = EnablerInterface;
+  option (brewblox.msg).impl = ClaimableInterface;
 
   uint32 sensorId = 2 [
     (brewblox.field).objtype = TempSensorInterface,
@@ -63,4 +64,13 @@ message Block {
     (brewblox.field).readonly = true
   ];
   bool resetFilter = 12;
+
+  uint32 claimedBy = 13 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
+
+  // Renamed field
+  bool settingEnabled = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

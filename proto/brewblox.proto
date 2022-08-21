@@ -37,9 +37,11 @@ enum BlockType {
   IoModuleInterface = 13;
   OneWireDeviceBlockInterface = 14;
   EnablerInterface = 15;
+  ClaimableInterface = 16;
+  IoDriverInterface = 17;
   Any = 255;
   SysInfo = 256;
-  Ticks = 257;
+  Ticks = 257; // deprecated
   OneWireBus = 258;
   BoardPins = 259;
   TempSensorMock = 301;
@@ -70,6 +72,7 @@ enum BlockType {
   Sequence = 326;
   ScreenConfig = 327;
   TempSensorExternal = 328;
+  FastPwm = 329;
 }
 
 message MessageOpts {
@@ -89,7 +92,6 @@ message FieldOpts {
   bool readonly = 5;
   bool logged = 6;
   bool hexstr = 7;
-  bool driven = 8;
   bool ignored = 9;
   bool bitfield = 10;
   bool datetime = 11;

@@ -1,4 +1,4 @@
-import type {
+import {
   AnalogCompareOp,
   BlockOrIntfType,
   BlockType,
@@ -21,6 +21,9 @@ import type {
   ValveState,
   WifiCipherType,
   WifiSecurityType,
+  TransitionDurationPreset,
+  PwmFrequency,
+  ChannelCapabilities,
 } from './spark-block-enums';
 
 // #region Block
@@ -29,7 +32,7 @@ export interface Block {
   nid?: number;
   serviceId: string;
   type: BlockType;
-  data: any;
+  data: { [k: string]: any };
   meta?: { [k: string]: any };
 }
 // #endregion Block
@@ -50,18 +53,8 @@ export interface Link extends BloxField {
   __bloxtype: 'Link';
   id: string | null;
   type: BlockOrIntfType | null;
-  driven?: boolean;
 }
 // #endregion BloxField
-
-export interface DefinedQuantity extends Quantity {
-  value: number;
-}
-
-export interface DefinedLink extends Link {
-  id: string;
-  type: BlockOrIntfType;
-}
 
 // #region DateString
 export type DateString = string;
@@ -70,14 +63,39 @@ export type DateString = string;
 // #region IoChannel
 export interface IoChannel {
   id: number;
+  capabilities: Readonly<ChannelCapabilities>;
+  claimedBy: Readonly<Link>;
 }
 
-export interface IoArrayBlock extends Block {
+export interface IoArrayInterfaceBlock extends Block {
   data: {
     channels: IoChannel[];
   };
 }
+
+export interface IoDriverInterfaceBlock extends Block {
+  data: {
+    hwDevice: Link;
+    channel: number;
+  };
+}
 // #endregion IoChannel
+
+// #region EnablerInterfaceBlock
+export interface EnablerInterfaceBlock extends Block {
+  data: {
+    enabled: boolean;
+  };
+}
+// #endregion EnablerInterfaceBlock
+
+// #region ClaimableInterfaceBlock
+export interface ClaimableInterfaceBlock extends Block {
+  data: {
+    claimedBy: Readonly<Link>;
+  };
+}
+// #endregion ClaimableInterfaceBlock
 
 // #region Constraints
 export interface MinConstraint {
@@ -171,6 +189,7 @@ export interface ActuatorAnalogMockBlock extends Block {
     constrainedBy: AnalogConstraintsObj;
 
     setting: Readonly<number>;
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion ActuatorAnalogMock
@@ -202,7 +221,6 @@ export interface ActuatorLogicBlock extends Block {
     errorPos: Readonly<number>;
 
     targetId: Link;
-    drivenTargetId: Readonly<Link>;
   };
 }
 // #endregion ActuatorLogic
@@ -215,12 +233,13 @@ export interface ActuatorOffsetBlock extends Block {
     referenceId: Link;
     referenceSettingOrValue: ReferenceKind;
     targetId: Link;
-    drivenTargetId: Readonly<Link>;
     constrainedBy: AnalogConstraintsObj;
 
     desiredSetting: number;
     setting: Readonly<number>;
     value: Readonly<number>;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion ActuatorOffset
@@ -232,12 +251,13 @@ export interface ActuatorPwmBlock extends Block {
     enabled: boolean;
     period: Quantity;
     actuatorId: Link;
-    drivenActuatorId: Readonly<Link>;
     constrainedBy: AnalogConstraintsObj;
 
     desiredSetting: number;
     setting: Readonly<number>;
     value: Readonly<number>;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion ActuatorPwm
@@ -278,6 +298,12 @@ export interface DigitalActuatorBlock extends Block {
     state: Readonly<DigitalState | null>;
 
     constrainedBy: DigitalConstraintsObj;
+
+    transitionDurationPreset: TransitionDurationPreset;
+    transitionDurationSetting: Quantity;
+    transitionDurationValue: Readonly<Quantity>;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion DigitalActuator
@@ -299,10 +325,7 @@ export interface DisplaySettingsBlock extends Block {
   type: 'DisplaySettings';
   data: {
     name: string;
-    tempUnit: DisplayTempUnit;
     widgets: DisplaySlot[];
-    brightness: number;
-    timeZone: string;
   };
 }
 // #endregion DisplaySettings
@@ -332,6 +355,30 @@ export interface DS2413Block extends Block {
 }
 // #endregion DS2413
 
+export interface FastPwmBlock extends Block {
+  type: 'FastPwm';
+  data: {
+    enabled: boolean;
+
+    hwDevice: Link;
+    channel: number;
+    invert: boolean;
+    frequency: PwmFrequency;
+
+    desiredSetting: number;
+    setting: Readonly<number>;
+    value: Readonly<number>;
+
+    constrainedBy: AnalogConstraintsObj;
+
+    transitionDurationPreset: TransitionDurationPreset;
+    transitionDurationSetting: Quantity;
+    transitionDurationValue: Readonly<Quantity>;
+
+    claimedBy: Readonly<Link>;
+  };
+}
+
 // #region InactiveObject
 export interface InactiveObjectBlock extends Block {
   type: 'InactiveObject';
@@ -355,13 +402,15 @@ export interface MotorValveBlock extends Block {
   type: 'MotorValve';
   data: {
     hwDevice: Link;
-    startChannel: number;
+    channel: number;
 
     desiredState: DigitalState;
     state: Readonly<DigitalState | null>;
     valveState: Readonly<ValveState | null>;
 
     constrainedBy: DigitalConstraintsObj;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion MotorValve
@@ -406,8 +455,8 @@ export interface OneWireGpioModuleBlock extends Block {
     channels: GpioModuleChannel[];
     modulePosition: number;
     moduleStatus: GpioModuleStatus;
-    moduleStatusClear: GpioPins; // write-only
     useExternalPower: boolean;
+    clearFaults: boolean; // write-only
 
     pullUpDesired: Readonly<GpioPins>;
     pullUpStatus: Readonly<GpioPins>;
@@ -451,7 +500,6 @@ export interface PidBlock extends Block {
     derivative: Readonly<Quantity>;
     derivativeFilter: Readonly<FilterChoice>;
 
-    drivenOutputId: Readonly<Link>;
     integralReset: number;
 
     boilPointAdjust: Quantity;
@@ -491,7 +539,6 @@ export interface SetpointProfileBlock extends Block {
     points: Setpoint[];
     enabled: boolean;
     targetId: Link;
-    drivenTargetId: Readonly<Link>;
   };
 }
 // #endregion SetpointProfile
@@ -510,6 +557,8 @@ export interface SetpointSensorPairBlock extends Block {
     sensorId: Link;
     value: Readonly<Quantity>;
     valueUnfiltered: Readonly<Quantity>;
+
+    claimedBy: Readonly<Link>;
   };
 }
 // #endregion SetpointSensorPair
@@ -550,10 +599,13 @@ export interface SysInfoBlock extends Block {
     releaseDate: Readonly<string>;
     protocolDate: Readonly<string>;
     ip: Readonly<string>;
+    uptime: Readonly<Quantity>;
+    updatesPerSecond: Readonly<number>;
 
-    // internal use only
-    command: any;
-    trace: Readonly<any[]>;
+    systemTime: DateString;
+    timeZone: string;
+    tempUnit: DisplayTempUnit;
+    displayBrightness: number;
   };
 }
 // #endregion SysInfo
@@ -610,20 +662,6 @@ export interface TempSensorExternalBlock extends Block {
   };
 }
 // #endregion TempSensorExternal
-
-// #region Ticks
-export interface TicksBlock extends Block {
-  type: 'Ticks';
-  data: {
-    secondsSinceEpoch: DateString;
-    millisSinceBoot: Readonly<number>;
-    avgCommunicationTask: Readonly<number>;
-    avgBlocksUpdateTask: Readonly<number>;
-    avgDisplayTask: Readonly<number>;
-    avgSystemTask: Readonly<number>;
-  };
-}
-// #endregion Ticks
 
 // #region TouchSettings
 export interface TouchSettingsBlock extends Block {
