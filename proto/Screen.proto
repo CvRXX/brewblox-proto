@@ -49,6 +49,10 @@ message SetpointSensorPairWidget {
       (nanopb).int_size = IS_16
     ];
 }
+message DigitalClockWidget {
+  Color color = 1;
+  bool showSeconds = 2;
+}
 
 message ColorWidget {
   Color color = 1;
@@ -61,6 +65,7 @@ message ContentNode {
     ColorWidget colorWidget = 3;
     TemperatureWidget temperatureWidget = 4;
     SetpointSensorPairWidget setpointSensorPairWidget = 5;
+    DigitalClockWidget digitalClockWidget = 6;
   }
 }
 
@@ -70,12 +75,20 @@ enum TemperatureUnit {
   TEMP_FAHRENHEIT = 1;
 };
 
-message Block {
-  option (brewblox.msg).objtype = ScreenConfig;
+
+message Page {
   repeated LayoutNode layoutNodes = 1;
   repeated ContentNode contentNodes = 2;
-  string name = 3 [ (nanopb).max_size = 40 ];
-  TemperatureUnit tempUnit = 4;
-  uint32 brightness = 5 [ (nanopb).int_size = IS_8 ];
-  string timeZone = 6 [ (nanopb).max_size = 32 ];
+  string name = 3 [ (nanopb).max_size = 20 ];
+  uint32 id = 4;
+}
+
+
+message Block {
+  option (brewblox.msg).objtype = ScreenConfig;
+  repeated Page pages = 1;
+  string name = 2 [ (nanopb).max_size = 40 ];
+  TemperatureUnit tempUnit = 3;
+  uint32 brightness = 4 [ (nanopb).int_size = IS_8 ];
+  string timeZone = 5 [ (nanopb).max_size = 32 ];
 }
