@@ -32,6 +32,12 @@ message NumericValueWidget {
   string label = 3 [(nanopb).max_length = 40];
 }
 
+message TitleWidget {
+  Color color = 1;
+  string value = 2 [(nanopb).max_length = 40];
+  string label = 3 [(nanopb).max_length = 40];
+}
+
 message TemperatureWidget {
   Color color = 1;
   string label = 2 [(nanopb).max_length = 40];
@@ -66,6 +72,7 @@ message ContentNode {
     TemperatureWidget temperatureWidget = 4;
     SetpointSensorPairWidget setpointSensorPairWidget = 5;
     DigitalClockWidget digitalClockWidget = 6;
+    TitleWidget titleWidget =7;
   }
 }
 
